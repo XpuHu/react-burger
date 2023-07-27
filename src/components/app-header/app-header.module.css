@@ -1,0 +1,40 @@
+.header {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #1C1C21;
+}
+
+.mainMenu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1280px;
+    flex: 1;
+}
+
+.secondaryMenu {
+    display: flex;
+}
+
+.menuItem {
+    display: flex;
+}
+
+.logo {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.profile {
+}
+
+@media (max-width: 1366px) {
+    .logo {
+        position: relative;
+        left: 0;
+        transform: none;
+    }
+}

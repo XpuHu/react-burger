@@ -1,0 +1,13 @@
+.ingredient {
+    position: relative;
+    text-align: center;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+}
+
+.description {
+    line-height: 24px;
+}

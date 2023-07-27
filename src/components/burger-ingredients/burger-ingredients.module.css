@@ -1,0 +1,48 @@
+.burgerIngredients {
+    max-width: 600px;
+    max-height: 66vh;
+}
+
+.ingredientsCategories {
+    /*max-height: 70vh;*/
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    height: 100%;
+    scroll-margin-bottom: 50px;
+}
+
+.ingredientsCategories::-moz-scrolled-page-sequence {
+    height: 100px;
+    margin-bottom: 50px;
+}
+
+/* Define the scrollbar style */
+.ingredientsCategories::-webkit-scrollbar {
+    /*height: 10px;*/
+    width: 8px;
+}
+
+/* Define the thumb style */
+.ingredientsCategories::-webkit-scrollbar-thumb {
+    /*height: 100px;*/
+    background: #8585AD;
+}
+
+/* Define the track style */
+.ingredientsCategories::-webkit-scrollbar-track {
+    margin-bottom: 50px;
+    background-color: #2F2F37;
+}
+
+/*!* Define the button style *!*/
+/*.ingredientsCategories::-webkit-scrollbar-button {*/
+/*    display: none;*/
+/*    !*background-color: #4d7fff;*!*/
+/*    !*border-radius: 5px;*!*/
+/*}*/
+
+/*!* Define the button style when being hovered over *!*/
+/*.ingredientsCategories::-webkit-scrollbar-button:hover {*/
+/*    !*background-color: #999999;*!*/
+/*}*/
