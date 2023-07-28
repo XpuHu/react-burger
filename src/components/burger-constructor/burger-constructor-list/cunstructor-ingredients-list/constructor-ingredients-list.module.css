@@ -1,0 +1,25 @@
+.inactive {
+    background-color: #1C1C21;
+}
+
+.ingredientsList {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+}
+
+/* Define the scrollbar style */
+.ingredientsList::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Define the thumb style */
+.ingredientsList::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+/* Define the track style */
+.ingredientsList::-webkit-scrollbar-track {
+    margin-bottom: 40px;
+    background-color: #2F2F37;
+}

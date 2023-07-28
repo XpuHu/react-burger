@@ -10,8 +10,13 @@ function BurgerIngredientsCategory( { title, ingredients } ) {
 
             <div className={ `${ style.ingredients } ml-4 mr-2 mb-10` }>
                 {
-                    ingredients.map( ( ingredient, index ) => (
-                        <BurgerIngredient key={ ingredient._id } name={ ingredient.name } price={ingredient.price} img={ingredient.image} count={ index }/>
+                    ingredients.map( ingredient => (
+                        <BurgerIngredient
+                            key={ ingredient._id }
+                            name={ ingredient.name }
+                            price={ ingredient.price }
+                            img={ ingredient.image }
+                            count={ ingredient.__v }/>
                     ) )
                 }
             </div>

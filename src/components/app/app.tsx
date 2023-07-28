@@ -69,6 +69,9 @@ class App extends React.Component {
     }
 
     render() {
+        // TODO: Придумать как прокидывать нужный каунтер для каждого ингредиента
+        const count = 0;
+
         // @ts-ignore
         const {ingredients, ingredientTypes} = this.state
         return (
