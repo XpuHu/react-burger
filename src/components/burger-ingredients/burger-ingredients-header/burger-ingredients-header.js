@@ -1,8 +1,10 @@
 import React from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredients-header.module.css'
+import PropTypes from "prop-types";
 
 function BurgerIngredientsHeader( { ingredientTypes, activeIndex } ) {
+
     return (
         <header>
             <h1 className={ `text text_type_main-large mb-5` }>Соберите бургер</h1>
@@ -10,16 +12,21 @@ function BurgerIngredientsHeader( { ingredientTypes, activeIndex } ) {
                 {
                     ingredientTypes.map( ( type, index ) => (
                         (index === activeIndex)
-                            ? <Tab key={ index } active={ true } value={ '' } onClick={ () => {
-                            } }>{ type }</Tab>
-                            : <Tab key={ index } active={ false } value={ '' } onClick={ () => {
-                            } }>{ type }</Tab>
+                            ? <Tab key={ index } active={ true } value={ type[0] } onClick={ () => {
+                            } }>{ type[1] }</Tab>
+                            : <Tab key={ index } active={ false } value={ type[0] } onClick={ () => {
+                            } }>{ type[1] }</Tab>
 
                     ) )
                 }
             </nav>
         </header>
     );
+}
+
+BurgerIngredientsHeader.propTypes = {
+    ingredientTypes: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+    activeIndex: PropTypes.number,
 }
 
 export default BurgerIngredientsHeader;

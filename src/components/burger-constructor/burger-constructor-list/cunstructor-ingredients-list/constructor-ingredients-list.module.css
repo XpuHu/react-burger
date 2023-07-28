@@ -6,7 +6,6 @@
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
-    scroll-behavior: smooth;
 }
 
 /* Define the scrollbar style */

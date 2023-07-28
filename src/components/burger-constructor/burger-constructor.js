@@ -3,10 +3,10 @@ import style from './burger-constructor.module.css'
 import BurgerConstructorList
     from "./burger-constructor-list/burger-constructor-list";
 import BurgerConstructorTotal from "./burger-constructor-total/burger-constructor-total";
+import PropTypes from "prop-types";
 
 function BurgerConstructor({selectedIngredients}) {
-    // Верхний и нижний элемент - всегда булка
-    const totalPrice = selectedIngredients.reduce((sum, ingredient) => sum += ingredient.price, 0);
+    const totalPrice = selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
     return (
         <section className={ `${style.burgerConstructor} pt-25 pl-4` }>
 
@@ -15,6 +15,15 @@ function BurgerConstructor({selectedIngredients}) {
 
         </section>
     );
+}
+
+BurgerConstructor.propTypes = {
+    selectedIngredients: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.number,
+        image: PropTypes.string,
+    }))
 }
 
 export default BurgerConstructor;

@@ -2,10 +2,11 @@ import React from 'react';
 import ConstructorIngredientsList from "./cunstructor-ingredients-list/constructor-ingredients-list";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-list.module.css'
+import PropTypes from "prop-types";
 
 function BurgerConstructorList( { selectedIngredients } ) {
-    const [ topBun, ...ingredients ] = selectedIngredients;
-    const bottomBun = ingredients.pop();
+    const [ topBun, ...otherIngredients ] = selectedIngredients;
+    const bottomBun = otherIngredients.pop();
 
     return (
         <section className={ `${ style.ingredientsListWrapper } mb-10` }>
@@ -21,7 +22,7 @@ function BurgerConstructorList( { selectedIngredients } ) {
             </div>
 
 
-            <ConstructorIngredientsList selectedIngredients={ ingredients }/>
+            <ConstructorIngredientsList selectedIngredients={ otherIngredients }/>
 
             <div className={ 'ml-8 mb-4' }>
                 <ConstructorElement
@@ -35,6 +36,15 @@ function BurgerConstructorList( { selectedIngredients } ) {
             </div>
         </section>
     );
+}
+
+BurgerConstructorList.propTypes = {
+    selectedIngredients: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.number,
+        image: PropTypes.string,
+    }))
 }
 
 export default BurgerConstructorList;

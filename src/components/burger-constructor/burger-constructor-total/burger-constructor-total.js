@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-total.module.css'
+import PropTypes from "prop-types";
 
 function BurgerConstructorTotal({totalPrice}){
     return(
@@ -11,6 +12,10 @@ function BurgerConstructorTotal({totalPrice}){
             </Button>
         </div>
     )
+}
+
+BurgerConstructorTotal.propTypes = {
+    totalPrice: PropTypes.number
 }
 
 export default BurgerConstructorTotal;

@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './burger-ingredients-category.module.css'
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
+import PropTypes from "prop-types";
 
 function BurgerIngredientsCategory( { title, ingredients } ) {
 
@@ -22,6 +23,24 @@ function BurgerIngredientsCategory( { title, ingredients } ) {
             </div>
         </>
     );
+}
+
+BurgerIngredientsCategory.propTypes = {
+    ingredients: PropTypes.arrayOf( PropTypes.shape( {
+        _id: PropTypes.string,
+        name: PropTypes.string,
+        type: PropTypes.string,
+        proteins: PropTypes.number,
+        fat: PropTypes.number,
+        carbohydrates: PropTypes.number,
+        calories: PropTypes.number,
+        price: PropTypes.number,
+        image: PropTypes.string,
+        image_mobile: PropTypes.string,
+        image_large: PropTypes.string,
+        __v: PropTypes.number,
+    } ) ).isRequired,
+    title: PropTypes.string.isRequired,
 }
 
 export default BurgerIngredientsCategory;

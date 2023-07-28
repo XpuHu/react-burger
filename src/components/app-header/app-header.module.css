@@ -20,6 +20,7 @@
 
 .menuItem {
     display: flex;
+    cursor: pointer;
 }
 
 .logo {
