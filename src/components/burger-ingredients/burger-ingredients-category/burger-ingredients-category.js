@@ -17,7 +17,7 @@ function BurgerIngredientsCategory( { title, ingredients } ) {
                             name={ ingredient.name }
                             price={ ingredient.price }
                             img={ ingredient.image }
-                            count={ ingredient.__v }/>
+                            count={ 1 }/>
                     ) )
                 }
             </div>

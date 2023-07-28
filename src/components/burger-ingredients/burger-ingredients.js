@@ -6,19 +6,18 @@ import PropTypes from "prop-types";
 
 function BurgerIngredients( { ingredients, ingredientTypes } ) {
 
-    const typeNames = Object.entries( ingredientTypes );
-    const types = Object.keys( ingredientTypes )
+    const types = Object.entries(ingredientTypes)
 
     return (
         <section className={ `${ style.burgerIngredients } pt-10 mr-10` }>
-            <BurgerIngredientsHeader ingredientTypes={ typeNames } activeIndex={ 0 }/>
+            <BurgerIngredientsHeader ingredientTypes={ types } activeIndex={ 0 }/>
             <section className={ `${ style.ingredientsCategories } mt-10` }>
                 {
                     types.map( type => (
                         <BurgerIngredientsCategory
-                            key={ type }
-                            title={ ingredientTypes[type] }
-                            ingredients={ ingredients.filter( ( ingredient ) => ingredient.type === type ) }
+                            key={ type[0] }
+                            title={ type[1] }
+                            ingredients={ ingredients.filter( ( ingredient ) => ingredient.type === type[0] ) }
                         />
                     ) )
                 }

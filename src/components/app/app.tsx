@@ -2,7 +2,7 @@ import React from 'react';
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import './app.css'
+import './app.module.css'
 import {data} from '../../utils/data'
 
 class App extends React.Component {
