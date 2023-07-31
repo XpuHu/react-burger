@@ -21,6 +21,11 @@
 .menuItem {
     display: flex;
     cursor: pointer;
+    text-decoration: none;
+}
+
+.active {
+    color: #F2F2F3;
 }
 
 .logo {

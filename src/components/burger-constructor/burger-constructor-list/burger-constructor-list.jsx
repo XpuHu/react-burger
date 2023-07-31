@@ -2,7 +2,6 @@ import React from 'react';
 import ConstructorIngredientsList from "./cunstructor-ingredients-list/constructor-ingredients-list";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-list.module.css'
-import PropTypes from "prop-types";
 import { selectedIngredientsType } from "../../../utils/types";
 
 function BurgerConstructorList( { selectedIngredients } ) {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './constructor-ingredients-list.module.css'
-import PropTypes from 'prop-types';
 import { selectedIngredientsType } from "../../../../utils/types";
 
 function ConstructorIngredientsList( { selectedIngredients } ) {

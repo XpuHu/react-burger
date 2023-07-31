@@ -3,7 +3,6 @@ import style from './burger-constructor.module.css'
 import BurgerConstructorList
     from "./burger-constructor-list/burger-constructor-list";
 import BurgerConstructorTotal from "./burger-constructor-total/burger-constructor-total";
-import PropTypes from "prop-types";
 import { selectedIngredientsType } from "../../utils/types";
 
 function BurgerConstructor({selectedIngredients}) {
