@@ -13,7 +13,7 @@ function BurgerIngredient( { name, price, img, count } ) {
                     : null
             }
 
-            <img className={ `ml-4 mr-4` } src={ img } alt='Здесь живёт картинка'/>
+            <img className={ `ml-4 mr-4` } src={ img } alt={ name } />
             <p className={ `${ style.price } mt-1 mb-1` }>
                 <span className={ `text_type_digits-default` }>{ price }</span>
                 <span className={ `ml-2` }><CurrencyIcon type="primary"/></span>

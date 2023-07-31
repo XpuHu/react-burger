@@ -3,10 +3,11 @@ import style from './burger-ingredients.module.css'
 import BurgerIngredientsHeader from "./burger-ingredients-header/burger-ingredients-header";
 import BurgerIngredientsCategory from "./burger-ingredients-category/burger-ingredients-category";
 import PropTypes from "prop-types";
+import { ingredientsType } from "../../utils/types";
 
 function BurgerIngredients( { ingredients, ingredientTypes } ) {
 
-    const types = Object.entries(ingredientTypes)
+    const types = Object.entries( ingredientTypes )
 
     return (
         <section className={ `${ style.burgerIngredients } pt-10 mr-10` }>
@@ -27,21 +28,10 @@ function BurgerIngredients( { ingredients, ingredientTypes } ) {
 }
 
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf( PropTypes.shape( {
-        _id: PropTypes.string,
-        name: PropTypes.string,
-        type: PropTypes.string,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        calories: PropTypes.number,
-        price: PropTypes.number,
-        image: PropTypes.string,
-        image_mobile: PropTypes.string,
-        image_large: PropTypes.string,
-        __v: PropTypes.number,
-    } ) ).isRequired,
+    ...ingredientsType,
     ingredientTypes: PropTypes.objectOf( PropTypes.string ).isRequired,
 }
+
+BurgerIngredients.propTypes = ingredientsType
 
 export default BurgerIngredients;

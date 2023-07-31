@@ -4,6 +4,7 @@ import BurgerConstructorList
     from "./burger-constructor-list/burger-constructor-list";
 import BurgerConstructorTotal from "./burger-constructor-total/burger-constructor-total";
 import PropTypes from "prop-types";
+import { selectedIngredientsType } from "../../utils/types";
 
 function BurgerConstructor({selectedIngredients}) {
     const totalPrice = selectedIngredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
@@ -17,13 +18,6 @@ function BurgerConstructor({selectedIngredients}) {
     );
 }
 
-BurgerConstructor.propTypes = {
-    selectedIngredients: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number,
-        image: PropTypes.string,
-    }))
-}
+BurgerConstructor.propTypes = selectedIngredientsType
 
 export default BurgerConstructor;

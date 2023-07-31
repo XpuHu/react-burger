@@ -5,7 +5,9 @@ import style from './app-header.module.css'
 function AppHeader() {
     return (
         <header className={style.header}>
+
             <nav className={`${style.mainMenu} text text_type_main-default p-4`}>
+
                 <nav className={`${style.secondaryMenu} `}>
                     <a className={`${style.menuItem} pl-5 pr-5 pt-4 pb-4`}>
                         <BurgerIcon type="primary"/>
@@ -25,7 +27,9 @@ function AppHeader() {
                     <ProfileIcon type="secondary"/>
                     <span className={'ml-2'}>Личный кабинет</span>
                 </a>
+
             </nav>
+
         </header>
     );
 }

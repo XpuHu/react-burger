@@ -25,8 +25,8 @@ function BurgerIngredientsHeader( { ingredientTypes, activeIndex } ) {
 }
 
 BurgerIngredientsHeader.propTypes = {
-    ingredientTypes: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-    activeIndex: PropTypes.number,
+    ingredientTypes: PropTypes.arrayOf( PropTypes.arrayOf( PropTypes.string ) ).isRequired,
+    activeIndex: PropTypes.number.isRequired,
 }
 
 export default BurgerIngredientsHeader;

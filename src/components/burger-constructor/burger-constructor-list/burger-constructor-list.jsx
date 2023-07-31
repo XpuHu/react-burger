@@ -3,6 +3,7 @@ import ConstructorIngredientsList from "./cunstructor-ingredients-list/construct
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-list.module.css'
 import PropTypes from "prop-types";
+import { selectedIngredientsType } from "../../../utils/types";
 
 function BurgerConstructorList( { selectedIngredients } ) {
     const [ topBun, ...otherIngredients ] = selectedIngredients;
@@ -15,7 +16,7 @@ function BurgerConstructorList( { selectedIngredients } ) {
                     extraClass={ `${ style.inactive }` }
                     type={ 'top' }
                     isLocked={ true }
-                    text={ topBun.name }
+                    text={ `${topBun.name} (верх)` }
                     thumbnail={ topBun.image }
                     price={ topBun.price }
                 />
@@ -29,7 +30,7 @@ function BurgerConstructorList( { selectedIngredients } ) {
                     extraClass={ `${ style.inactive }` }
                     type={ 'bottom' }
                     isLocked={ true }
-                    text={bottomBun.name}
+                    text={ `${topBun.name} (низ)` }
                     thumbnail={ bottomBun.image }
                     price={ bottomBun.price }
                 />
@@ -38,13 +39,6 @@ function BurgerConstructorList( { selectedIngredients } ) {
     );
 }
 
-BurgerConstructorList.propTypes = {
-    selectedIngredients: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number,
-        image: PropTypes.string,
-    }))
-}
+BurgerConstructorList.propTypes = selectedIngredientsType
 
 export default BurgerConstructorList;
