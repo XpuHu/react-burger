@@ -1,0 +1,9 @@
+.inactive {
+    background-color: #1C1C21;
+}
+
+.ingredientsListWrapper {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}

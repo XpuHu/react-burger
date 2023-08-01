@@ -1,0 +1,28 @@
+.burgerIngredients {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredientsCategories {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    /*margin-bottom: 40px;*/
+}
+
+/* Define the scrollbar style */
+.ingredientsCategories::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Define the thumb style */
+.ingredientsCategories::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+/* Define the track style */
+.ingredientsCategories::-webkit-scrollbar-track {
+    margin-bottom: 40px;
+    background-color: #2F2F37;
+}
