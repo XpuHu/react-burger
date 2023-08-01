@@ -1,40 +1,73 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import './app.module.css'
-import {data, selectedIngredients} from '../../utils/data'
+import './app.module.css';
+// import { data, selectedIngredients } from '../../utils/data';
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            ingredients: data,
-            ingredientTypes: {
-                bun: 'Булки',
-                sauce: 'Соусы',
-                main: 'Начинка',
-            },
-            selectedIngredients: selectedIngredients,
+const URL = 'https://norma.nomoreparties.space/api/ingredients';
+
+function App() {
+    const [ ingredients, setIngredients ] = useState( [] );
+    const [ ingredientTypes, setIngredientTypes ] = useState( {
+        bun: 'Булки',
+        sauce: 'Соусы',
+        main: 'Начинка',
+    } );
+    const [selectedIngredients, setSelectedIngredients] = useState([])
+    const [ isLoading, setIsLoading ] = useState( false );
+    const [ hasError, setHasError ] = useState( false );
+
+    // TODO: Придумать как прокидывать нужный каунтер для каждого ингредиента
+    const count = 0;
+
+    useEffect( () => {
+        const getIngredients = async () => {
+            setHasError( false );
+            setIsLoading( true );
+            try {
+                const response = await fetch( URL );
+                const body = await response.json();
+                body.success && setIngredients( [ ...ingredients, ...body.data ] );
+                setIsLoading( false );
+            } catch (e) {
+                console.log( 'Произошла ошибка: ', e );
+                setHasError( true );
+                setIsLoading( false );
+                setIngredients( [] );
+            }
         };
-    }
 
-    render() {
-        // TODO: Придумать как прокидывать нужный каунтер для каждого ингредиента
-        const count = 0;
+        getIngredients();
+    }, [] );
 
-        const {ingredients, ingredientTypes, selectedIngredients} = this.state
-        return (
-            <>
-                <AppHeader/>
+    // Пока добавляем все ингредиенты в конструктор
+    useEffect( () => {
+        const buns = ingredients.filter( ingredient => ingredient.type === 'bun' );
+        const otherIngredients = ingredients.filter( ingredient => ingredient.type !== 'bun' );
 
-                <main className={`text text_type_main-default`}>
-                    <BurgerIngredients ingredients={ingredients} ingredientTypes={ingredientTypes}/>
-                    <BurgerConstructor selectedIngredients={selectedIngredients}/>
-                </main>
-            </>
-        );
-    }
+        if ((typeof buns !== 'undefined' && buns.length > 0) && (typeof otherIngredients !== 'undefined' && otherIngredients.length > 0)) {
+            setSelectedIngredients([buns[0], ...otherIngredients, buns[0]]);
+        }
+    }, [ingredients] );
+
+    return (
+        <>
+            <AppHeader/>
+
+            <main className={ `text text_type_main-default` }>
+                { isLoading && 'Загрузка...' }
+                { hasError && 'Произошла ошибка' }
+                { !isLoading && !hasError &&
+                    <>
+                        <BurgerIngredients ingredients={ ingredients } ingredientTypes={ ingredientTypes }/>
+                        <BurgerConstructor selectedIngredients={ selectedIngredients }/>
+                    </>
+
+                }
+            </main>
+        </>
+    );
 }
 
 export default App;
