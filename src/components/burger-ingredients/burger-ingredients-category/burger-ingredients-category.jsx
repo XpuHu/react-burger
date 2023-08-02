@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './burger-ingredients-category.module.css'
+import style from './burger-ingredients-category.module.css';
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import PropTypes from "prop-types";
 import { ingredientsType } from "../../../utils/types";
@@ -15,11 +15,8 @@ function BurgerIngredientsCategory( { title, ingredients } ) {
                     ingredients.map( ingredient => (
                         <BurgerIngredient
                             key={ ingredient._id }
-                            name={ ingredient.name }
-                            price={ ingredient.price }
-                            img={ ingredient.image }
+                            ingredient={ ingredient }
                             count={ 1 }
-                            alt={ ingredient.name }
                         />
                     ) )
                 }
@@ -31,6 +28,6 @@ function BurgerIngredientsCategory( { title, ingredients } ) {
 BurgerIngredientsCategory.propTypes = {
     ...ingredientsType,
     title: PropTypes.string.isRequired,
-}
+};
 
 export default BurgerIngredientsCategory;

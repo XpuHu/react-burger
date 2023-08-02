@@ -1,6 +1,7 @@
 .ingredient {
     position: relative;
     text-align: center;
+    overflow: hidden;
 }
 
 .price {
@@ -10,4 +11,26 @@
 
 .description {
     line-height: 24px;
+}
+
+.imgLarge {
+    max-width: 520px;
+    align-self: center;
+}
+
+.modalName {
+    align-self: center;
+}
+
+.nutritionList {
+    display: flex;
+    gap: 20px;
+    align-self: center;
+}
+
+.nutritionItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
