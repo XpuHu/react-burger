@@ -3,7 +3,7 @@ import style from './burger-constructor.module.css';
 import BurgerConstructorList
     from "./burger-constructor-list/burger-constructor-list";
 import BurgerConstructorTotal from "./burger-constructor-total/burger-constructor-total";
-import { ingredientsType, ingredientType } from "../../utils/types";
+import { ingredientsType } from "../../utils/types";
 import PropTypes from "prop-types";
 
 const BurgerConstructor =  ( { selectedIngredients, orderId } ) => {
@@ -13,7 +13,7 @@ const BurgerConstructor =  ( { selectedIngredients, orderId } ) => {
         if ( typeof selectedIngredients !== 'undefined' && selectedIngredients.length > 0 ) {
             setIsLoading( false );
         }
-    } );
+    }, [selectedIngredients] );
 
     const totalPrice = selectedIngredients.reduce( ( sum, ingredient ) => sum + ingredient.price, 0 );
     return (
