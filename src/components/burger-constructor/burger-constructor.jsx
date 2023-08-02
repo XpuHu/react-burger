@@ -3,9 +3,10 @@ import style from './burger-constructor.module.css';
 import BurgerConstructorList
     from "./burger-constructor-list/burger-constructor-list";
 import BurgerConstructorTotal from "./burger-constructor-total/burger-constructor-total";
-import { selectedIngredientsType } from "../../utils/types";
+import { ingredientsType, ingredientType } from "../../utils/types";
+import PropTypes from "prop-types";
 
-function BurgerConstructor( { selectedIngredients } ) {
+const BurgerConstructor =  ( { selectedIngredients, orderId } ) => {
     const [ isLoading, setIsLoading ] = useState( true );
 
     useEffect( () => {
@@ -17,20 +18,22 @@ function BurgerConstructor( { selectedIngredients } ) {
     const totalPrice = selectedIngredients.reduce( ( sum, ingredient ) => sum + ingredient.price, 0 );
     return (
         <section className={ `${ style.burgerConstructor } pt-25 pl-4` }>
-
+            { isLoading && 'Загрузка...' }
             {
-                !isLoading
-                    ? <>
+                !isLoading &&
+                    <>
                         <BurgerConstructorList selectedIngredients={ selectedIngredients }/>
-                        <BurgerConstructorTotal totalPrice={ totalPrice }/>
+                        <BurgerConstructorTotal totalPrice={ totalPrice } orderId={orderId}/>
                     </>
-                    : null
             }
 
         </section>
     );
 }
 
-BurgerConstructor.propTypes = selectedIngredientsType;
+BurgerConstructor.propTypes = {
+    ...ingredientsType,
+    orderId: PropTypes.number
+}
 
 export default BurgerConstructor;

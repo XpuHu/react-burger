@@ -14,9 +14,10 @@ function App() {
         sauce: 'Соусы',
         main: 'Начинка',
     } );
-    const [selectedIngredients, setSelectedIngredients] = useState([])
+    const [ selectedIngredients, setSelectedIngredients ] = useState( [] );
     const [ isLoading, setIsLoading ] = useState( false );
     const [ hasError, setHasError ] = useState( false );
+    const [ orderId, setOrderId ] = useState( Math.floor( Math.random() * (99999 - 1) + 1 ) );
 
     // TODO: Придумать как прокидывать нужный каунтер для каждого ингредиента
     const count = 0;
@@ -29,7 +30,7 @@ function App() {
                 const response = await fetch( URL );
                 const body = await response.json();
                 body.success && setIngredients( [ ...ingredients, ...body.data ] );
-                setIsLoading( false );
+                // setIsLoading( false );
             } catch (e) {
                 console.log( 'Произошла ошибка: ', e );
                 setHasError( true );
@@ -46,10 +47,11 @@ function App() {
         const buns = ingredients.filter( ingredient => ingredient.type === 'bun' );
         const otherIngredients = ingredients.filter( ingredient => ingredient.type !== 'bun' );
 
-        if ((typeof buns !== 'undefined' && buns.length > 0) && (typeof otherIngredients !== 'undefined' && otherIngredients.length > 0)) {
-            setSelectedIngredients([buns[0], ...otherIngredients, buns[0]]);
+        if ( (typeof buns !== 'undefined' && buns.length > 0) && (typeof otherIngredients !== 'undefined' && otherIngredients.length > 0) ) {
+            setSelectedIngredients( [ buns[0], ...otherIngredients, buns[0] ] );
+            setIsLoading( false );
         }
-    }, [ingredients] );
+    }, [ ingredients ] );
 
     return (
         <>
@@ -61,9 +63,8 @@ function App() {
                 { !isLoading && !hasError &&
                     <>
                         <BurgerIngredients ingredients={ ingredients } ingredientTypes={ ingredientTypes }/>
-                        <BurgerConstructor selectedIngredients={ selectedIngredients }/>
+                        <BurgerConstructor selectedIngredients={ selectedIngredients } orderId={ orderId }/>
                     </>
-
                 }
             </main>
         </>

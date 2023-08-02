@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-total.module.css';
 import PropTypes from "prop-types";
 import OrderDetails from "./order-details/order-details";
 
-function BurgerConstructorTotal( { totalPrice } ) {
+function BurgerConstructorTotal( { totalPrice, orderId } ) {
 
     const [ showModal, setShowModal ] = useState( false );
-    const [ orderId, setOrderId] = useState('');
-
-    useEffect(() => {
-        // Генерируем рандомный id для заказа
-        const randomOrderId = Math.floor(Math.random() * (999999 - 1) + 1)
-        setOrderId(transformOrderId(randomOrderId));
-    }, [])
 
     const handleOpenModal = () => {
-
-
         setShowModal( true );
     };
 
@@ -35,13 +26,14 @@ function BurgerConstructorTotal( { totalPrice } ) {
             <Button htmlType="button" type="primary" size="medium" onClick={ handleOpenModal }>
                 Оформить заказ
             </Button>
-            { showModal && (<OrderDetails orderId={ orderId } handleCloseModal={ handleCloseModal }/>) }
+            { showModal && (<OrderDetails orderId={ transformOrderId(orderId) } handleCloseModal={ handleCloseModal }/>) }
         </div>
     );
 }
 
 BurgerConstructorTotal.propTypes = {
-    totalPrice: PropTypes.number
+    totalPrice: PropTypes.number,
+    orderId: PropTypes.number
 };
 
 export default BurgerConstructorTotal;

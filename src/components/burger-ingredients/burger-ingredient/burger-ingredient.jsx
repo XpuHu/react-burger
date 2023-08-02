@@ -4,6 +4,7 @@ import style from './burger-ingredient.module.css';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import IngredientDetails from "./ingredient-details/ingredient-details";
+import { ingredientType } from "../../../utils/types";
 
 function BurgerIngredient( { ingredient, count } ) {
     const { name, price, image: img } = ingredient;
@@ -41,9 +42,7 @@ function BurgerIngredient( { ingredient, count } ) {
 }
 
 BurgerIngredient.propTypes = {
-    name: PropTypes.string,
-    price: PropTypes.number,
-    img: PropTypes.string,
+    ...ingredientType,
     count: PropTypes.number,
 };
 

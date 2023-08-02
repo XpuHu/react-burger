@@ -2,6 +2,7 @@ import React from "react";
 import style from './order-details.module.css';
 import icon from '../../../../images/done.svg';
 import Modal from "../../../modal/modal";
+import PropTypes from "prop-types";
 
 function OrderDetails( { orderId, handleCloseModal } ) {
     return (
@@ -13,6 +14,11 @@ function OrderDetails( { orderId, handleCloseModal } ) {
             <span className={ `text text_type_main-default text_color_inactive mb-30` }>Дождитесь готовности на орбитальной станции</span>
         </Modal>
     );
+}
+
+OrderDetails.propTypes = {
+    orderId: PropTypes.string.isRequired,
+    handleCloseModal: PropTypes.func.isRequired
 }
 
 export default OrderDetails;
