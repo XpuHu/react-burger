@@ -4,7 +4,7 @@ import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import PropTypes from "prop-types";
 import { ingredientsType } from "../../../utils/types";
 
-function BurgerIngredientsCategory( { title, ingredients } ) {
+function BurgerIngredientsCategory( { title, ingredients, handleOpenModal } ) {
 
     return (
         <>
@@ -17,6 +17,7 @@ function BurgerIngredientsCategory( { title, ingredients } ) {
                             key={ ingredient._id }
                             ingredient={ ingredient }
                             count={ 1 }
+                            handleOpenModal={() => handleOpenModal(ingredient)}
                         />
                     ) )
                 }

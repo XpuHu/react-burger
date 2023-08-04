@@ -3,6 +3,8 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import './app.module.css';
+import Modal from "../modal/modal";
+import IngredientDetails from "../burger-ingredients/burger-ingredient/ingredient-details/ingredient-details";
 
 const URL = 'https://norma.nomoreparties.space/api/ingredients';
 

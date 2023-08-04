@@ -1,14 +1,12 @@
 import React from 'react';
 import style from './ingredient-details.module.css';
-import Modal from "../../../modal/modal";
 import { ingredientType } from "../../../../utils/types";
-import PropTypes from "prop-types";
 
-function IngredientDetails( { ingredient, handleCloseModal } ) {
+function IngredientDetails( { ingredient } ) {
     const { image_large: imgLarge, name, calories, proteins, fat, carbohydrates } = ingredient;
 
     return (
-        <Modal header={ 'Детали ингридиента' } handleClose={ handleCloseModal }>
+        <>
             <img className={ `${ style.imgLarge } pl-5 pr-5 mb-4` } src={ imgLarge } alt={ name }/>
             <p className={ `text text_type_main-medium mb-8` }>{ name }</p>
             <div className={ `${ style.nutritionList } text text_type_main-default text_color_inactive mb-15` }>
@@ -29,13 +27,12 @@ function IngredientDetails( { ingredient, handleCloseModal } ) {
                     <span className={ `text_type_digits-default` }>{ carbohydrates }</span>
                 </div>
             </div>
-        </Modal>
+        </>
     );
 }
 
 IngredientDetails.propTypes = {
-    ingredient: ingredientType.ingredientType,
-    handleCloseModal: PropTypes.func.isRequired
+    ingredient: ingredientType.ingredientType
 };
 
 export default IngredientDetails;

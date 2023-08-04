@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-total.module.css';
 import PropTypes from "prop-types";
+import Modal from "../../modal/modal";
 import OrderDetails from "./order-details/order-details";
 
 function BurgerConstructorTotal( { totalPrice, orderId } ) {
@@ -26,7 +27,11 @@ function BurgerConstructorTotal( { totalPrice, orderId } ) {
             <Button htmlType="button" type="primary" size="medium" onClick={ handleOpenModal }>
                 Оформить заказ
             </Button>
-            { showModal && (<OrderDetails orderId={ transformOrderId(orderId) } handleCloseModal={ handleCloseModal }/>) }
+            { showModal && (
+                <Modal header={''} handleClose={handleCloseModal} >
+                    <OrderDetails orderId={transformOrderId(orderId)} />
+                </Modal>
+            ) }
         </div>
     );
 }
