@@ -25,7 +25,7 @@ function ConstructorIngredientsList( { selectedIngredients } ) {
 }
 
 ConstructorIngredientsList.propTypes = {
-    ...ingredientsType,
+    selectedIngredients: ingredientsType.ingredients
 }
 
 export default ConstructorIngredientsList;

@@ -42,7 +42,7 @@ function BurgerIngredient( { ingredient, count } ) {
 }
 
 BurgerIngredient.propTypes = {
-    ...ingredientType,
+    ingredient: ingredientType.ingredientType,
     count: PropTypes.number,
 };
 

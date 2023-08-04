@@ -27,14 +27,18 @@ function App() {
             setIsLoading( true );
             try {
                 const response = await fetch( URL );
-                const body = await response.json();
-                body.success && setIngredients( [ ...ingredients, ...body.data ] );
-                // setIsLoading( false );
+                if (response.ok) {
+                    const body = await response.json();
+                    body.success && setIngredients( [ ...ingredients, ...body.data ] );
+                } else {
+                    throw new Error(`Ошибка ${response.status}`);
+                }
             } catch (e) {
                 console.log( 'Произошла ошибка: ', e );
                 setHasError( true );
-                setIsLoading( false );
                 setIngredients( [] );
+            } finally {
+                setIsLoading( false );
             }
         };
 

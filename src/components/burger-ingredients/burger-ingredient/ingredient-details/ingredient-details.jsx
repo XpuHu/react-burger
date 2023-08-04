@@ -34,7 +34,7 @@ function IngredientDetails( { ingredient, handleCloseModal } ) {
 }
 
 IngredientDetails.propTypes = {
-    ...ingredientType,
+    ingredient: ingredientType.ingredientType,
     handleCloseModal: PropTypes.func.isRequired
 };
 

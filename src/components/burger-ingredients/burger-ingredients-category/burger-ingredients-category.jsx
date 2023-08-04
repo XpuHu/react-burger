@@ -26,7 +26,7 @@ function BurgerIngredientsCategory( { title, ingredients } ) {
 }
 
 BurgerIngredientsCategory.propTypes = {
-    ...ingredientsType,
+    ingredients: ingredientsType.ingredients,
     title: PropTypes.string.isRequired,
 };
 

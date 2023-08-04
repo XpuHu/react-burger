@@ -39,7 +39,7 @@ function BurgerConstructorList( { selectedIngredients } ) {
 }
 
 BurgerConstructorList.propTypes = {
-    ...ingredientsType
+    selectedIngredients: ingredientsType.ingredients
 }
 
 export default BurgerConstructorList;

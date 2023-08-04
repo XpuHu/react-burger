@@ -28,7 +28,7 @@ function BurgerIngredients( { ingredients, ingredientTypes } ) {
 }
 
 BurgerIngredients.propTypes = {
-    ...ingredientsType,
+    ingredients: ingredientsType.ingredients,
     ingredientTypes: PropTypes.objectOf( PropTypes.string ).isRequired,
 }
 

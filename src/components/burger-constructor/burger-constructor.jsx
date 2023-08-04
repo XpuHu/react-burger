@@ -32,7 +32,7 @@ const BurgerConstructor =  ( { selectedIngredients, orderId } ) => {
 }
 
 BurgerConstructor.propTypes = {
-    ...ingredientsType,
+    selectedIngredients: ingredientsType.ingredients,
     orderId: PropTypes.number
 }
 
