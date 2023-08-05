@@ -1,12 +1,16 @@
 import React from 'react';
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import style from './burger-ingredient.module.css'
+import style from './burger-ingredient.module.css';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { ingredientType } from "../../../utils/types";
 
-function BurgerIngredient( { name, price, img, count } ) {
+function BurgerIngredient( { ingredient, count, handleOpenModal } ) {
+    const { name, price, image: img } = ingredient;
+
     return (
-        <div className={ `${ style.ingredient }` }>
+        <div className={ `${ style.ingredient }` } onClick={handleOpenModal}>
+
             {
                 count > 0
                     ? <Counter count={ count }/>
@@ -24,10 +28,8 @@ function BurgerIngredient( { name, price, img, count } ) {
 }
 
 BurgerIngredient.propTypes = {
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    img: PropTypes.string.isRequired,
+    ingredient: ingredientType.ingredientType,
     count: PropTypes.number,
-}
+};
 
 export default BurgerIngredient;
