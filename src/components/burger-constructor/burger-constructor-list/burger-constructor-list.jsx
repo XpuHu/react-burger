@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import ConstructorIngredientsList from "./cunstructor-ingredients-list/constructor-ingredients-list";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import style from './burger-constructor-list.module.css'
-import { ingredientsType } from "../../../utils/types";
+import style from './burger-constructor-list.module.css';
+import { ingredientsType, ingredientType } from "../../../utils/types";
 
-function BurgerConstructorList( { selectedIngredients } ) {
-    const [ topBun, ...otherIngredients ] = selectedIngredients;
-    const bottomBun = otherIngredients.pop();
-
+const BurgerConstructorList = memo( ( { bun, otherIngredients } ) => {
     return (
         <section className={ `${ style.ingredientsListWrapper } mb-10` }>
             <div className={ 'ml-8 mb-4' }>
@@ -15,31 +12,31 @@ function BurgerConstructorList( { selectedIngredients } ) {
                     extraClass={ `${ style.inactive }` }
                     type={ 'top' }
                     isLocked={ true }
-                    text={ `${topBun.name} (верх)` }
-                    thumbnail={ topBun.image }
-                    price={ topBun.price }
+                    text={ `${ bun.name } (верх)` }
+                    thumbnail={ bun.image }
+                    price={ bun.price }
                 />
             </div>
 
-
-            <ConstructorIngredientsList selectedIngredients={ otherIngredients }/>
+            <ConstructorIngredientsList selectedIngredients={ otherIngredients } />
 
             <div className={ 'ml-8 mb-4' }>
                 <ConstructorElement
                     extraClass={ `${ style.inactive }` }
                     type={ 'bottom' }
                     isLocked={ true }
-                    text={ `${topBun.name} (низ)` }
-                    thumbnail={ bottomBun.image }
-                    price={ bottomBun.price }
+                    text={ `${ bun.name } (низ)` }
+                    thumbnail={ bun.image }
+                    price={ bun.price }
                 />
             </div>
         </section>
     );
-}
+} );
 
 BurgerConstructorList.propTypes = {
-    selectedIngredients: ingredientsType.ingredients
-}
+    bun: ingredientType.ingredientType,
+    otherIngredients: ingredientsType.ingredients
+};
 
 export default BurgerConstructorList;

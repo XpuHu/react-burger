@@ -1,44 +1,30 @@
-import React, { useState } from "react";
+import React, { memo } from "react";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-total.module.css';
 import PropTypes from "prop-types";
-import Modal from "../../modal/modal";
-import OrderDetails from "./order-details/order-details";
 
-function BurgerConstructorTotal( { totalPrice, orderId } ) {
 
-    const [ showModal, setShowModal ] = useState( false );
+const BurgerConstructorTotal = memo( ( { totalPrice, onButtonClick } ) => {
 
-    const handleOpenModal = () => {
-        setShowModal( true );
+    const handleClick = () => {
+        onButtonClick();
     };
-
-    const handleCloseModal = () => {
-        setShowModal( false );
-    };
-
-    // id заказа всегда 6 цифр, если цифр меньше - в начале пишутся нули
-    const transformOrderId = (orderId) => String(orderId).padStart(6, '0')
 
     return (
         <div className={ `${ style.burgerTotal } mr-4 mb-10` }>
             <span className={ `text text_type_digits-medium mr-10` }>{ totalPrice } <CurrencyIcon
-                type="primary"/></span>
-            <Button htmlType="button" type="primary" size="medium" onClick={ handleOpenModal }>
+                type="primary"
+            /></span>
+            <Button htmlType="button" type="primary" size="medium" onClick={ handleClick }>
                 Оформить заказ
             </Button>
-            { showModal && (
-                <Modal header={''} handleClose={handleCloseModal} >
-                    <OrderDetails orderId={transformOrderId(orderId)} />
-                </Modal>
-            ) }
         </div>
     );
-}
+} );
 
 BurgerConstructorTotal.propTypes = {
     totalPrice: PropTypes.number,
-    orderId: PropTypes.number
+    onButtonClick: PropTypes.func.isRequired
 };
 
 export default BurgerConstructorTotal;
