@@ -31,8 +31,6 @@ function App() {
     const [ hasError, setHasError ] = useState( false );
     const [ orderId, setOrderId ] = useState( Math.floor( Math.random() * (99999 - 1) + 1 ) );
 
-    const [ discountState, discountDispatcher ] = useReducer( reducer, discountInitialState, undefined );
-
     // TODO: Придумать как прокидывать нужный каунтер для каждого ингредиента
     const count = 0;
 
@@ -82,10 +80,12 @@ function App() {
                 { isLoading && 'Загрузка...' }
                 { hasError && 'Произошла ошибка' }
                 { !isLoading && !hasError &&
-                    <SelectedIngredientsContext.Provider value={ { selectedIngredients } }>
-                        <BurgerIngredients ingredients={ ingredients } ingredientTypes={ ingredientTypes } />
+                    // <SelectedIngredientsContext.Provider value={ { selectedIngredients } }>
+                    <>
+                        <BurgerIngredients />
                         <BurgerConstructor />
-                    </SelectedIngredientsContext.Provider>
+                    </>
+                    // </SelectedIngredientsContext.Provider>
                 }
             </main>
         </>

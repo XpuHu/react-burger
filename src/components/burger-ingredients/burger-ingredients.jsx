@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './burger-ingredients.module.css'
 import BurgerIngredientsHeader from "./burger-ingredients-header/burger-ingredients-header";
 import BurgerIngredientsCategory from "./burger-ingredients-category/burger-ingredients-category";
@@ -6,11 +6,24 @@ import PropTypes from "prop-types";
 import { ingredientsType } from "../../utils/types";
 import Modal from "../modal/modal";
 import IngredientDetails from "./burger-ingredient/ingredient-details/ingredient-details";
+import { useDispatch, useSelector } from 'react-redux';
+import { getIngredients } from "../../services/actions/ingredients";
 
-function BurgerIngredients( { ingredients, ingredientTypes } ) {
+function BurgerIngredients() {
 
     const [ showModal, setShowModal ] = useState( false );
     const [ selectedIngredient, setSelectedIngredient] = useState({});
+
+    const { ingredients, ingredientTypes} = useSelector(
+        state => state.ingredients
+    );
+    const dispatch = useDispatch();
+
+    useEffect(
+        () => {
+            dispatch(getIngredients());
+        }, [dispatch]
+    );
 
     const handleOpenModal = (ingredient) => {
         setSelectedIngredient(ingredient);
