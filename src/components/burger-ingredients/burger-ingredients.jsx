@@ -12,11 +12,8 @@ import { DELETE_CURRENT_INGREDIENT, getIngredients, SET_CURRENT_INGREDIENT } fro
 function BurgerIngredients() {
 
     const [ showModal, setShowModal ] = useState( false );
-    const [ selectedIngredient, setSelectedIngredient ] = useState( {} );
 
-    const { ingredients, ingredientTypes } = useSelector(
-        state => state.ingredients
-    );
+    const { ingredients, ingredientTypes } = useSelector( state => state.ingredients );
     const dispatch = useDispatch();
 
     useEffect(
@@ -26,7 +23,6 @@ function BurgerIngredients() {
     );
 
     const handleOpenModal = ( ingredient ) => {
-        // setSelectedIngredient(ingredient);
         dispatch( { type: SET_CURRENT_INGREDIENT, ingredient } );
         setShowModal( true );
     };

@@ -1,12 +1,10 @@
-import { store } from '../../index';
-
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 
 const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
 
-export const getOrderId = () => {
+export const getOrderId = ( ingredientsIds ) => {
     return async ( dispatch ) => {
         dispatch( { type: GET_ORDER_REQUEST } );
         try {
@@ -16,16 +14,14 @@ export const getOrderId = () => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify( {
-                    "ingredients": [
-                        ...store.getState().burgerConstructor.constructorIngredientsIds
-                    ]
+                    "ingredients": ingredientsIds
                 } )
             } );
 
             const body = await response.json();
 
             if ( !response.ok ) {
-                throw new Error( `Ошибка ${ response.status } - ${body.message}` );
+                throw new Error( `Ошибка ${ response.status } - ${ body.message }` );
 
             }
 

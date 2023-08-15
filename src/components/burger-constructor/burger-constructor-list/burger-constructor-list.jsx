@@ -18,14 +18,11 @@ const BurgerConstructorList = memo( () => {
     }, [ constructorBun ] );
 
     const moveIngredient = ( ingredient ) => {
-        // Добавляем ингредиент в конструктор
         dispatch( { type: ADD_INGREDIENT, ingredient } );
-        // Увеличиваем счётчик в ингредиентах
         dispatch( { type: INCREASE_COUNT, id: ingredient._id } );
     };
 
     const moveBun = ( bun ) => {
-        // Добавляем ингредиент в конструктор
         dispatch( { type: ADD_BUN, bun } );
     };
 

@@ -8,19 +8,14 @@ import { useDrag, useDrop } from "react-dnd";
 
 function ConstructorIngredient( { ingredient, ingredientIndex } ) {
 
+    const ingredientRef = useRef( null );
     const dispatch = useDispatch();
 
     const handleClose = ( ingredient ) => {
         dispatch( { type: DELETE_INGREDIENT, id: ingredient.id } );
         dispatch( { type: DECREASE_COUNT, id: ingredient._id } );
     };
-
-    const ingredientRef = useRef( null );
-
-    const moveIngredients = ( dragIndex, hoverIndex ) => {
-
-    };
-
+    
     const [ { handler }, dropTarget ] = useDrop( {
         accept: 'constructor-ingredient',
         collect: monitor => ({

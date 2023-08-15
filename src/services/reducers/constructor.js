@@ -3,15 +3,12 @@ import {
     ADD_INGREDIENT,
     DELETE_BUN,
     DELETE_INGREDIENT,
-    SET_SELECTED_IDS,
     SET_TOTAL_PRICE,
     UPDATE_INGREDIENTS_ORDER
 } from "../actions/constructor";
 
 const initialState = {
-    // constructorIngredientList: selectedIngredients,
     constructorIngredientList: [],
-    // constructorBun: selectedBun,
     constructorBun: null,
 
     totalPrice: 0,
@@ -53,11 +50,6 @@ export const constructorReducer = ( state = initialState, action ) => {
                 totalPrice: state.constructorBun
                     ? state.constructorIngredientList.reduce( ( sum, ingredient ) => sum + ingredient.price, 0 ) + 2 * state.constructorBun.price
                     : state.constructorIngredientList.reduce( ( sum, ingredient ) => sum + ingredient.price, 0 )
-            };
-        case SET_SELECTED_IDS:
-            return {
-                ...state,
-                constructorIngredientsIds: [ state.constructorBun._id, ...state.constructorIngredientList.map( ingredient => ingredient._id ), state.constructorBun._id ]
             };
         case UPDATE_INGREDIENTS_ORDER:
             const ingredientList = [ ...state.constructorIngredientList ];
