@@ -1,13 +1,8 @@
-import React, { createContext, useEffect, useId, useReducer, useState } from 'react';
+import React from 'react';
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import './app.module.css';
-import { useDispatch } from "react-redux";
-import { ADD_INGREDIENT } from "../../services/actions/constructor";
-import { INCREASE_COUNT } from "../../services/actions/ingredients";
-import { DndProvider, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 
 // const INGREDIENTS_URL = 'https://norma.nomoreparties.space/api/ingredients';
 // export const SelectedIngredientsContext = createContext( null );

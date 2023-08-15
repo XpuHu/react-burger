@@ -7,11 +7,7 @@ import { ingredientsType } from "../../utils/types";
 import Modal from "../modal/modal";
 import IngredientDetails from "./burger-ingredient/ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    DELETE_CURRENT_INGREDIENT,
-    getIngredients,
-    SET_CURRENT_INGREDIENT
-} from "../../services/actions/ingredients";
+import { DELETE_CURRENT_INGREDIENT, getIngredients, SET_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 
 function BurgerIngredients() {
 

@@ -1,5 +1,3 @@
-import { createAction } from "@reduxjs/toolkit";
-
 // Создание экшена одновременно с его типом
 // export const getIngredients = createAction('ingredients/get')
 // const decrement = createAction('counter/decrement')

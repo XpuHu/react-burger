@@ -1,4 +1,4 @@
-import { combineReducers, createReducer } from "@reduxjs/toolkit";
+import { combineReducers } from "@reduxjs/toolkit";
 import { ingredientsReducer } from "./ingredients";
 import { constructorReducer } from "./constructor";
 import { orderReducer } from "./order";

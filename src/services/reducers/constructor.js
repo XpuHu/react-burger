@@ -1,23 +1,23 @@
 import {
     ADD_BUN,
-    ADD_INGREDIENT, DELETE_BUN,
+    ADD_INGREDIENT,
+    DELETE_BUN,
     DELETE_INGREDIENT,
     SET_SELECTED_IDS,
-    SET_TOTAL_PRICE
+    SET_TOTAL_PRICE,
+    UPDATE_INGREDIENTS_ORDER
 } from "../actions/constructor";
-import constructorIngredientsList
-    from "../../components/burger-constructor/burger-constructor-list/cunstructor-ingredients-list/constructor-ingredients-list";
-import { selectedBun, selectedIngredients } from "../../utils/data";
 
 const initialState = {
-    constructorIngredientList: selectedIngredients,
-    // constructorIngredientList: [],
-    constructorBun: selectedBun,
-    // constructorBun: null,
+    // constructorIngredientList: selectedIngredients,
+    constructorIngredientList: [],
+    // constructorBun: selectedBun,
+    constructorBun: null,
 
     totalPrice: 0,
     constructorIngredientsIds: [],
 };
+
 
 export const constructorReducer = ( state = initialState, action ) => {
     switch ( action.type ) {
@@ -28,7 +28,7 @@ export const constructorReducer = ( state = initialState, action ) => {
                     ...state.constructorIngredientList,
                     {
                         ...action.ingredient,
-                        id: action.id
+                        id: crypto.randomUUID()
                     }
                 ]
             };
@@ -58,6 +58,17 @@ export const constructorReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 constructorIngredientsIds: [ state.constructorBun._id, ...state.constructorIngredientList.map( ingredient => ingredient._id ), state.constructorBun._id ]
+            };
+        case UPDATE_INGREDIENTS_ORDER:
+            const ingredientList = [ ...state.constructorIngredientList ];
+            ingredientList.splice(
+                action.hoverIndex,
+                0,
+                ingredientList.splice( action.dragIndex, 1 )[0]
+            );
+            return {
+                ...state,
+                constructorIngredientList: ingredientList
             };
         default:
             return state;

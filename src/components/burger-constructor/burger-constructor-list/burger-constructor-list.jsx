@@ -1,17 +1,16 @@
-import React, { memo, useEffect, useId, useMemo, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import ConstructorIngredientsList from "./cunstructor-ingredients-list/constructor-ingredients-list";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-list.module.css';
 import { ingredientsType, ingredientType } from "../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_INGREDIENT } from "../../../services/actions/constructor";
+import { ADD_BUN, ADD_INGREDIENT } from "../../../services/actions/constructor";
 import { INCREASE_COUNT } from "../../../services/actions/ingredients";
 import { useDrop } from "react-dnd";
 
 const BurgerConstructorList = memo( () => {
     const { constructorBun } = useSelector( state => state.burgerConstructor );
     const [ showBun, setShowBun ] = useState( false );
-    const ingredientId = useId();
     const dispatch = useDispatch();
 
     useEffect( () => {
@@ -20,9 +19,14 @@ const BurgerConstructorList = memo( () => {
 
     const moveIngredient = ( ingredient ) => {
         // Добавляем ингредиент в конструктор
-        dispatch( { type: ADD_INGREDIENT, id: ingredientId, ingredient } );
+        dispatch( { type: ADD_INGREDIENT, ingredient } );
         // Увеличиваем счётчик в ингредиентах
         dispatch( { type: INCREASE_COUNT, id: ingredient._id } );
+    };
+
+    const moveBun = ( bun ) => {
+        // Добавляем ингредиент в конструктор
+        dispatch( { type: ADD_BUN, bun } );
     };
 
     const [ , dropTarget ] = useDrop( {
@@ -31,7 +35,9 @@ const BurgerConstructorList = memo( () => {
             isHover: monitor.isOver()
         }),
         drop( ingredient ) {
-            moveIngredient( ingredient );
+            ingredient.type === 'bun'
+                ? moveBun( ingredient )
+                : moveIngredient( ingredient );
         }
     } );
 
@@ -39,7 +45,7 @@ const BurgerConstructorList = memo( () => {
         return showBun
             ? (
                 <>
-                    <div className={ 'ml-8 mb-4' }  >
+                    <div className={ 'ml-8 mb-4' }>
                         <ConstructorElement
                             extraClass={ `${ style.inactive }` }
                             type={ 'top' }
@@ -66,7 +72,7 @@ const BurgerConstructorList = memo( () => {
             ) : (
                 <ConstructorIngredientsList />
             );
-    }, [ showBun ] );
+    }, [ showBun, constructorBun ] );
 
     return (
         <section className={ `${ style.ingredientsListWrapper } mb-10` } ref={ dropTarget }>

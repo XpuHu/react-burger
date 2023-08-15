@@ -1,18 +1,12 @@
-import React, { useCallback, useContext, useEffect, useId, useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './burger-constructor.module.css';
-import BurgerConstructorList
-    from "./burger-constructor-list/burger-constructor-list";
+import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import BurgerConstructorTotal from "./burger-constructor-total/burger-constructor-total";
 import { ingredientsType } from "../../utils/types";
-import PropTypes from "prop-types";
-import { SelectedIngredientsContext } from "../app/app";
 import Modal from "../modal/modal";
 import OrderDetails from "./burger-constructor-total/order-details/order-details";
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_INGREDIENT, SET_SELECTED_IDS, SET_TOTAL_PRICE } from "../../services/actions/constructor";
-import { getOrderId } from "../../services/actions/order";
-import { INCREASE_COUNT } from "../../services/actions/ingredients";
-import { useDrop } from "react-dnd";
+import { SET_SELECTED_IDS, SET_TOTAL_PRICE } from "../../services/actions/constructor";
 
 const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
 
@@ -29,8 +23,10 @@ const BurgerConstructor = () => {
 
     useEffect( () => {
         dispatch( { type: SET_TOTAL_PRICE } );
-        dispatch( { type: SET_SELECTED_IDS } );
-    }, [ dispatch ] );
+        if ( constructorBun ) {
+            dispatch( { type: SET_SELECTED_IDS } );
+        }
+    }, [ dispatch, constructorIngredientList, constructorBun ] );
 
 
     // const { selectedIngredients } = useContext( SelectedIngredientsContext );
@@ -108,15 +104,19 @@ const BurgerConstructor = () => {
 
     return (
         <section className={ `${ style.burgerConstructor } pt-25 pl-4` }>
-            {
-                constructorIngredientList.length !== 0 || constructorBun
-                    ? <>
-                        <BurgerConstructorList />
-                        <BurgerConstructorTotal handleClick={ handleOpenModal } />
-                    </>
-                    : null
-            }
+            {/*{ constructorIngredientList.length !== 0 || constructorBun !== null*/ }
+            {/*    ? <>*/ }
+            {/*        < BurgerConstructorList />*/ }
+            {/*        <BurgerConstructorTotal handleClick={ handleOpenModal } />*/ }
+            {/*    </>*/ }
+            {/*    : 'Перетащите желаемые ингредиенты'*/ }
+            {/*}*/ }
 
+            < BurgerConstructorList />
+            { constructorIngredientList.length !== 0 || constructorBun !== null
+                ? <BurgerConstructorTotal handleClick={ handleOpenModal } />
+                : 'Перетащите желаемые ингредиенты'
+            }
             { showModal && (
                 <Modal header={ '' } handleClose={ handleCloseModal }>
                     <OrderDetails orderId={ transformOrderId( orderId ) } />

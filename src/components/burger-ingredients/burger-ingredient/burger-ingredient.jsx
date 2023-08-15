@@ -1,7 +1,6 @@
 import React from 'react';
-import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredient.module.css';
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../../utils/types";
 import { useDrag } from "react-dnd";
@@ -18,7 +17,7 @@ function BurgerIngredient( { ingredient, handleOpenModal } ) {
     } );
 
     return (
-        <div className={ `${ style.ingredient }` } onClick={ handleOpenModal } style={{ opacity }}>
+        <div className={ `${ style.ingredient }` } onClick={ handleOpenModal } style={{ opacity }} ref={dragRef}>
 
             {
                 count > 0
@@ -26,7 +25,7 @@ function BurgerIngredient( { ingredient, handleOpenModal } ) {
                     : null
             }
 
-            <img className={ `ml-4 mr-4` } src={ img } alt={ name } ref={dragRef} />
+            <img className={ `ml-4 mr-4` } src={ img } alt={ name } />
             <p className={ `${ style.price } mt-1 mb-1` }>
                 <span className={ `text_type_digits-default` }>{ price }</span>
                 <span className={ `ml-2` }><CurrencyIcon type="primary" /></span>
