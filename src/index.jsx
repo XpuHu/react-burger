@@ -8,6 +8,8 @@ import thunk from 'redux-thunk';
 import { rootReducer, initialState } from './services/reducers';
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
 
 // const composeEnhancers =
 //     typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -17,19 +19,21 @@ import { Provider } from "react-redux";
 // const enhancer = composeEnhancers();
 
 // const store = createStore( rootReducer, enhancer );
-const store = configureStore({
+export const store = configureStore( {
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+    middleware: ( getDefaultMiddleware ) => getDefaultMiddleware().concat( thunk ),
     devTools: process.env.NODE_ENV !== 'production',
     preloadedState: initialState,
     // enhancers: [composeEnhancers],
-})
+} );
 
 const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
 root.render(
     <React.StrictMode>
         <Provider store={ store }>
-            <App />
+            <DndProvider backend={ HTML5Backend }>
+                <App />
+            </DndProvider>
         </Provider>
     </React.StrictMode>
 );

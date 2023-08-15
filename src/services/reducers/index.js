@@ -1,6 +1,7 @@
 import { combineReducers, createReducer } from "@reduxjs/toolkit";
 import { ingredientsReducer } from "./ingredients";
 import { constructorReducer } from "./constructor";
+import { orderReducer } from "./order";
 
 export const initialState = {
     // ingredients: [],
@@ -16,13 +17,14 @@ export const initialState = {
     // constructorIngredientList: [],
     // constructorBun: null,
     // totalPrice: 0,
-    // constructorIngredientsIds: [],
+    constructorIngredientsIds: [],
 
-    currentIngredient: null,
+    // currentIngredient: null,
 
-    order: null,
-    orderRequest: false,
-    orderFailed: false,
+
+    // order: null,
+    // orderRequest: false,
+    // orderFailed: false,
 }
 
 // Создание экшена одновременно с его типом
@@ -51,4 +53,5 @@ export const initialState = {
 export const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
     burgerConstructor: constructorReducer,
+    order: orderReducer,
 })

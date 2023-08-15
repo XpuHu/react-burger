@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useReducer, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useId, useReducer, useState } from 'react';
 import style from './burger-constructor.module.css';
 import BurgerConstructorList
     from "./burger-constructor-list/burger-constructor-list";
@@ -9,7 +9,10 @@ import { SelectedIngredientsContext } from "../app/app";
 import Modal from "../modal/modal";
 import OrderDetails from "./burger-constructor-total/order-details/order-details";
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_TOTAL_PRICE } from "../../services/actions/constructor";
+import { ADD_INGREDIENT, SET_SELECTED_IDS, SET_TOTAL_PRICE } from "../../services/actions/constructor";
+import { getOrderId } from "../../services/actions/order";
+import { INCREASE_COUNT } from "../../services/actions/ingredients";
+import { useDrop } from "react-dnd";
 
 const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
 
@@ -18,12 +21,16 @@ const BurgerConstructor = () => {
     const [ isLoading, setIsLoading ] = useState( true );
     const [ hasError, setHasError ] = useState( false );
     // const [ totalPrice, setTotalPrice ] = useState( 0 );
-    const { constructorIngredientList, constructorBun, totalPrice } = useSelector( state => state.burgerConstructor );
+    const { constructorIngredientList, constructorBun } = useSelector( state => state.burgerConstructor );
+    const { orderId } = useSelector( state => state.order );
+
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch({type: SET_TOTAL_PRICE})
-    }, [dispatch])
+
+    useEffect( () => {
+        dispatch( { type: SET_TOTAL_PRICE } );
+        dispatch( { type: SET_SELECTED_IDS } );
+    }, [ dispatch ] );
 
 
     // const { selectedIngredients } = useContext( SelectedIngredientsContext );
@@ -31,7 +38,7 @@ const BurgerConstructor = () => {
     // const [ bun, setBun ] = useState( {} );
     // const [ otherIngredients, setOtherIngredients ] = useState( [] );
 
-    const [ orderId, setOrderId ] = useState( Math.floor( Math.random() * (99999 - 1) + 1 ) );
+    // const [ orderId, setOrderId ] = useState( Math.floor( Math.random() * (99999 - 1) + 1 ) );
     // const [ selectedIds, setSelectedIds ] = useState( [] );
 
     const [ showModal, setShowModal ] = useState( false );
@@ -49,6 +56,10 @@ const BurgerConstructor = () => {
     //         setIsLoading( false );
     //     }
     // }, [ selectedIngredients ] );
+
+    // useEffect(() => {
+    //     setSelectedIds([...constructorIngredientList.map(ingredient => ingredient._id )])
+    // }, [constructorIngredientList])
 
 
     // const handleMakeOrder = useCallback( async () => {
@@ -79,12 +90,21 @@ const BurgerConstructor = () => {
     //     }
     // }, [ selectedIds ] );
 
+    const handleOpenModal = () => {
+        // Заглушка пока не разберусь почему запрос фейлится
+        dispatch( { type: 'SET_ORDER_ID', id: Math.floor( Math.random() * (99999 - 1) + 1 ) } );
+
+        // dispatch( getOrderId() );
+        setShowModal( true );
+    };
+
     const handleCloseModal = () => {
         setShowModal( false );
     };
 
     // id заказа всегда 6 цифр, если цифр меньше - в начале пишутся нули
-    const transformOrderId = ( orderId ) => String( orderId ).padStart( 6, '0' );
+    const transformOrderId = ( orderId ) => orderId ? String( orderId ).padStart( 6, '0' ) : String( '' ).padStart( 6, '0' );
+
 
     return (
         <section className={ `${ style.burgerConstructor } pt-25 pl-4` }>
@@ -92,9 +112,7 @@ const BurgerConstructor = () => {
                 constructorIngredientList.length !== 0 || constructorBun
                     ? <>
                         <BurgerConstructorList />
-                        <BurgerConstructorTotal totalPrice={ totalPrice } onButtonClick={ () => {
-                        } }
-                        />
+                        <BurgerConstructorTotal handleClick={ handleOpenModal } />
                     </>
                     : null
             }

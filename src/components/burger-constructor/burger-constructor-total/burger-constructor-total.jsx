@@ -1,14 +1,13 @@
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-total.module.css';
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 
-const BurgerConstructorTotal = memo( ( { totalPrice, onButtonClick } ) => {
+const BurgerConstructorTotal = memo( ( { handleClick } ) => {
 
-    const handleClick = () => {
-        onButtonClick();
-    };
+    const { totalPrice } = useSelector( state => state.burgerConstructor );
 
     return (
         <div className={ `${ style.burgerTotal } mr-4 mb-10` }>

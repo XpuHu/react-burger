@@ -28,7 +28,7 @@ export const constructorReducer = ( state = initialState, action ) => {
                     ...state.constructorIngredientList,
                     {
                         ...action.ingredient,
-                        id: action.ingredient._id + action.ingredient.__v
+                        id: action.id
                     }
                 ]
             };
@@ -57,7 +57,7 @@ export const constructorReducer = ( state = initialState, action ) => {
         case SET_SELECTED_IDS:
             return {
                 ...state,
-                constructorIngredientsIds: [ ...state.constructorIngredientList.map( ingredient => ingredient._id ) ]
+                constructorIngredientsIds: [ state.constructorBun._id, ...state.constructorIngredientList.map( ingredient => ingredient._id ), state.constructorBun._id ]
             };
         default:
             return state;

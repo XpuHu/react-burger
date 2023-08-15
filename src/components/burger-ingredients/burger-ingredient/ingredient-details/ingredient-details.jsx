@@ -1,13 +1,21 @@
 import React from 'react';
 import style from './ingredient-details.module.css';
 import { ingredientType } from "../../../../utils/types";
+import { useSelector } from "react-redux";
 
-function IngredientDetails( { ingredient } ) {
-    const { image_large: imgLarge, name, calories, proteins, fat, carbohydrates } = ingredient;
+function IngredientDetails() {
+    const {
+        image_large: imgLarge,
+        name,
+        calories,
+        proteins,
+        fat,
+        carbohydrates
+    } = useSelector( state => state.ingredients.currentIngredient );
 
     return (
         <>
-            <img className={ `${ style.imgLarge } pl-5 pr-5 mb-4` } src={ imgLarge } alt={ name }/>
+            <img className={ `${ style.imgLarge } pl-5 pr-5 mb-4` } src={ imgLarge } alt={ name } />
             <p className={ `text text_type_main-medium mb-8` }>{ name }</p>
             <div className={ `${ style.nutritionList } text text_type_main-default text_color_inactive mb-15` }>
                 <div className={ `${ style.nutritionItem }` }>
