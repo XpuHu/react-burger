@@ -25,7 +25,11 @@ export const getOrderId = ( ingredientsIds ) => {
 
             }
 
-            body.success && dispatch( { type: GET_ORDER_SUCCESS, id: body.order.number } );
+            body.success && dispatch( {
+                type: GET_ORDER_SUCCESS,
+                name: body.name,
+                number: body.order.number
+            } );
         } catch (e) {
             console.log( 'Произошла ошибка: ', e );
             dispatch( { type: GET_ORDER_FAILED } );

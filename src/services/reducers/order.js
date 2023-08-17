@@ -1,9 +1,9 @@
 import { GET_ORDER_FAILED, GET_ORDER_REQUEST, GET_ORDER_SUCCESS } from "../actions/order";
 
 const initialState = {
-    orderId: null,
     orderRequest: false,
     orderFailed: false,
+    data: {},
 };
 
 export const orderReducer = ( state = initialState, action ) => {
@@ -19,7 +19,10 @@ export const orderReducer = ( state = initialState, action ) => {
                 ...state,
                 orderRequest: false,
                 orderFailed: false,
-                orderId: action.id
+                data: {
+                    name: action.name,
+                    number: action.number
+                }
             };
         case GET_ORDER_FAILED:
             return {
@@ -28,12 +31,13 @@ export const orderReducer = ( state = initialState, action ) => {
                 orderFailed: true,
                 orderId: null
             };
-        case 'SET_ORDER_ID': return {
-            ...state,
-            orderRequest: false,
-            orderFailed: false,
-            orderId: action.id
-        }
+        case 'SET_ORDER_ID':
+            return {
+                ...state,
+                orderRequest: false,
+                orderFailed: false,
+                orderId: action.id
+            };
         default:
             return state;
     }

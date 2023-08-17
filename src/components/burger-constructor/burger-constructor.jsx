@@ -11,10 +11,9 @@ import { getOrderId } from "../../services/actions/order";
 
 const BurgerConstructor = () => {
     const { constructorIngredientList, constructorBun } = useSelector( state => state.burgerConstructor );
-    const { orderId } = useSelector( state => state.order );
+    const { number } = useSelector( state => state.order.data );
     const [ showModal, setShowModal ] = useState( false );
     const dispatch = useDispatch();
-
 
     useEffect( () => {
         dispatch( { type: SET_TOTAL_PRICE } );
@@ -43,7 +42,7 @@ const BurgerConstructor = () => {
 
             { showModal && (
                 <Modal header={ '' } handleClose={ handleCloseModal }>
-                    <OrderDetails orderId={ transformOrderId( orderId ) } />
+                    <OrderDetails orderId={ transformOrderId( number ) } />
                 </Modal>
             ) }
         </section>
