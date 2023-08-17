@@ -5,7 +5,7 @@ import style from './burger-constructor-list.module.css';
 import { ingredientsType, ingredientType } from "../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_BUN, ADD_INGREDIENT } from "../../../services/actions/constructor";
-import { INCREASE_COUNT } from "../../../services/actions/ingredients";
+import { DECREASE_BUN_COUNT, INCREASE_BUN_COUNT, INCREASE_COUNT } from "../../../services/actions/ingredients";
 import { useDrop } from "react-dnd";
 
 const BurgerConstructorList = memo( () => {
@@ -23,7 +23,11 @@ const BurgerConstructorList = memo( () => {
     };
 
     const moveBun = ( bun ) => {
+        if ( constructorBun ) {
+            dispatch( { type: DECREASE_BUN_COUNT, id: constructorBun._id } );
+        }
         dispatch( { type: ADD_BUN, bun } );
+        dispatch( { type: INCREASE_BUN_COUNT, id: bun._id } );
     };
 
     const [ , dropTarget ] = useDrop( {

@@ -1,10 +1,12 @@
 import {
     CHANGE_ACTIVE_TYPE,
+    DECREASE_BUN_COUNT,
     DECREASE_COUNT,
     DELETE_CURRENT_INGREDIENT,
     GET_INGREDIENTS_FAILED,
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
+    INCREASE_BUN_COUNT,
     INCREASE_COUNT,
     SET_CURRENT_INGREDIENT
 } from "../actions/ingredients";
@@ -70,6 +72,22 @@ export const ingredientsReducer = ( state = initialState, action ) => {
                 ingredients: state.ingredients.map( ingredient => ingredient._id === action.id ? {
                     ...ingredient,
                     count: ingredient.count - 1
+                } : ingredient )
+            };
+        case INCREASE_BUN_COUNT:
+            return {
+                ...state,
+                ingredients: state.ingredients.map( ingredient => ingredient._id === action.id ? {
+                    ...ingredient,
+                    count: ingredient.count + 2
+                } : ingredient )
+            };
+        case DECREASE_BUN_COUNT:
+            return {
+                ...state,
+                ingredients: state.ingredients.map( ingredient => ingredient._id === action.id ? {
+                    ...ingredient,
+                    count: ingredient.count - 2
                 } : ingredient )
             };
         case CHANGE_ACTIVE_TYPE:

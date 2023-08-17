@@ -17,11 +17,7 @@ import {
 function BurgerIngredients() {
 
     const [ showModal, setShowModal ] = useState( false );
-    const [ elementsOffsetTop, setElementsOffsetTop ] = useState( {
-        'bun': 0,
-        'sauce': 1,
-        'main': 2
-    } );
+    const [ elementsOffsetTop, setElementsOffsetTop ] = useState( {} );
 
     const { ingredients, ingredientTypes } = useSelector( state => state.ingredients );
     const dispatch = useDispatch();
