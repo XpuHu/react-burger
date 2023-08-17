@@ -4,7 +4,6 @@ import style from './burger-constructor-total.module.css';
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-
 const BurgerConstructorTotal = memo( ( { handleClick } ) => {
 
     const { totalPrice } = useSelector( state => state.burgerConstructor );
@@ -22,8 +21,7 @@ const BurgerConstructorTotal = memo( ( { handleClick } ) => {
 } );
 
 BurgerConstructorTotal.propTypes = {
-    totalPrice: PropTypes.number,
-    onButtonClick: PropTypes.func.isRequired
+    handleClick: PropTypes.func.isRequired
 };
 
 export default BurgerConstructorTotal;

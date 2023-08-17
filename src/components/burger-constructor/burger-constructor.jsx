@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import style from './burger-constructor.module.css';
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import BurgerConstructorTotal from "./burger-constructor-total/burger-constructor-total";
-import { ingredientsType } from "../../utils/types";
 import Modal from "../modal/modal";
 import OrderDetails from "./burger-constructor-total/order-details/order-details";
 import { useDispatch, useSelector } from 'react-redux';
@@ -47,10 +46,6 @@ const BurgerConstructor = () => {
             ) }
         </section>
     );
-};
-
-BurgerConstructor.propTypes = {
-    selectedIngredients: ingredientsType.ingredients
 };
 
 export default BurgerConstructor;

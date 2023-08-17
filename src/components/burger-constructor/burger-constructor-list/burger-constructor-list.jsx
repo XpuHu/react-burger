@@ -2,7 +2,6 @@ import React, { memo, useEffect, useMemo, useState } from 'react';
 import ConstructorIngredientsList from "./cunstructor-ingredients-list/constructor-ingredients-list";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-list.module.css';
-import { ingredientsType, ingredientType } from "../../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_BUN, ADD_INGREDIENT } from "../../../services/actions/constructor";
 import { DECREASE_BUN_COUNT, INCREASE_BUN_COUNT, INCREASE_COUNT } from "../../../services/actions/ingredients";
@@ -81,10 +80,5 @@ const BurgerConstructorList = memo( () => {
         </section>
     );
 } );
-
-BurgerConstructorList.propTypes = {
-    bun: ingredientType.ingredientType,
-    otherIngredients: ingredientsType.ingredients
-};
 
 export default BurgerConstructorList;

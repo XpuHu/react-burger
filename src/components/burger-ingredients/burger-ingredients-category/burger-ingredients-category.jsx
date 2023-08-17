@@ -29,6 +29,8 @@ function BurgerIngredientsCategory( { title, ingredients, handleOpenModal, secti
 BurgerIngredientsCategory.propTypes = {
     ingredients: ingredientsType.ingredients,
     title: PropTypes.string.isRequired,
+    handleOpenModal: PropTypes.func.isRequired,
+    sectionId: PropTypes.string.isRequired
 };
 
 export default BurgerIngredientsCategory;

@@ -1,6 +1,6 @@
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
-export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
+export const GET_ORDER_ERROR = 'GET_ORDER_ERROR';
 
 const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
 
@@ -32,7 +32,7 @@ export const getOrderId = ( ingredientsIds ) => {
             } );
         } catch (e) {
             console.log( 'Произошла ошибка: ', e );
-            dispatch( { type: GET_ORDER_FAILED } );
+            dispatch( { type: GET_ORDER_ERROR } );
         }
     };
 };

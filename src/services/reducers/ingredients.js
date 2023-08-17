@@ -3,7 +3,7 @@ import {
     DECREASE_BUN_COUNT,
     DECREASE_COUNT,
     DELETE_CURRENT_INGREDIENT,
-    GET_INGREDIENTS_FAILED,
+    GET_INGREDIENTS_ERROR,
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
     INCREASE_BUN_COUNT,
@@ -43,11 +43,12 @@ export const ingredientsReducer = ( state = initialState, action ) => {
                     ...action.ingredients,
                 ]
             };
-        case GET_INGREDIENTS_FAILED:
+        case GET_INGREDIENTS_ERROR:
             return {
                 ...state,
                 ingredientsRequest: false,
                 ingredientsFailed: true,
+                ingredients: []
             };
         case SET_CURRENT_INGREDIENT:
             return {

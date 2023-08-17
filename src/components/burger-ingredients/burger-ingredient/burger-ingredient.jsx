@@ -17,7 +17,7 @@ function BurgerIngredient( { ingredient, handleOpenModal } ) {
     } );
 
     return (
-        <div className={ `${ style.ingredient }` } onClick={ handleOpenModal } style={{ opacity }} ref={dragRef}>
+        <div className={ `${ style.ingredient }` } onClick={ handleOpenModal } style={ { opacity } } ref={ dragRef }>
 
             {
                 count > 0
@@ -37,7 +37,7 @@ function BurgerIngredient( { ingredient, handleOpenModal } ) {
 
 BurgerIngredient.propTypes = {
     ingredient: ingredientType.ingredientType,
-    count: PropTypes.number,
+    handleOpenModal: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredient;

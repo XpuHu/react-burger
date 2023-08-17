@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import style from './burger-ingredients.module.css';
 import BurgerIngredientsHeader from "./burger-ingredients-header/burger-ingredients-header";
 import BurgerIngredientsCategory from "./burger-ingredients-category/burger-ingredients-category";
-import PropTypes from "prop-types";
-import { ingredientsType } from "../../utils/types";
 import Modal from "../modal/modal";
 import IngredientDetails from "./burger-ingredient/ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,11 +20,9 @@ function BurgerIngredients() {
     const { ingredients, ingredientTypes } = useSelector( state => state.ingredients );
     const dispatch = useDispatch();
 
-    useEffect(
-        () => {
-            dispatch( getIngredients() );
-        }, [ dispatch ]
-    );
+    useEffect( () => {
+        dispatch( getIngredients() );
+    }, [ dispatch ] );
 
     useEffect( () => {
         // TODO: Не хардкодить свойства, а подставлять динамически
@@ -40,8 +36,10 @@ function BurgerIngredients() {
             case elementsOffsetTop['main'] < elementsOffsetTop['bun'] && elementsOffsetTop['main'] < elementsOffsetTop['sauce']:
                 dispatch( { type: CHANGE_ACTIVE_TYPE, activeType: 'main' } );
                 break;
+            default:
+                dispatch( { type: CHANGE_ACTIVE_TYPE, activeType: 'bun' } );
         }
-    }, [ elementsOffsetTop ] );
+    }, [ dispatch, elementsOffsetTop ] );
 
     const handleOpenModal = ( ingredient ) => {
         dispatch( { type: SET_CURRENT_INGREDIENT, ingredient } );
@@ -90,10 +88,5 @@ function BurgerIngredients() {
         </section>
     );
 }
-
-BurgerIngredients.propTypes = {
-    ingredients: ingredientsType.ingredients,
-    ingredientTypes: PropTypes.objectOf( PropTypes.string ).isRequired,
-};
 
 export default BurgerIngredients;

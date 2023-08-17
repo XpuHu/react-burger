@@ -5,6 +5,8 @@ import { DELETE_INGREDIENT, UPDATE_INGREDIENTS_ORDER } from "../../../../../serv
 import { DECREASE_COUNT } from "../../../../../services/actions/ingredients";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
+import PropTypes from "prop-types";
+import { ingredientType } from "../../../../../utils/types";
 
 function ConstructorIngredient( { ingredient, ingredientIndex } ) {
 
@@ -15,7 +17,7 @@ function ConstructorIngredient( { ingredient, ingredientIndex } ) {
         dispatch( { type: DELETE_INGREDIENT, id: ingredient.id } );
         dispatch( { type: DECREASE_COUNT, id: ingredient._id } );
     };
-    
+
     const [ { handler }, dropTarget ] = useDrop( {
         accept: 'constructor-ingredient',
         collect: monitor => ({
@@ -84,5 +86,10 @@ function ConstructorIngredient( { ingredient, ingredientIndex } ) {
         </div>
     );
 }
+
+ConstructorIngredient.propTypes = {
+    ingredient: ingredientType.ingredientType,
+    ingredientIndex: PropTypes.number.isRequired,
+};
 
 export default ConstructorIngredient;

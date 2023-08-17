@@ -19,16 +19,16 @@ function BurgerIngredientsHeader( { ingredientTypes } ) {
             <h1 className={ `text text_type_main-large mb-5` }>Соберите бургер</h1>
             <nav className={ `${ style.tabs }` }>
                 {
-                    ingredientTypes.map( ( type, index ) => (
+                    ingredientTypes.map( type => (
                         (type[0] === activeType)
-                            ? <a className={ style.link } href={ `#${ type[0] }` }>
-                                <Tab key={ index } active={ true }
+                            ? <a className={ style.link } href={ `#${ type[0] }` } key={ type[0] }>
+                                <Tab active={ true }
                                      value={ type[0] }
                                      onClick={ ( e ) => onTabClick( e ) }
                                 >{ type[1] }</Tab>
                             </a>
-                            : <a className={ style.link } href={ `#${ type[0] }` }>
-                                <Tab key={ index } active={ false }
+                            : <a className={ style.link } href={ `#${ type[0] }` } key={ type[0] }>
+                                <Tab active={ false }
                                      value={ type[0] }
                                      onClick={ ( e ) => onTabClick( e ) }
                                 >{ type[1] }</Tab>
@@ -43,7 +43,6 @@ function BurgerIngredientsHeader( { ingredientTypes } ) {
 
 BurgerIngredientsHeader.propTypes = {
     ingredientTypes: PropTypes.arrayOf( PropTypes.arrayOf( PropTypes.string ) ).isRequired,
-    activeIndex: PropTypes.number.isRequired,
 };
 
 export default BurgerIngredientsHeader;
