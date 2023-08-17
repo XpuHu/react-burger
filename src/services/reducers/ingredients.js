@@ -1,4 +1,5 @@
 import {
+    CHANGE_ACTIVE_TYPE,
     DECREASE_COUNT,
     DELETE_CURRENT_INGREDIENT,
     GET_INGREDIENTS_FAILED,
@@ -70,6 +71,11 @@ export const ingredientsReducer = ( state = initialState, action ) => {
                     ...ingredient,
                     count: ingredient.count - 1
                 } : ingredient )
+            };
+        case CHANGE_ACTIVE_TYPE:
+            return {
+                ...state,
+                activeType: action.activeType
             };
         default:
             return state;

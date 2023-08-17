@@ -1,9 +1,3 @@
-// Создание экшена одновременно с его типом
-// export const getIngredients = createAction('ingredients/get')
-// const decrement = createAction('counter/decrement')
-// const incrementByAmount = createAction('counter/incrementByAmount')
-// const actionType = createAction('initAction');
-
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
@@ -13,6 +7,8 @@ export const DELETE_CURRENT_INGREDIENT = 'DELETE_CURRENT_INGREDIENT';
 
 export const INCREASE_COUNT = 'INCREASE_COUNT';
 export const DECREASE_COUNT = 'DECREASE_COUNT';
+
+export const CHANGE_ACTIVE_TYPE = 'CHANGE_ACTIVE_TYPE';
 
 
 const INGREDIENTS_URL = 'https://norma.nomoreparties.space/api/ingredients';

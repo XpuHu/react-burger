@@ -2,8 +2,17 @@ import React from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredients-header.module.css';
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { CHANGE_ACTIVE_TYPE } from "../../../services/actions/ingredients";
 
-function BurgerIngredientsHeader( { ingredientTypes, activeIndex } ) {
+function BurgerIngredientsHeader( { ingredientTypes } ) {
+
+    const { activeType } = useSelector( state => state.ingredients );
+    const dispatch = useDispatch();
+
+    const onTabClick = ( e ) => {
+        dispatch( { type: CHANGE_ACTIVE_TYPE, activeType: e } );
+    };
 
     return (
         <header>
@@ -11,11 +20,19 @@ function BurgerIngredientsHeader( { ingredientTypes, activeIndex } ) {
             <nav className={ `${ style.tabs }` }>
                 {
                     ingredientTypes.map( ( type, index ) => (
-                        (index === activeIndex)
-                            ? <Tab key={ index } active={ true } value={ type[0] } onClick={ () => {
-                            } }>{ type[1] }</Tab>
-                            : <Tab key={ index } active={ false } value={ type[0] } onClick={ () => {
-                            } }>{ type[1] }</Tab>
+                        (type[0] === activeType)
+                            ? <a className={ style.link } href={ `#${ type[0] }` }>
+                                <Tab key={ index } active={ true }
+                                     value={ type[0] }
+                                     onClick={ ( e ) => onTabClick( e ) }
+                                >{ type[1] }</Tab>
+                            </a>
+                            : <a className={ style.link } href={ `#${ type[0] }` }>
+                                <Tab key={ index } active={ false }
+                                     value={ type[0] }
+                                     onClick={ ( e ) => onTabClick( e ) }
+                                >{ type[1] }</Tab>
+                            </a>
 
                     ) )
                 }
@@ -27,6 +44,6 @@ function BurgerIngredientsHeader( { ingredientTypes, activeIndex } ) {
 BurgerIngredientsHeader.propTypes = {
     ingredientTypes: PropTypes.arrayOf( PropTypes.arrayOf( PropTypes.string ) ).isRequired,
     activeIndex: PropTypes.number.isRequired,
-}
+};
 
 export default BurgerIngredientsHeader;
