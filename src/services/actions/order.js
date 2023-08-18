@@ -1,14 +1,16 @@
+import { request } from "../../utils/api";
+
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_ERROR = 'GET_ORDER_ERROR';
 
-const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
+const ORDER_METHOD = `orders`;
 
 export const getOrderId = ( ingredientsIds ) => {
     return async ( dispatch ) => {
         dispatch( { type: GET_ORDER_REQUEST } );
         try {
-            const response = await fetch( ORDER_URL, {
+            const options = {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -16,16 +18,11 @@ export const getOrderId = ( ingredientsIds ) => {
                 body: JSON.stringify( {
                     "ingredients": ingredientsIds
                 } )
-            } );
+            };
 
-            const body = await response.json();
+            const body = await request( ORDER_METHOD, options );
 
-            if ( !response.ok ) {
-                throw new Error( `Ошибка ${ response.status } - ${ body.message }` );
-
-            }
-
-            body.success && dispatch( {
+            dispatch( {
                 type: GET_ORDER_SUCCESS,
                 name: body.name,
                 number: body.order.number

@@ -1,3 +1,5 @@
+import { request } from "../../utils/api";
+
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_ERROR';
@@ -14,22 +16,16 @@ export const DECREASE_BUN_COUNT = 'DECREASE_BUN_COUNT';
 export const CHANGE_ACTIVE_TYPE = 'CHANGE_ACTIVE_TYPE';
 
 
-const INGREDIENTS_URL = 'https://norma.nomoreparties.space/api/ingredients';
+const INGREDIENTS_METHOD = `ingredients`;
 
 export const getIngredients = () => {
     return async ( dispatch ) => {
         dispatch( { type: GET_INGREDIENTS_REQUEST } );
         try {
-            const response = await fetch( INGREDIENTS_URL );
+            const body = await request( INGREDIENTS_METHOD );
 
-            if ( !response.ok ) {
-                throw new Error( `Ошибка ${ response.status }` );
-
-            }
-
-            const body = await response.json();
             const ingredients = body.data;
-            body.success && dispatch( {
+            dispatch( {
                 type: GET_INGREDIENTS_SUCCESS,
                 ingredients: ingredients.map( ingredient => ({ ...ingredient, count: 0 }) )
             } );

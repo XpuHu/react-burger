@@ -31,13 +31,6 @@ export const orderReducer = ( state = initialState, action ) => {
                 orderFailed: true,
                 data: {}
             };
-        case 'SET_ORDER_ID':
-            return {
-                ...state,
-                orderRequest: false,
-                orderFailed: false,
-                orderId: action.id
-            };
         default:
             return state;
     }
