@@ -39,7 +39,7 @@ function BurgerIngredients() {
             default:
                 dispatch( { type: CHANGE_ACTIVE_TYPE, activeType: 'bun' } );
         }
-    }, [ dispatch, elementsOffsetTop ] );
+    }, [ elementsOffsetTop ] );
 
     const handleOpenModal = ( ingredient ) => {
         dispatch( { type: SET_CURRENT_INGREDIENT, ingredient } );

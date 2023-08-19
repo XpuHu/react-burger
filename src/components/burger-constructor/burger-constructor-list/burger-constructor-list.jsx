@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import ConstructorIngredientsList from "./cunstructor-ingredients-list/constructor-ingredients-list";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-list.module.css';
@@ -11,10 +11,6 @@ const BurgerConstructorList = memo( () => {
     const { constructorBun } = useSelector( state => state.burgerConstructor );
     const [ showBun, setShowBun ] = useState( false );
     const dispatch = useDispatch();
-
-    useEffect( () => {
-        constructorBun !== null ? setShowBun( true ) : setShowBun( false );
-    }, [ constructorBun ] );
 
     const moveIngredient = ( ingredient ) => {
         dispatch( { type: ADD_INGREDIENT, ingredient } );
@@ -42,7 +38,7 @@ const BurgerConstructorList = memo( () => {
     } );
 
     const content = useMemo( () => {
-        return showBun
+        return constructorBun !== null
             ? (
                 <>
                     <div className={ 'ml-8 mb-4' }>

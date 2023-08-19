@@ -15,6 +15,8 @@ export const DECREASE_BUN_COUNT = 'DECREASE_BUN_COUNT';
 
 export const CHANGE_ACTIVE_TYPE = 'CHANGE_ACTIVE_TYPE';
 
+export const CLEAR_COUNTS = 'CLEAR_COUNTS';
+
 
 const INGREDIENTS_METHOD = `ingredients`;
 

@@ -10,17 +10,23 @@ import { getOrderId } from "../../services/actions/order";
 
 const BurgerConstructor = () => {
     const { constructorIngredientList, constructorBun } = useSelector( state => state.burgerConstructor );
-    const { number } = useSelector( state => state.order.data );
+    const { data } = useSelector( state => state.order );
     const [ showModal, setShowModal ] = useState( false );
     const dispatch = useDispatch();
 
     useEffect( () => {
         dispatch( { type: SET_TOTAL_PRICE } );
-    }, [ dispatch, constructorIngredientList, constructorBun ] );
+    }, [ constructorIngredientList, constructorBun ] );
+
+    useEffect( () => {
+        if ( showModal ) {
+            const orderIngredientsIds = [ constructorBun._id, ...constructorIngredientList.map( ingredient => ingredient._id ), constructorBun._id ];
+            dispatch( getOrderId( orderIngredientsIds ) );
+
+        }
+    }, [ showModal ] );
 
     const handleOpenModal = () => {
-        const orderIngredientsIds = [ constructorBun._id, ...constructorIngredientList.map( ingredient => ingredient._id ), constructorBun._id ];
-        dispatch( getOrderId( orderIngredientsIds ) );
         setShowModal( true );
     };
 
@@ -41,7 +47,7 @@ const BurgerConstructor = () => {
 
             { showModal && (
                 <Modal header={ '' } handleClose={ handleCloseModal }>
-                    <OrderDetails orderId={ transformOrderId( number ) } />
+                    <OrderDetails orderId={ transformOrderId( data.number ) } />
                 </Modal>
             ) }
         </section>
