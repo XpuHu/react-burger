@@ -12,27 +12,22 @@ import {
     SET_CURRENT_INGREDIENT
 } from "../../services/actions/ingredients";
 import { useModal } from "../../hooks/useModal";
+import { Loader } from "../loader/loader";
 
 function BurgerIngredients() {
 
     const [ elementsOffsetTop, setElementsOffsetTop ] = useState( {} );
     const { showModal, openModal, closeModal } = useModal();
 
-    const { ingredients, ingredientTypes } = useSelector( state => state.ingredients );
+    const { ingredients, ingredientTypes, ingredientsRequest } = useSelector( state => state.ingredients );
     const dispatch = useDispatch();
 
+    // Получаем все ингредиенты с сервера
     useEffect( () => {
         dispatch( getIngredients() );
     }, [] );
 
-    useEffect( () => {
-        if ( showModal ) {
-
-        } else {
-            dispatch( { type: DELETE_CURRENT_INGREDIENT } );
-        }
-    }, [ showModal ] );
-
+    // Переключаем табы в зависимости от положения заголовков
     useEffect( () => {
         // TODO: Не хардкодить свойства, а подставлять динамически
         switch ( true ) {
@@ -55,8 +50,14 @@ function BurgerIngredients() {
         openModal();
     };
 
+    const handleCloseModal = () => {
+        dispatch( { type: DELETE_CURRENT_INGREDIENT } );
+        closeModal();
+    };
+
     const types = Object.entries( ingredientTypes );
 
+    // При скроле записываем положение элементов
     const handleScroll = ( e ) => {
         const sectionChildren = e.target.childNodes;
         const headers = [ ...sectionChildren ].filter( section => section.id in ingredientTypes );
@@ -71,21 +72,29 @@ function BurgerIngredients() {
     return (
         <section className={ `${ style.burgerIngredients } pt-10 mr-10` }>
             <BurgerIngredientsHeader ingredientTypes={ types } />
-            <section className={ `${ style.ingredientsCategories } mt-10` } onScroll={ ( e ) => handleScroll( e ) }>
-                {
-                    types.map( type => (
-                        <BurgerIngredientsCategory
-                            key={ type[0] }
-                            title={ type[1] }
-                            ingredients={ ingredients.filter( ( ingredient ) => ingredient.type === type[0] ) }
-                            handleOpenModal={ handleOpenModal }
-                            sectionId={ type[0] }
-                        />
-                    ) )
-                }
-            </section>
+            {
+                ingredientsRequest
+                    ? <Loader />
+                    : (
+                        <section className={ `${ style.ingredientsCategories } mt-10` }
+                                 onScroll={ ( e ) => handleScroll( e ) }
+                        >
+                            { types.map( type => (
+                                <BurgerIngredientsCategory
+                                    key={ type[0] }
+                                    title={ type[1] }
+                                    ingredients={ ingredients.filter( ( ingredient ) => ingredient.type === type[0] ) }
+                                    handleOpenModal={ handleOpenModal }
+                                    sectionId={ type[0] }
+                                />
+                            ) )
+                            }
+                        </section>
+                    )
+            }
+
             { showModal && (
-                <Modal header={ 'Детали ингридиента' } handleClose={ closeModal }>
+                <Modal header={ 'Детали ингридиента' } handleClose={ handleCloseModal }>
                     <IngredientDetails />
                 </Modal>
             ) }
