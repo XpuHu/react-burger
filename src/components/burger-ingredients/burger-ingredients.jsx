@@ -11,18 +11,27 @@ import {
     getIngredients,
     SET_CURRENT_INGREDIENT
 } from "../../services/actions/ingredients";
+import { useModal } from "../../hooks/useModal";
 
 function BurgerIngredients() {
 
-    const [ showModal, setShowModal ] = useState( false );
     const [ elementsOffsetTop, setElementsOffsetTop ] = useState( {} );
+    const { showModal, openModal, closeModal } = useModal();
 
     const { ingredients, ingredientTypes } = useSelector( state => state.ingredients );
     const dispatch = useDispatch();
 
     useEffect( () => {
         dispatch( getIngredients() );
-    }, [ dispatch ] );
+    }, [] );
+
+    useEffect( () => {
+        if ( showModal ) {
+
+        } else {
+            dispatch( { type: DELETE_CURRENT_INGREDIENT } );
+        }
+    }, [ showModal ] );
 
     useEffect( () => {
         // TODO: Не хардкодить свойства, а подставлять динамически
@@ -43,12 +52,7 @@ function BurgerIngredients() {
 
     const handleOpenModal = ( ingredient ) => {
         dispatch( { type: SET_CURRENT_INGREDIENT, ingredient } );
-        setShowModal( true );
-    };
-
-    const handleCloseModal = () => {
-        dispatch( { type: DELETE_CURRENT_INGREDIENT } );
-        setShowModal( false );
+        openModal();
     };
 
     const types = Object.entries( ingredientTypes );
@@ -81,7 +85,7 @@ function BurgerIngredients() {
                 }
             </section>
             { showModal && (
-                <Modal header={ 'Детали ингридиента' } handleClose={ handleCloseModal }>
+                <Modal header={ 'Детали ингридиента' } handleClose={ closeModal }>
                     <IngredientDetails />
                 </Modal>
             ) }
