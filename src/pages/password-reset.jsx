@@ -1,6 +1,6 @@
 import style from "./index.module.css";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { request } from "../utils/api";
 
@@ -10,12 +10,9 @@ export const PasswordResetPage = () => {
         password: '',
         token: ''
     } );
-    const navigate = useNavigate();
 
     const onChange = e => {
-        const field = e.target.name;
-        const value = e.target.value;
-        setData( { ...data, [field]: value } );
+        setData( { ...data, [e.target.name]: e.target.value } );
     };
 
     const resetPassword = async () => {
@@ -29,8 +26,6 @@ export const PasswordResetPage = () => {
             };
 
             await request( 'password-reset/reset', options );
-
-            // navigate( '/reset-password' );
         } catch (e) {
             console.log( 'Произошла ошибка: ', e );
         }
@@ -41,7 +36,7 @@ export const PasswordResetPage = () => {
     };
 
     return (
-        <div className={ style.wrapper }>
+        <div className={ `${ style.wrapper } ${ style.column }` }>
             <p className="text text_type_main-medium">Восстановление пароля</p>
 
             <PasswordInput

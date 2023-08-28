@@ -4,7 +4,7 @@ import style from './index.module.css';
 
 export const LoginPage = () => {
     return (
-        <div className={ style.wrapper }>
+        <div className={ `${ style.wrapper } ${ style.column }` }>
             <p className="text text_type_main-medium">Вход</p>
             <EmailInput value={ '' } name={ 'email' }
                         onChange={ () => {

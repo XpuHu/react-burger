@@ -1,32 +1,67 @@
 import React from 'react';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './app-header.module.css';
+import { NavLink } from "react-router-dom";
 
 function AppHeader() {
     return (
-        <header className={style.header}>
+        <header className={ style.header }>
 
-            <nav className={`${style.mainMenu} text text_type_main-default p-4`}>
+            <nav className={ `${ style.mainMenu } text text_type_main-default p-4` }>
 
-                <nav className={`${style.secondaryMenu} `}>
-                    <a className={`${style.menuItem} ${style.active} pl-5 pr-5 pt-4 pb-4`} href={'/'}>
-                        <BurgerIcon type="primary"/>
-                        <span className={'ml-2'}>Конструктор</span>
-                    </a>
-                    <a className={`${style.menuItem} text_color_inactive ml-2 pl-5 pr-5 pt-4 pb-4`} href={'/'}>
-                        <ListIcon type="secondary"/>
-                        <span className={'ml-2'}>Лента заказов</span>
-                    </a>
+                <nav className={ `${ style.secondaryMenu } ` }>
+
+                    <NavLink to={ '/' } className={ ( { isActive } ) => `${ style.menuItem } 
+                         ${ isActive ? 'text_color_primary' : 'text_color_inactive' } pl-5 pr-5 pt-4 pb-4` }
+                    >
+                        { ( { isActive } ) => (
+                            <>
+                                <BurgerIcon type={ isActive ? 'primary' : 'secondary' } />
+                                <span className={ 'ml-2' }>Конструктор</span>
+                            </>
+                        ) }
+                    </NavLink>
+
+                    <NavLink to={ '/orders' } className={ ( { isActive } ) => `${ style.menuItem } 
+                         ${ isActive ? 'text_color_primary' : 'text_color_inactive' } ml-2 pl-5 pr-5 pt-4 pb-4` }
+                    >
+                        { ( { isActive } ) => (
+                            <>
+                                <ListIcon type={ isActive ? 'primary' : 'secondary' } />
+                                <span className={ 'ml-2' }>Лента заказов</span>
+                            </>
+                        ) }
+                    </NavLink>
+
+                    {/*<NavLink className={ `${ style.menuItem } text_color_inactive ml-2 pl-5 pr-5 pt-4 pb-4` }*/ }
+                    {/*         to={ '/' }*/ }
+                    {/*>*/ }
+                    {/*    <ListIcon type="secondary" />*/ }
+                    {/*    <span className={ 'ml-2' }>Лента заказов</span>*/ }
+                    {/*</NavLink>*/ }
                 </nav>
 
-                <div className={`${style.logo} mt-2 mb-2`}>
-                    <Logo/>
+                <div className={ `${ style.logo } mt-2 mb-2` }>
+                    <Logo />
                 </div>
 
-                <a className={`${style.menuItem} ${style.profile} text_color_inactive pl-5 pr-5 pt-4 pb-4`}  href={'/'}>
-                    <ProfileIcon type="secondary"/>
-                    <span className={'ml-2'}>Личный кабинет</span>
-                </a>
+                <NavLink to={ '/profile' } className={ ( { isActive } ) => `${ style.menuItem } 
+                         ${ isActive ? 'text_color_primary' : 'text_color_inactive' } pl-5 pr-5 pt-4 pb-4` }
+                >
+                    { ( { isActive } ) => (
+                        <>
+                            <ProfileIcon type={ isActive ? 'primary' : 'secondary' } />
+                            <span className={ 'ml-2' }>Личный кабинет</span>
+                        </>
+                    ) }
+                </NavLink>
+                {/*<NavLink to={ '/profile' }*/ }
+                {/*         className={ `${ style.menuItem } ${ style.profile } text_color_inactive pl-5 pr-5 pt-4 pb-4` }*/ }
+                {/*         href={ '/' }*/ }
+                {/*>*/ }
+                {/*    <ProfileIcon type="secondary" />*/ }
+                {/*    <span className={ 'ml-2' }>Личный кабинет</span>*/ }
+                {/*</NavLink>*/ }
 
             </nav>
 

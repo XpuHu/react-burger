@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 export const RegisterPage = () => {
     return (
-        <div className={ style.wrapper }>
+        <div className={ `${ style.wrapper } ${ style.column }` }>
             <p className="text text_type_main-medium">Регистрация</p>
             <Input
                 type={ 'text' }

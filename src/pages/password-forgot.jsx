@@ -37,7 +37,7 @@ export const PasswordForgotPage = () => {
     };
 
     return (
-        <div className={ style.wrapper }>
+        <div className={ `${ style.wrapper } ${ style.column }` }>
             <p className="text text_type_main-medium">Восстановление пароля</p>
 
             <EmailInput

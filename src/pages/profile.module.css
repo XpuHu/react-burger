@@ -1,31 +1,18 @@
 .wrapper {
     margin: auto;
     display: flex;
-    align-items: center;
-}
-
-.link {
-    text-decoration: none;
-    color: #4C4CFF;
 }
 
 .column {
     flex-direction: column;
-
 }
 
 .profileLink {
     text-decoration: none;
-}
-
-.active {
-    color: #F2F2F3;
+    display: flex;
+    height: 64px;
 }
 
 .menu {
     width: 320px;
-}
-
-.menuItem {
-    height: 64px;
 }
