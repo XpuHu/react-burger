@@ -32,13 +32,6 @@ function AppHeader() {
                             </>
                         ) }
                     </NavLink>
-
-                    {/*<NavLink className={ `${ style.menuItem } text_color_inactive ml-2 pl-5 pr-5 pt-4 pb-4` }*/ }
-                    {/*         to={ '/' }*/ }
-                    {/*>*/ }
-                    {/*    <ListIcon type="secondary" />*/ }
-                    {/*    <span className={ 'ml-2' }>Лента заказов</span>*/ }
-                    {/*</NavLink>*/ }
                 </nav>
 
                 <div className={ `${ style.logo } mt-2 mb-2` }>
@@ -55,14 +48,6 @@ function AppHeader() {
                         </>
                     ) }
                 </NavLink>
-                {/*<NavLink to={ '/profile' }*/ }
-                {/*         className={ `${ style.menuItem } ${ style.profile } text_color_inactive pl-5 pr-5 pt-4 pb-4` }*/ }
-                {/*         href={ '/' }*/ }
-                {/*>*/ }
-                {/*    <ProfileIcon type="secondary" />*/ }
-                {/*    <span className={ 'ml-2' }>Личный кабинет</span>*/ }
-                {/*</NavLink>*/ }
-
             </nav>
 
         </header>

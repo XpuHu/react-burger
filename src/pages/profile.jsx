@@ -4,10 +4,6 @@ import { EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-
 
 export const ProfilePage = () => {
 
-    const onClick = ( e ) => {
-        console.log( e.target.style );
-    };
-
     return (
         <div className={ style.wrapper }>
             <nav className={ `${ style.column } ${ style.menu } mr-15` }>
@@ -16,7 +12,6 @@ export const ProfilePage = () => {
                          className={ ( { isActive } ) => `${ style.profileLink } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } text text_type_main-medium ` }
                 >
-                    {/*<p>Профиль</p>*/ }
                     Профиль
                 </NavLink>
 
@@ -24,7 +19,6 @@ export const ProfilePage = () => {
                          className={ ( { isActive } ) => `${ style.profileLink } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } text text_type_main-medium ` }
                 >
-                    {/*<p>История заказов</p>*/ }
                     История заказов
                 </NavLink>
 
@@ -32,7 +26,6 @@ export const ProfilePage = () => {
                          className={ ( { isActive } ) => `${ style.profileLink } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } text text_type_main-medium ` }
                 >
-                    {/*<p>Выход</p>*/ }
                     Выход
                 </NavLink>
 
