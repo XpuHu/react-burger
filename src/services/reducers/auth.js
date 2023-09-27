@@ -1,4 +1,7 @@
 import {
+    GET_USER_ERROR,
+    GET_USER_REQUEST,
+    GET_USER_SUCCESS,
     SET_LOGIN_ERROR,
     SET_LOGIN_REQUEST,
     SET_LOGIN_SUCCESS,
@@ -10,10 +13,17 @@ import {
     SET_REGISTER_SUCCESS,
     SET_UPDATE_TOKEN_ERROR,
     SET_UPDATE_TOKEN_REQUEST,
-    SET_UPDATE_TOKEN_SUCCESS
+    SET_UPDATE_TOKEN_SUCCESS,
+    SET_USER_ERROR,
+    SET_USER_REQUEST,
+    SET_USER_SUCCESS
 } from "../actions/auth";
 
 const initialState = {
+    // user: {
+    //     "email": "xpuhu@yandex.ru",
+    //     "name": "XpuHu"
+    // },
     user: null,
     isAuthorized: false,
 
@@ -27,7 +37,12 @@ const initialState = {
     logoutFailed: false,
 
     updateTokenRequest: false,
-    updateTokenFailed: false
+    updateTokenFailed: false,
+
+    getUserRequest: false,
+    getUserFailed: false,
+    updateUserRequest: false,
+    updateUserFailed: false
 };
 
 export const authReducer = ( state = initialState, action ) => {
@@ -107,6 +122,44 @@ export const authReducer = ( state = initialState, action ) => {
                 ...state,
                 logoutRequest: false,
                 logoutFailed: true
+            };
+        case GET_USER_REQUEST:
+            return {
+                ...state,
+                getUserRequest: true,
+                getUserFailed: false
+            };
+        case GET_USER_SUCCESS:
+            return {
+                ...state,
+                getUserRequest: false,
+                getUserFailed: false,
+                user: action.payload
+            };
+        case GET_USER_ERROR:
+            return {
+                ...state,
+                getUserRequest: false,
+                getUserFailed: true
+            };
+        case SET_USER_REQUEST:
+            return {
+                ...state,
+                updateUserRequest: true,
+                updateUserFailed: false
+            };
+        case SET_USER_SUCCESS:
+            return {
+                ...state,
+                updateUserRequest: false,
+                updateUserFailed: false,
+                user: action.payload
+            };
+        case SET_USER_ERROR:
+            return {
+                ...state,
+                updateUserRequest: false,
+                updateUserFailed: true
             };
         default:
             return state;

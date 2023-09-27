@@ -1,8 +1,16 @@
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import style from './index.module.css';
+import { useSelector } from "react-redux";
 
 export const LoginPage = () => {
+    const { user } = useSelector( state => state.auth );
+    if ( user ) {
+        return (
+            <Navigate to={ '/' } />
+        );
+    }
+    
     return (
         <div className={ `${ style.wrapper } ${ style.column }` }>
             <p className="text text_type_main-medium">Вход</p>

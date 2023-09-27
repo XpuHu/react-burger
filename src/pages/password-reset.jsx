@@ -1,8 +1,9 @@
 import style from "./index.module.css";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { request } from "../utils/api";
+import { useSelector } from "react-redux";
 
 export const PasswordResetPage = () => {
 
@@ -10,6 +11,25 @@ export const PasswordResetPage = () => {
         password: '',
         token: ''
     } );
+
+    const { user } = useSelector( state => state.auth );
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect( () => {
+        console.log( location );
+        if ( !location.state ) {
+            navigate( "/forgot-password", { replace: true } );
+        }
+
+    }, [] );
+
+    if ( user ) {
+        return (
+            <Navigate to={ '/' } />
+        );
+    }
 
     const onChange = e => {
         setData( { ...data, [e.target.name]: e.target.value } );
