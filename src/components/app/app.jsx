@@ -1,7 +1,5 @@
-import React from 'react';
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import AppHeader from "../app-header/app-header";
-import './app.module.css';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
     ConstructorPage,
     IngredientPage,
@@ -13,14 +11,26 @@ import {
     RegisterPage
 } from "../../pages";
 import { ProtectedRoute } from "../protected-route/protected-route";
+import Modal from "../modal/modal";
+import IngredientDetails from "../burger-ingredients/burger-ingredient/ingredient-details/ingredient-details";
+
 
 function App() {
+    const location = useLocation();
+    const prevLocation = location.state?.prevLocation;
+
+    // const { showModal, openModal, closeModal } = useModal();
+    const navigate = useNavigate();
+    const closeModal = () => {
+        navigate( -1 );
+    };
+
     return (
-        <BrowserRouter>
+        <>
             <AppHeader />
 
             <main className={ `text text_type_main-default` }>
-                <Routes>
+                <Routes location={ prevLocation || location }>
                     <Route path="/" element={ <ConstructorPage /> } />
 
                     <Route path="/login" element={ <LoginPage /> } />
@@ -36,8 +46,21 @@ function App() {
 
                     <Route path="/not-found" element={ <NotFoundPage /> } />
                 </Routes>
+                {
+                    prevLocation && (
+                        <Routes>
+                            <Route path="/ingredients/:id" element={
+                                <Modal header={ 'Детали ингридиента' } handleClose={ closeModal }>
+                                    <IngredientDetails />
+                                </Modal>
+                            }
+                            />
+                        </Routes>
+                    )
+                }
+
             </main>
-        </BrowserRouter>
+        </>
     );
 }
 

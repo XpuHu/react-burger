@@ -12,3 +12,8 @@
 .description {
     line-height: 24px;
 }
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}

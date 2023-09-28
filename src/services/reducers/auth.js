@@ -115,7 +115,8 @@ export const authReducer = ( state = initialState, action ) => {
                 ...state,
                 logoutRequest: false,
                 logoutFailed: false,
-                user: null
+                user: null,
+                isAuthorized: false
             };
         case SET_LOGOUT_ERROR:
             return {
@@ -134,7 +135,7 @@ export const authReducer = ( state = initialState, action ) => {
                 ...state,
                 getUserRequest: false,
                 getUserFailed: false,
-                user: action.payload
+                user: action.payload,
             };
         case GET_USER_ERROR:
             return {

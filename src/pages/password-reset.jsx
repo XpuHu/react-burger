@@ -18,7 +18,6 @@ export const PasswordResetPage = () => {
     const navigate = useNavigate();
 
     useEffect( () => {
-        console.log( location );
         if ( !location.state ) {
             navigate( "/forgot-password", { replace: true } );
         }

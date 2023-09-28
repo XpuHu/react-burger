@@ -8,12 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SET_TOTAL_PRICE } from "../../services/actions/constructor";
 import { getOrderId } from "../../services/actions/order";
 import { useModal } from "../../hooks/useModal";
+import { useNavigate } from "react-router-dom";
 
 const BurgerConstructor = () => {
     const { constructorIngredientList, constructorBun } = useSelector( state => state.burgerConstructor );
     const { data } = useSelector( state => state.order );
+    const { isAuthorized } = useSelector( state => state.auth );
+
     const { showModal, openModal, closeModal } = useModal();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect( () => {
         dispatch( { type: SET_TOTAL_PRICE } );
@@ -22,7 +26,7 @@ const BurgerConstructor = () => {
     useEffect( () => {
         if ( showModal ) {
             const orderIngredientsIds = [ constructorBun._id, ...constructorIngredientList.map( ingredient => ingredient._id ), constructorBun._id ];
-            dispatch( getOrderId( orderIngredientsIds ) );
+            isAuthorized ? dispatch( getOrderId( orderIngredientsIds ) ) : navigate( '/login', { replace: true } );
         }
     }, [ showModal ] );
 

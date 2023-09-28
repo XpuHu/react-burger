@@ -9,6 +9,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
+import { BrowserRouter } from "react-router-dom";
 
 export const store = configureStore( {
     reducer: rootReducer,
@@ -22,7 +23,9 @@ root.render(
     <React.StrictMode>
         <Provider store={ store }>
             <DndProvider backend={ HTML5Backend }>
-                <App />
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
             </DndProvider>
         </Provider>
     </React.StrictMode>
