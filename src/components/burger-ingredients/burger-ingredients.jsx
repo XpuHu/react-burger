@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     CHANGE_ACTIVE_TYPE,
     DELETE_CURRENT_INGREDIENT,
-    getIngredients,
     SET_CURRENT_INGREDIENT
 } from "../../services/actions/ingredients";
 import { Loader } from "../loader/loader";
@@ -14,15 +13,9 @@ import { Loader } from "../loader/loader";
 function BurgerIngredients() {
 
     const [ elementsOffsetTop, setElementsOffsetTop ] = useState( {} );
-    // const { showModal, openModal, closeModal } = useModal();
 
     const { ingredients, ingredientTypes, ingredientsRequest } = useSelector( state => state.ingredients );
     const dispatch = useDispatch();
-
-    // Получаем все ингредиенты с сервера
-    useEffect( () => {
-        dispatch( getIngredients() );
-    }, [] );
 
     // Переключаем табы в зависимости от положения заголовков
     useEffect( () => {
@@ -44,12 +37,10 @@ function BurgerIngredients() {
 
     const handleOpenModal = ( ingredient ) => {
         dispatch( { type: SET_CURRENT_INGREDIENT, ingredient } );
-        // openModal();
     };
 
     const handleCloseModal = () => {
         dispatch( { type: DELETE_CURRENT_INGREDIENT } );
-        // closeModal();
     };
 
     const types = Object.entries( ingredientTypes );
@@ -89,12 +80,6 @@ function BurgerIngredients() {
                         </section>
                     )
             }
-
-            {/*{ showModal && (*/ }
-            {/*    <Modal header={ 'Детали ингридиента' } handleClose={ handleCloseModal }>*/ }
-            {/*        <IngredientDetails />*/ }
-            {/*    </Modal>*/ }
-            {/*) }*/ }
         </section>
     );
 }

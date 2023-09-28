@@ -14,17 +14,23 @@ import {
 import { ProtectedRoute } from "../protected-route/protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../burger-ingredients/burger-ingredient/ingredient-details/ingredient-details";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getIngredients } from "../../services/actions/ingredients";
 
 
 function App() {
     const location = useLocation();
-    const prevLocation = location.state?.prevLocation;
-
-    // const { showModal, openModal, closeModal } = useModal();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const closeModal = () => {
-        navigate( -1 );
-    };
+
+    // const prevLocation = location.state?.prevLocation;
+    const prevLocation = location.state && location.state.prevLocation;
+
+    // Получаем все ингредиенты с сервера
+    useEffect( () => {
+        dispatch( getIngredients() );
+    }, [] );
 
     return (
         <>
@@ -45,13 +51,13 @@ function App() {
 
                     <Route path="/ingredients/:id" element={ <IngredientPage /> } />
 
-                    <Route path="/not-found" element={ <NotFoundPage /> } />
+                    <Route path="*" element={ <NotFoundPage /> } />
                 </Routes>
                 {
                     prevLocation && (
                         <Routes>
                             <Route path="/ingredients/:id" element={
-                                <Modal header={ 'Детали ингридиента' } handleClose={ closeModal }>
+                                <Modal header={ 'Детали ингридиента' } handleClose={ () => navigate( '/' ) }>
                                     <IngredientDetails />
                                 </Modal>
                             }

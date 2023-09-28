@@ -7,9 +7,9 @@ import thunk from 'redux-thunk';
 import { initialState, rootReducer } from './services/reducers';
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DndProvider } from "react-dnd";
 import { BrowserRouter } from "react-router-dom";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export const store = configureStore( {
     reducer: rootReducer,
