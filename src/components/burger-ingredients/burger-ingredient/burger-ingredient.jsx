@@ -19,13 +19,13 @@ function BurgerIngredient( { ingredient, handleOpenModal } ) {
     } );
 
     return (
-        <Link to={ `/ingredients/${ ingredient._id }` } className={ style.link }
-              state={ { prevLocation: location } }
-        >
-            <div className={ `${ style.ingredient }` } onClick={ handleOpenModal } style={ { opacity } }
-                 ref={ dragRef }
-            >
 
+        <div className={ `${ style.ingredient }` } onClick={ handleOpenModal } style={ { opacity } }
+             ref={ dragRef }
+        >
+            <Link to={ `/ingredients/${ ingredient._id }` } className={ style.link }
+                  state={ { prevLocation: location } }
+            >
                 {
                     count > 0
                         ? <Counter count={ count } />
@@ -38,8 +38,9 @@ function BurgerIngredient( { ingredient, handleOpenModal } ) {
                     <span className={ `ml-2` }><CurrencyIcon type="primary" /></span>
                 </p>
                 <p className={ `${ style.description } text text_type_main-default` }>{ name }</p>
-            </div>
-        </Link>
+            </Link>
+        </div>
+
     );
 }
 
