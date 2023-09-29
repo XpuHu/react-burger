@@ -1,5 +1,11 @@
-import { request } from "../../utils/api";
-import { registerRequest } from "../../utils/auth";
+import {
+    getUserRequest,
+    loginRequest,
+    logoutRequest,
+    registerRequest,
+    updateTokenRequest,
+    updateUserRequest
+} from "../../utils/auth";
 
 export const SET_REGISTER_REQUEST = 'SET_REGISTER_REQUEST';
 export const SET_REGISTER_SUCCESS = 'SET_REGISTER_SUCCESS';
@@ -25,24 +31,11 @@ export const SET_USER_REQUEST = 'SET_USER_REQUEST';
 export const SET_USER_SUCCESS = 'SET_USER_SUCCESS';
 export const SET_USER_ERROR = 'SET_USER_ERROR';
 
-const ENDPOINT = 'auth';
-
 export const login = ( payload ) => {
     return async ( dispatch ) => {
         dispatch( { type: SET_LOGIN_REQUEST } );
         try {
-            const options = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify( {
-                    "email": payload.email,
-                    "password": payload.password
-                } )
-            };
-
-            const data = await request( `${ ENDPOINT }/login`, options );
+            const data = await loginRequest( payload );
 
             const accessToken = data.accessToken.split( 'Bearer ' )[1];
             const refreshToken = data.refreshToken;
@@ -77,17 +70,7 @@ export const logout = () => {
     return async ( dispatch ) => {
         dispatch( { type: SET_LOGOUT_REQUEST } );
         try {
-            const options = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify( {
-                    "token": localStorage.getItem( 'refreshToken' )
-                } )
-            };
-
-            await request( `${ ENDPOINT }/logout`, options );
+            await logoutRequest();
             dispatch( { type: SET_LOGOUT_SUCCESS } );
 
             localStorage.removeItem( 'refreshToken' );
@@ -96,7 +79,6 @@ export const logout = () => {
             console.log( 'Произошла ошибка: ', e );
             dispatch( { type: SET_LOGOUT_ERROR } );
         }
-
     };
 };
 
@@ -104,17 +86,7 @@ export const updateToken = () => {
     return async ( dispatch ) => {
         dispatch( { type: SET_UPDATE_TOKEN_REQUEST } );
         try {
-            const options = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify( {
-                    "token": localStorage.getItem( 'refreshToken' ),
-                } )
-            };
-
-            const data = await request( `${ ENDPOINT }/token`, options );
+            const data = await updateTokenRequest();
 
             const accessToken = data.accessToken.split( 'Bearer ' )[1];
             localStorage.setItem( 'accessToken', accessToken );
@@ -131,16 +103,7 @@ export const getUser = () => {
     return async ( dispatch ) => {
         dispatch( { type: GET_USER_REQUEST } );
         try {
-            const options = {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${ localStorage.getItem( 'accessToken' ) }`
-                }
-            };
-
-            const data = await request( `${ ENDPOINT }/user`, options );
-            console.log( data );
+            const data = await getUserRequest();
 
             dispatch( { type: GET_USER_SUCCESS, payload: data.user } );
         } catch (e) {
@@ -159,20 +122,7 @@ export const updateUser = ( payload ) => {
     return async ( dispatch ) => {
         dispatch( { type: SET_USER_REQUEST } );
         try {
-            const options = {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${ localStorage.getItem( 'accessToken' ) }`
-                },
-                body: JSON.stringify( {
-                    "email": payload.email,
-                    "password": payload.password,
-                    "name": payload.firstName
-                } )
-            };
-
-            const data = await request( `${ ENDPOINT }/user`, options );
+            const data = await updateUserRequest( payload );
 
             dispatch( { type: SET_USER_SUCCESS, payload: data.user } );
         } catch (e) {

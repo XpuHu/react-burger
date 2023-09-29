@@ -1,19 +1,17 @@
 import style from "./index.module.css";
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { request } from "../utils/api";
 import { useSelector } from "react-redux";
 
 export const PasswordForgotPage = () => {
-    const [ value, setValue ] = useState( 'xpuhu@yandex.ru' );
+    const [ value, setValue ] = useState();
     const navigate = useNavigate();
-    const { user } = useSelector( state => state.auth );
+    const { isAuthorized } = useSelector( state => state.auth );
 
-    if ( user ) {
-        return (
-            <Navigate to={ '/' } />
-        );
+    if ( isAuthorized ) {
+        navigate( '/' );
     }
 
     const onChange = e => {

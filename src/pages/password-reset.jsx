@@ -1,6 +1,6 @@
 import style from "./index.module.css";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Navigate, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { request } from "../utils/api";
 import { useSelector } from "react-redux";
@@ -12,7 +12,7 @@ export const PasswordResetPage = () => {
         token: ''
     } );
 
-    const { user } = useSelector( state => state.auth );
+    const { isAuthorized } = useSelector( state => state.auth );
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -22,12 +22,10 @@ export const PasswordResetPage = () => {
             navigate( "/forgot-password", { replace: true } );
         }
 
-    }, [] );
+    }, [ navigate, location.state ] );
 
-    if ( user ) {
-        return (
-            <Navigate to={ '/' } />
-        );
+    if ( isAuthorized ) {
+        navigate( '/' );
     }
 
     const onChange = e => {
@@ -46,6 +44,8 @@ export const PasswordResetPage = () => {
             };
 
             await request( 'password-reset/reset', options );
+
+            navigate( '/login' )
         } catch (e) {
             console.log( 'Произошла ошибка: ', e );
         }

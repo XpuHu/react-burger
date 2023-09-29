@@ -9,8 +9,8 @@ export const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [ data, setData ] = useState( {
-        email: 'xpuhu@yandex.ru',
-        password: 'testtest'
+        email: '',
+        password: ''
     } );
 
     const { isAuthorized } = useSelector( state => state.auth );
