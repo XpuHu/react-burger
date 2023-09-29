@@ -9,15 +9,17 @@ const defaultHeader = {
 export const registerRequest = async ( payload ) => {
     const options = {
         method: "POST",
-        headers: defaultHeader,
+        headers: {
+            ...defaultHeader,
+        },
         body: JSON.stringify( {
             "email": payload.email,
             "password": payload.password,
-            "name": payload.name
+            "name": payload.firstName
         } )
     };
 
     const body = await request( `${ ENDPOINT }/register`, options );
 
-    return body.data;
+    return body;
 };

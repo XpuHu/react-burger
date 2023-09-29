@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 export const ProtectedRoute = ( { element } ) => {
-    const { user } = useSelector( state => state.auth );
+    const { isAuthorized } = useSelector( state => state.auth );
     const [ isUserLoaded, setUserLoaded ] = useState( false );
 
     const init = async () => {
@@ -20,5 +20,5 @@ export const ProtectedRoute = ( { element } ) => {
         return null;
     }
 
-    return user ? element : <Navigate to="/login" replace />;
+    return isAuthorized ? element : <Navigate to="/login" replace />;
 };

@@ -16,3 +16,8 @@
 .menu {
     width: 320px;
 }
+
+.submit {
+    display: flex;
+    justify-content: flex-end;
+}

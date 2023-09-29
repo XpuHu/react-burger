@@ -1,8 +1,74 @@
 import style from "./profile.module.css";
-import { NavLink } from "react-router-dom";
-import { EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink, useNavigate } from "react-router-dom";
+import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, logout, updateUser } from "../services/actions/auth";
 
 export const ProfilePage = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { user } = useSelector( state => state.auth );
+    const [ data, setData ] = useState( {
+        firstName: user.name,
+        email: user.email,
+        password: ''
+    } );
+
+    const [ isDisabledFields, setIsDisabledFields ] = useState( {
+        firstName: true,
+        email: true,
+        password: true
+    } );
+
+    const [ isDataChanged, setIsDataChanged ] = useState( false );
+
+    useEffect( () => {
+        dispatch( getUser() );
+    }, [] );
+
+    // useEffect( () => {
+    //     setIsDataChanged( true );
+    // }, [ data ] );
+
+    const onChange = e => {
+        setData( { ...data, [e.target.name]: e.target.value } );
+        setIsDataChanged( true );
+    };
+
+    const onIconClick = ( fieldName ) => {
+        setIsDisabledFields( { ...isDisabledFields, [fieldName]: !isDisabledFields[fieldName] } );
+    };
+
+    const onLogout = () => {
+        dispatch( logout() );
+        navigate( '/', { replace: true, state: { from: 'profile' } } );
+    };
+
+    const submitData = () => {
+        dispatch( updateUser( data ) );
+        setIsDisabledFields( {
+            firstName: true,
+            email: true,
+            password: true
+        } );
+        setIsDataChanged( false );
+    };
+
+    const resetData = () => {
+        setData( {
+            firstName: user.name,
+            email: user.email,
+            password: ''
+        } );
+        setIsDisabledFields( {
+            firstName: true,
+            email: true,
+            password: true
+        } );
+        setIsDataChanged( false );
+    };
 
     return (
         <div className={ style.wrapper }>
@@ -22,7 +88,7 @@ export const ProfilePage = () => {
                     История заказов
                 </NavLink>
 
-                <NavLink to={ '/profile/orders' }
+                <NavLink to={ '/' } onClick={ onLogout }
                          className={ ( { isActive } ) => `${ style.profileLink } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } text text_type_main-medium ` }
                 >
@@ -37,38 +103,52 @@ export const ProfilePage = () => {
                 <Input
                     type={ 'text' }
                     placeholder={ 'Имя' }
-                    onChange={ e => {
-                    } }
+                    onChange={ ( e ) => onChange( e ) }
                     icon={ 'EditIcon' }
-                    value={ '' }
+                    value={ data.firstName }
                     name={ 'firstName' }
                     error={ false }
                     ref={ null }
-                    onIconClick={ () => {
-                    } }
+                    onIconClick={ () => onIconClick( 'firstName' ) }
                     errorText={ 'Ошибка' }
                     size={ 'default' }
-                    disabled={ true }
+                    disabled={ isDisabledFields['firstName'] }
                     extraClass="mb-6"
                 />
                 <EmailInput
-                    onChange={ () => {
-                    } }
-                    value={ '' }
+                    onChange={ ( e ) => onChange( e ) }
+                    value={ data.email }
                     name={ 'email' }
                     placeholder="Логин"
                     isIcon={ true }
-                    disabled={ true }
+                    disabled={ isDisabledFields['email'] }
+                    onIconClick={ () => onIconClick( 'email' ) }
                     extraClass="mb-6"
                 />
                 <PasswordInput
-                    onChange={ () => {
-                    } }
-                    value={ '' }
+                    onChange={ ( e ) => onChange( e ) }
+                    value={ data.password }
                     name={ 'password' }
                     icon="EditIcon"
-                    disabled={ true }
+                    disabled={ isDisabledFields['password'] }
+                    onIconClick={ () => onIconClick( 'password' ) }
                 />
+
+                {
+                    isDataChanged && (
+                        <div className={ `${ style.submit } mt-6` }>
+                            <Button htmlType="button" type="secondary" size="medium" onClick={ resetData }
+                            >
+                                Отмена
+                            </Button>
+                            <Button htmlType="button" type="primary" size="medium" onClick={ submitData }
+                            >
+                                Сохранить
+                            </Button>
+                        </div>
+                    )
+                }
+
             </div>
         </div>
     );

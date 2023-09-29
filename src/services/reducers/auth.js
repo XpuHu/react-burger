@@ -20,12 +20,8 @@ import {
 } from "../actions/auth";
 
 const initialState = {
-    // user: {
-    //     "email": "xpuhu@yandex.ru",
-    //     "name": "XpuHu"
-    // },
     user: null,
-    isAuthorized: true,
+    isAuthorized: false,
 
     registerRequest: false,
     registerFailed: false,
@@ -77,7 +73,7 @@ export const authReducer = ( state = initialState, action ) => {
                 ...state,
                 loginRequest: false,
                 loginFailed: false,
-                user: action.payload.user,
+                user: action.payload,
                 isAuthorized: true
             };
         case SET_LOGIN_ERROR:
@@ -136,6 +132,7 @@ export const authReducer = ( state = initialState, action ) => {
                 getUserRequest: false,
                 getUserFailed: false,
                 user: action.payload,
+                isAuthorized: true
             };
         case GET_USER_ERROR:
             return {

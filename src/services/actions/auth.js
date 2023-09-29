@@ -34,7 +34,7 @@ export const login = ( payload ) => {
             const options = {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify( {
                     "email": payload.email,
@@ -42,9 +42,8 @@ export const login = ( payload ) => {
                 } )
             };
 
-            const body = await request( `${ ENDPOINT }/login`, options );
+            const data = await request( `${ ENDPOINT }/login`, options );
 
-            const data = body.data;
             const accessToken = data.accessToken.split( 'Bearer ' )[1];
             const refreshToken = data.refreshToken;
 
@@ -74,14 +73,14 @@ export const register = ( payload ) => {
     };
 };
 
-export const logout = ( payload ) => {
+export const logout = () => {
     return async ( dispatch ) => {
         dispatch( { type: SET_LOGOUT_REQUEST } );
         try {
             const options = {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify( {
                     "token": localStorage.getItem( 'refreshToken' )
@@ -90,6 +89,9 @@ export const logout = ( payload ) => {
 
             await request( `${ ENDPOINT }/logout`, options );
             dispatch( { type: SET_LOGOUT_SUCCESS } );
+
+            localStorage.removeItem( 'refreshToken' );
+            localStorage.removeItem( 'accessToken' );
         } catch (e) {
             console.log( 'Произошла ошибка: ', e );
             dispatch( { type: SET_LOGOUT_ERROR } );
@@ -112,8 +114,7 @@ export const updateToken = () => {
                 } )
             };
 
-            const body = await request( `${ ENDPOINT }/token`, options );
-            const data = body.data;
+            const data = await request( `${ ENDPOINT }/token`, options );
 
             const accessToken = data.accessToken.split( 'Bearer ' )[1];
             localStorage.setItem( 'accessToken', accessToken );
@@ -134,22 +135,27 @@ export const getUser = () => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem( 'accessToken' )
+                    "Authorization": `Bearer ${ localStorage.getItem( 'accessToken' ) }`
                 }
             };
 
-            const body = await request( `${ ENDPOINT }/user`, options );
-            const data = body.data;
+            const data = await request( `${ ENDPOINT }/user`, options );
+            console.log( data );
 
             dispatch( { type: GET_USER_SUCCESS, payload: data.user } );
         } catch (e) {
-            console.log( 'Произошла ошибка: ', e );
-            dispatch( { type: GET_USER_ERROR } );
+            if ( e === "jwt expired" ) {
+                dispatch( updateToken() );
+            } else {
+                console.log( 'Произошла ошибка: ', e );
+                dispatch( { type: GET_USER_ERROR } );
+            }
+
         }
     };
 };
 
-export const updateUser = () => {
+export const updateUser = ( payload ) => {
     return async ( dispatch ) => {
         dispatch( { type: SET_USER_REQUEST } );
         try {
@@ -157,17 +163,25 @@ export const updateUser = () => {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem( 'accessToken' )
-                }
+                    "Authorization": `Bearer ${ localStorage.getItem( 'accessToken' ) }`
+                },
+                body: JSON.stringify( {
+                    "email": payload.email,
+                    "password": payload.password,
+                    "name": payload.firstName
+                } )
             };
 
-            const body = await request( `${ ENDPOINT }/user`, options );
-            const data = body.data;
+            const data = await request( `${ ENDPOINT }/user`, options );
 
             dispatch( { type: SET_USER_SUCCESS, payload: data.user } );
         } catch (e) {
-            console.log( 'Произошла ошибка: ', e );
-            dispatch( { type: SET_USER_ERROR } );
+            if ( e === "jwt expired" ) {
+                dispatch( updateToken() );
+            } else {
+                console.log( 'Произошла ошибка: ', e );
+                dispatch( { type: SET_USER_ERROR } );
+            }
         }
     };
 };

@@ -17,6 +17,7 @@ import IngredientDetails from "../burger-ingredients/burger-ingredient/ingredien
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredients";
+import { getUser } from "../../services/actions/auth";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
     // Получаем все ингредиенты с сервера
     useEffect( () => {
         dispatch( getIngredients() );
+        dispatch( getUser() );
     }, [] );
 
     return (
