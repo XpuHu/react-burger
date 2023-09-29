@@ -28,10 +28,6 @@ export const ProfilePage = () => {
         dispatch( getUser() );
     }, [] );
 
-    // useEffect( () => {
-    //     setIsDataChanged( true );
-    // }, [ data ] );
-
     const onChange = e => {
         setData( { ...data, [e.target.name]: e.target.value } );
         setIsDataChanged( true );
@@ -43,7 +39,7 @@ export const ProfilePage = () => {
 
     const onLogout = () => {
         dispatch( logout() );
-        navigate( '/', { replace: true, state: { from: 'profile' } } );
+        navigate( '/login' );
     };
 
     const submitData = () => {
@@ -88,7 +84,7 @@ export const ProfilePage = () => {
                     История заказов
                 </NavLink>
 
-                <NavLink to={ '/' } onClick={ onLogout }
+                <NavLink to={ '/login' } onClick={ onLogout }
                          className={ ( { isActive } ) => `${ style.profileLink } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } text text_type_main-medium ` }
                 >
