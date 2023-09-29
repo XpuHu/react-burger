@@ -57,7 +57,7 @@ function App() {
                     prevLocation && (
                         <Routes>
                             <Route path="/ingredients/:id" element={
-                                <Modal header={ 'Детали ингридиента' } handleClose={ () => navigate( '/' ) }>
+                                <Modal handleClose={ () => navigate( '/' ) }>
                                     <IngredientDetails />
                                 </Modal>
                             }

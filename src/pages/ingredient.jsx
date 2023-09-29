@@ -3,8 +3,8 @@ import IngredientDetails
 
 export const IngredientPage = () => {
     return (
-        <div>
+        <main className={ 'mt-20' }>
             <IngredientDetails />
-        </div>
+        </main>
     );
 };

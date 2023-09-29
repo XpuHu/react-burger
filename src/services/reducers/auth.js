@@ -25,7 +25,7 @@ const initialState = {
     //     "name": "XpuHu"
     // },
     user: null,
-    isAuthorized: false,
+    isAuthorized: true,
 
     registerRequest: false,
     registerFailed: false,

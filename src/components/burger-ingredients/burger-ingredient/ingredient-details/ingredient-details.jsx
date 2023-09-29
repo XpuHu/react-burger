@@ -23,7 +23,8 @@ function IngredientDetails() {
     } = ingredient;
 
     return (
-        <>
+        <div className={ style.wrapper }>
+            <h2 className={ `${ style.header } text text_type_main-large mt-10` }>Детали ингридиента</h2>
             <img className={ `${ style.imgLarge } pl-5 pr-5 mb-4` } src={ imgLarge }
                  alt={ name }
             />
@@ -46,7 +47,7 @@ function IngredientDetails() {
                     <span className={ `text_type_digits-default` }>{ carbohydrates }</span>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 
