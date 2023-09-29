@@ -2,7 +2,7 @@ import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer
 import { NavLink, useNavigate } from "react-router-dom";
 import style from './index.module.css';
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "../services/actions/auth";
 
 export const LoginPage = () => {
@@ -13,10 +13,12 @@ export const LoginPage = () => {
         password: ''
     } );
 
-    const { isAuthorized } = useSelector( state => state.auth );
-    if ( isAuthorized ) {
-        navigate( '/', { replace: true, state: { from: 'login' } } );
-    }
+    const { user } = useSelector( state => state.auth );
+    useEffect( () => {
+        if ( user ) {
+            navigate( '/' );
+        }
+    }, [ user, navigate ] );
 
     const onChange = e => {
         setData( { ...data, [e.target.name]: e.target.value } );
@@ -24,7 +26,7 @@ export const LoginPage = () => {
 
     const onClickHandler = () => {
         dispatch( login( data ) );
-        navigate( '/', { replace: true, state: { from: 'login' } } );
+        navigate( '/' );
     };
 
     return (

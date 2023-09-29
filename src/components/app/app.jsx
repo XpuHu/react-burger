@@ -15,9 +15,10 @@ import { ProtectedRoute } from "../protected-route/protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../burger-ingredients/burger-ingredient/ingredient-details/ingredient-details";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredients";
 import { getUser } from "../../services/actions/auth";
+import { OrdersPage } from "../../pages/orders";
 
 
 function App() {
@@ -26,12 +27,15 @@ function App() {
     const navigate = useNavigate();
 
     const prevLocation = location.state?.prevLocation;
+    const { isAuthorized } = useSelector( state => state.auth );
 
     // Получаем все ингредиенты с сервера
     useEffect( () => {
         dispatch( getIngredients() );
-        dispatch( getUser() );
-    }, [] );
+        if ( isAuthorized ) {
+            dispatch( getUser() );
+        }
+    }, [ dispatch ] );
 
     return (
         <>
@@ -47,8 +51,8 @@ function App() {
                     <Route path="/reset-password" element={ <PasswordResetPage /> } />
 
                     <Route path="/profile" element={ <ProtectedRoute element={ <ProfilePage /> } /> } />
-                    <Route path="/profile/orders" element={ <ProtectedRoute element={ <ProfilePage /> } /> } />
-                    <Route path="/profile/orders/:id" element={ <ProtectedRoute element={ <ProfilePage /> } /> } />
+                    <Route path="/profile/orders" element={ <ProtectedRoute element={ <OrdersPage /> } /> } />
+                    <Route path="/profile/orders/:id" element={ <ProtectedRoute element={ <OrdersPage /> } /> } />
 
                     <Route path="/ingredients/:id" element={ <IngredientPage /> } />
 

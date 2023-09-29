@@ -26,7 +26,7 @@ export const ProfilePage = () => {
 
     useEffect( () => {
         dispatch( getUser() );
-    }, [] );
+    }, [ dispatch ] );
 
     const onChange = e => {
         setData( { ...data, [e.target.name]: e.target.value } );

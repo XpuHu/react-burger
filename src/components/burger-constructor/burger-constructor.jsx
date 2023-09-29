@@ -21,7 +21,7 @@ const BurgerConstructor = () => {
 
     useEffect( () => {
         dispatch( { type: SET_TOTAL_PRICE } );
-    }, [ constructorIngredientList, constructorBun ] );
+    }, [ constructorIngredientList, constructorBun, dispatch ] );
 
     useEffect( () => {
         if ( showModal ) {

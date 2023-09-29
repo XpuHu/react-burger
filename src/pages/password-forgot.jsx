@@ -6,7 +6,8 @@ import { request } from "../utils/api";
 import { useSelector } from "react-redux";
 
 export const PasswordForgotPage = () => {
-    const [ value, setValue ] = useState();
+    const [ value, setValue ] = useState( '' );
+    const [ btnDisabled, setBtnDisabled ] = useState( true );
     const navigate = useNavigate();
     const { isAuthorized } = useSelector( state => state.auth );
 
@@ -16,6 +17,7 @@ export const PasswordForgotPage = () => {
 
     const onChange = e => {
         setValue( e.target.value );
+        setBtnDisabled( false );
     };
 
     const resetPassword = async () => {
@@ -55,7 +57,9 @@ export const PasswordForgotPage = () => {
                 extraClass="mt-6 mb-6"
             />
 
-            <Button htmlType="button" type="primary" size="large" extraClass="mb-20" onClick={ onClick }>
+            <Button htmlType="button" type="primary" size="large" extraClass="mb-20" onClick={ onClick }
+                    disabled={ btnDisabled }
+            >
                 Восстановить
             </Button>
 
