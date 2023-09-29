@@ -42,7 +42,7 @@ const BurgerConstructor = () => {
             }
 
             { showModal && (
-                <Modal header={ '' } handleClose={ closeModal }>
+                <Modal handleClose={ closeModal }>
                     <OrderDetails orderId={ transformOrderId( data.number ) } />
                 </Modal>
             ) }
