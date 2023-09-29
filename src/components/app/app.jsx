@@ -25,8 +25,7 @@ function App() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // const prevLocation = location.state?.prevLocation;
-    const prevLocation = location.state && location.state.prevLocation;
+    const prevLocation = location.state?.prevLocation;
 
     // Получаем все ингредиенты с сервера
     useEffect( () => {

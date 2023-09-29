@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getUser } from "../../services/actions/auth";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export const ProtectedRoute = ( { element } ) => {
     const { isAuthorized } = useSelector( state => state.auth );
@@ -21,4 +22,8 @@ export const ProtectedRoute = ( { element } ) => {
     }
 
     return isAuthorized ? element : <Navigate to="/login" replace />;
+};
+
+ProtectedRoute.propTypes = {
+    element: PropTypes.element.isRequired,
 };

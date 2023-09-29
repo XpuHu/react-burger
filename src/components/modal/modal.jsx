@@ -7,7 +7,7 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const modalRoot = document.getElementById( "react-modals" );
 
-function Modal( { children, header, handleClose } ) {
+function Modal( { children, handleClose } ) {
 
     useEffect( () => {
         const closeOnEsc = e => e.key === "Escape" ? handleClose() : null;
@@ -34,7 +34,6 @@ function Modal( { children, header, handleClose } ) {
 }
 
 Modal.propTypes = {
-    header: PropTypes.string,
     handleClose: PropTypes.func.isRequired,
     children: PropTypes.any
 };

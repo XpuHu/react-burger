@@ -3,11 +3,7 @@ import style from './burger-ingredients.module.css';
 import BurgerIngredientsHeader from "./burger-ingredients-header/burger-ingredients-header";
 import BurgerIngredientsCategory from "./burger-ingredients-category/burger-ingredients-category";
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    CHANGE_ACTIVE_TYPE,
-    DELETE_CURRENT_INGREDIENT,
-    SET_CURRENT_INGREDIENT
-} from "../../services/actions/ingredients";
+import { CHANGE_ACTIVE_TYPE, SET_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { Loader } from "../loader/loader";
 
 function BurgerIngredients() {
@@ -37,10 +33,6 @@ function BurgerIngredients() {
 
     const handleOpenModal = ( ingredient ) => {
         dispatch( { type: SET_CURRENT_INGREDIENT, ingredient } );
-    };
-
-    const handleCloseModal = () => {
-        dispatch( { type: DELETE_CURRENT_INGREDIENT } );
     };
 
     const types = Object.entries( ingredientTypes );
