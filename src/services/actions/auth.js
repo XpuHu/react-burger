@@ -109,6 +109,7 @@ export const getUser = () => {
         } catch (e) {
             if ( e === "jwt expired" ) {
                 dispatch( updateToken() );
+                dispatch( getUser() );
             } else {
                 console.log( 'Произошла ошибка: ', e );
                 dispatch( { type: GET_USER_ERROR } );

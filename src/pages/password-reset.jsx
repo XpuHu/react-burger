@@ -3,7 +3,6 @@ import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burg
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { request } from "../utils/api";
-import { useSelector } from "react-redux";
 
 export const PasswordResetPage = () => {
 
@@ -12,7 +11,7 @@ export const PasswordResetPage = () => {
         token: ''
     } );
 
-    const { isAuthorized } = useSelector( state => state.auth );
+    // const { isAuthorized } = useSelector( state => state.auth );
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -23,10 +22,6 @@ export const PasswordResetPage = () => {
         }
 
     }, [ navigate, location.state ] );
-
-    if ( isAuthorized ) {
-        navigate( '/' );
-    }
 
     const onChange = e => {
         setData( { ...data, [e.target.name]: e.target.value } );
@@ -45,13 +40,14 @@ export const PasswordResetPage = () => {
 
             await request( 'password-reset/reset', options );
 
-            navigate( '/login' )
+            navigate( '/login' );
         } catch (e) {
             console.log( 'Произошла ошибка: ', e );
         }
     };
 
-    const onClick = () => {
+    const onSubmit = ( e ) => {
+        e.preventDefault();
         resetPassword();
     };
 
@@ -59,29 +55,31 @@ export const PasswordResetPage = () => {
         <div className={ `${ style.wrapper } ${ style.column }` }>
             <p className="text text_type_main-medium">Восстановление пароля</p>
 
-            <PasswordInput
-                placeholder={ 'Введите новый пароль' }
-                onChange={ ( e ) => onChange( e ) }
-                value={ data.password }
-                name={ 'password' }
-                extraClass="mt-6 mb-6"
-            />
+            <form onSubmit={ onSubmit }>
+                <PasswordInput
+                    placeholder={ 'Введите новый пароль' }
+                    onChange={ ( e ) => onChange( e ) }
+                    value={ data.password }
+                    name={ 'password' }
+                    extraClass="mt-6 mb-6"
+                />
 
-            <Input
-                type={ 'text' }
-                placeholder={ 'Введите код из письма' }
-                onChange={ ( e ) => onChange( e ) }
-                value={ data.token }
-                name={ 'token' }
-                error={ false }
-                errorText={ 'Ошибка' }
-                size={ 'default' }
-                extraClass="mb-6"
-            />
+                <Input
+                    type={ 'text' }
+                    placeholder={ 'Введите код из письма' }
+                    onChange={ ( e ) => onChange( e ) }
+                    value={ data.token }
+                    name={ 'token' }
+                    error={ false }
+                    errorText={ 'Ошибка' }
+                    size={ 'default' }
+                    extraClass="mb-6"
+                />
 
-            <Button htmlType="button" type="primary" size="large" extraClass="mb-20" onClick={ onClick }>
-                Сохранить
-            </Button>
+                <Button htmlType="submit" type="primary" size="large" extraClass="mb-20">
+                    Сохранить
+                </Button>
+            </form>
 
             <p className="text text_type_main-default text_color_inactive mb-4">
                 Вспомнили пароль?&nbsp;

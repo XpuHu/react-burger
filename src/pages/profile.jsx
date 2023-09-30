@@ -42,7 +42,9 @@ export const ProfilePage = () => {
         navigate( '/login' );
     };
 
-    const submitData = () => {
+    const onSubmit = ( e ) => {
+        e.preventDefault();
+
         dispatch( updateUser( data ) );
         setIsDisabledFields( {
             firstName: true,
@@ -96,55 +98,55 @@ export const ProfilePage = () => {
             </nav>
 
             <div className={ style.column }>
-                <Input
-                    type={ 'text' }
-                    placeholder={ 'Имя' }
-                    onChange={ ( e ) => onChange( e ) }
-                    icon={ 'EditIcon' }
-                    value={ data.firstName }
-                    name={ 'firstName' }
-                    error={ false }
-                    ref={ null }
-                    onIconClick={ () => onIconClick( 'firstName' ) }
-                    errorText={ 'Ошибка' }
-                    size={ 'default' }
-                    disabled={ isDisabledFields['firstName'] }
-                    extraClass="mb-6"
-                />
-                <EmailInput
-                    onChange={ ( e ) => onChange( e ) }
-                    value={ data.email }
-                    name={ 'email' }
-                    placeholder="Логин"
-                    isIcon={ true }
-                    disabled={ isDisabledFields['email'] }
-                    onIconClick={ () => onIconClick( 'email' ) }
-                    extraClass="mb-6"
-                />
-                <PasswordInput
-                    onChange={ ( e ) => onChange( e ) }
-                    value={ data.password }
-                    name={ 'password' }
-                    icon="EditIcon"
-                    disabled={ isDisabledFields['password'] }
-                    onIconClick={ () => onIconClick( 'password' ) }
-                />
+                <form onSubmit={ onSubmit }>
+                    <Input
+                        type={ 'text' }
+                        placeholder={ 'Имя' }
+                        onChange={ ( e ) => onChange( e ) }
+                        icon={ 'EditIcon' }
+                        value={ data.firstName }
+                        name={ 'firstName' }
+                        error={ false }
+                        ref={ null }
+                        onIconClick={ () => onIconClick( 'firstName' ) }
+                        errorText={ 'Ошибка' }
+                        size={ 'default' }
+                        disabled={ isDisabledFields['firstName'] }
+                        extraClass="mb-6"
+                    />
+                    <EmailInput
+                        onChange={ ( e ) => onChange( e ) }
+                        value={ data.email }
+                        name={ 'email' }
+                        placeholder="Логин"
+                        isIcon={ true }
+                        disabled={ isDisabledFields['email'] }
+                        onIconClick={ () => onIconClick( 'email' ) }
+                        extraClass="mb-6"
+                    />
+                    <PasswordInput
+                        onChange={ ( e ) => onChange( e ) }
+                        value={ data.password }
+                        name={ 'password' }
+                        icon="EditIcon"
+                        disabled={ isDisabledFields['password'] }
+                        onIconClick={ () => onIconClick( 'password' ) }
+                    />
 
-                {
-                    isDataChanged && (
-                        <div className={ `${ style.submit } mt-6` }>
-                            <Button htmlType="button" type="secondary" size="medium" onClick={ resetData }
-                            >
-                                Отмена
-                            </Button>
-                            <Button htmlType="button" type="primary" size="medium" onClick={ submitData }
-                            >
-                                Сохранить
-                            </Button>
-                        </div>
-                    )
-                }
-
+                    {
+                        isDataChanged && (
+                            <div className={ `${ style.submit } mt-6` }>
+                                <Button htmlType="button" type="secondary" size="medium" onClick={ resetData }
+                                >
+                                    Отмена
+                                </Button>
+                                <Button htmlType="submit" type="primary" size="medium">
+                                    Сохранить
+                                </Button>
+                            </div>
+                        )
+                    }
+                </form>
             </div>
         </div>
     );

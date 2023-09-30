@@ -15,7 +15,7 @@ import { ProtectedRoute } from "../protected-route/protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../burger-ingredients/burger-ingredient/ingredient-details/ingredient-details";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredients";
 import { getUser } from "../../services/actions/auth";
 import { OrdersPage } from "../../pages/orders";
@@ -27,15 +27,12 @@ function App() {
     const navigate = useNavigate();
 
     const prevLocation = location.state?.prevLocation;
-    const { isAuthorized } = useSelector( state => state.auth );
 
     // Получаем все ингредиенты с сервера
     useEffect( () => {
         dispatch( getIngredients() );
-        if ( isAuthorized ) {
-            dispatch( getUser() );
-        }
-    }, [ dispatch ] );
+        dispatch( getUser() );
+    }, [] );
 
     return (
         <>

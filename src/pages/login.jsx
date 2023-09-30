@@ -1,8 +1,8 @@
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import style from './index.module.css';
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { login } from "../services/actions/auth";
 
 export const LoginPage = () => {
@@ -13,18 +13,13 @@ export const LoginPage = () => {
         password: ''
     } );
 
-    const { user } = useSelector( state => state.auth );
-    useEffect( () => {
-        if ( user ) {
-            navigate( '/' );
-        }
-    }, [ user, navigate ] );
-
     const onChange = e => {
         setData( { ...data, [e.target.name]: e.target.value } );
     };
 
-    const onSubmit = () => {
+    const onSubmit = ( e ) => {
+        e.preventDefault();
+
         dispatch( login( data ) );
         navigate( '/' );
     };
