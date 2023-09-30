@@ -24,7 +24,7 @@ export const LoginPage = () => {
         setData( { ...data, [e.target.name]: e.target.value } );
     };
 
-    const onClickHandler = () => {
+    const onSubmit = () => {
         dispatch( login( data ) );
         navigate( '/' );
     };
@@ -33,22 +33,25 @@ export const LoginPage = () => {
         <div className={ `${ style.wrapper } ${ style.column }` }>
             <p className="text text_type_main-medium">Вход</p>
 
-            <EmailInput
-                value={ data.email }
-                name={ 'email' }
-                onChange={ ( e ) => onChange( e ) }
-                extraClass="mb-6 mt-6"
-            />
-            <PasswordInput
-                onChange={ ( e ) => onChange( e ) }
-                value={ data.password }
-                name={ 'password' }
-                extraClass="mb-6"
-            />
+            <form onSubmit={ onSubmit }>
+                <EmailInput
+                    value={ data.email }
+                    name={ 'email' }
+                    onChange={ ( e ) => onChange( e ) }
+                    extraClass="mb-6 mt-6"
+                />
+                <PasswordInput
+                    onChange={ ( e ) => onChange( e ) }
+                    value={ data.password }
+                    name={ 'password' }
+                    extraClass="mb-6"
+                />
 
-            <Button htmlType="button" type="primary" size="large" extraClass="mb-20" onClick={ onClickHandler }>
-                Войти
-            </Button>
+                <Button htmlType="submit" type="primary" size="large" extraClass="mb-20">
+                    Войти
+                </Button>
+            </form>
+
 
             <p className="text text_type_main-default text_color_inactive mb-4">
                 Вы — новый пользователь?&nbsp;

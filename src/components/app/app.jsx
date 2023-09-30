@@ -45,14 +45,20 @@ function App() {
                 <Routes location={ prevLocation || location }>
                     <Route path="/" element={ <ConstructorPage /> } />
 
-                    <Route path="/login" element={ <LoginPage /> } />
-                    <Route path="/register" element={ <RegisterPage /> } />
-                    <Route path="/forgot-password" element={ <PasswordForgotPage /> } />
-                    <Route path="/reset-password" element={ <PasswordResetPage /> } />
+                    <Route path="/login" element={ <ProtectedRoute element={ <LoginPage /> } /> } />
+                    <Route path="/register" element={ <ProtectedRoute element={ <RegisterPage /> } /> } />
+                    <Route path="/forgot-password" element={ <ProtectedRoute element={ <PasswordForgotPage /> } /> } />
+                    <Route path="/reset-password" element={ <ProtectedRoute element={ <PasswordResetPage /> } /> } />
 
-                    <Route path="/profile" element={ <ProtectedRoute element={ <ProfilePage /> } /> } />
-                    <Route path="/profile/orders" element={ <ProtectedRoute element={ <OrdersPage /> } /> } />
-                    <Route path="/profile/orders/:id" element={ <ProtectedRoute element={ <OrdersPage /> } /> } />
+                    <Route path="/profile"
+                           element={ <ProtectedRoute element={ <ProfilePage /> } forAuthorized={ true } /> }
+                    />
+                    <Route path="/profile/orders"
+                           element={ <ProtectedRoute element={ <OrdersPage /> } forAuthorized={ true } /> }
+                    />
+                    <Route path="/profile/orders/:id"
+                           element={ <ProtectedRoute element={ <OrdersPage /> } forAuthorized={ true } /> }
+                    />
 
                     <Route path="/ingredients/:id" element={ <IngredientPage /> } />
 
