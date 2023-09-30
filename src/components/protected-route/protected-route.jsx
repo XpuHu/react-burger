@@ -37,4 +37,5 @@ export const ProtectedRoute = ( { element, forAuthorized = false } ) => {
 
 ProtectedRoute.propTypes = {
     element: PropTypes.element.isRequired,
+    forAuthorized: PropTypes.bool
 };
