@@ -136,3 +136,11 @@ export const updateUser = ( payload ) => {
         }
     };
 };
+
+export const checkAuth = () => {
+    return async ( dispatch ) => {
+        if ( localStorage.getItem( 'accessToken' ) ) {
+            dispatch( getUser() );
+        }
+    };
+};

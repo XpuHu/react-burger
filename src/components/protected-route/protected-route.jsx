@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUser } from "../../services/actions/auth";
+import { checkAuth } from "../../services/actions/auth";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -11,7 +11,7 @@ export const ProtectedRoute = ( { element, forAuthorized = false } ) => {
     const [ isUserLoaded, setUserLoaded ] = useState( false );
 
     const init = async () => {
-        await getUser();
+        await checkAuth();
         setUserLoaded( true );
     };
 

@@ -2,25 +2,22 @@ import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer
 import { NavLink, useNavigate } from "react-router-dom";
 import style from './index.module.css';
 import { useDispatch } from "react-redux";
-import { useState } from "react";
 import { login } from "../services/actions/auth";
+import { useForm } from "../hooks/useForm";
 
 export const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [ data, setData ] = useState( {
+
+    const { values, handleInputChange } = useForm( {
         email: '',
         password: ''
     } );
 
-    const onChange = e => {
-        setData( { ...data, [e.target.name]: e.target.value } );
-    };
-
     const onSubmit = ( e ) => {
         e.preventDefault();
 
-        dispatch( login( data ) );
+        dispatch( login( values ) );
         navigate( '/' );
     };
 
@@ -30,14 +27,14 @@ export const LoginPage = () => {
 
             <form onSubmit={ onSubmit }>
                 <EmailInput
-                    value={ data.email }
+                    value={ values.email }
                     name={ 'email' }
-                    onChange={ ( e ) => onChange( e ) }
+                    onChange={ handleInputChange }
                     extraClass="mb-6 mt-6"
                 />
                 <PasswordInput
-                    onChange={ ( e ) => onChange( e ) }
-                    value={ data.password }
+                    onChange={ handleInputChange }
+                    value={ values.password }
                     name={ 'password' }
                     extraClass="mb-6"
                 />

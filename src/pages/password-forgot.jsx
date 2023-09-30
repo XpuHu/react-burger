@@ -3,14 +3,18 @@ import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-comp
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { request } from "../utils/api";
+import { useForm } from "../hooks/useForm";
 
 export const PasswordForgotPage = () => {
-    const [ value, setValue ] = useState( '' );
     const [ btnDisabled, setBtnDisabled ] = useState( true );
     const navigate = useNavigate();
 
-    const onChange = e => {
-        setValue( e.target.value );
+    const { values, handleInputChange } = useForm( {
+        email: ''
+    } );
+
+    const handleChange = ( e ) => {
+        handleInputChange( e );
         setBtnDisabled( false );
     };
 
@@ -22,7 +26,7 @@ export const PasswordForgotPage = () => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify( {
-                    "email": value
+                    "email": values.email
                 } )
             };
 
@@ -46,8 +50,8 @@ export const PasswordForgotPage = () => {
             <form onSubmit={ onSubmit }>
                 <EmailInput
                     placeholder={ 'Укажите e-mail' }
-                    onChange={ ( e ) => onChange( e ) }
-                    value={ value }
+                    onChange={ handleChange }
+                    value={ values.email }
                     name={ 'email' }
                     isIcon={ false }
                     extraClass="mt-6 mb-6"

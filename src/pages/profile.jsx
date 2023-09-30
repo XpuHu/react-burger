@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, logout, updateUser } from "../services/actions/auth";
+import { checkAuth, logout, updateUser } from "../services/actions/auth";
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ export const ProfilePage = () => {
     const [ isDataChanged, setIsDataChanged ] = useState( false );
 
     useEffect( () => {
-        dispatch( getUser() );
+        dispatch( checkAuth() );
     }, [ dispatch ] );
 
     const onChange = e => {

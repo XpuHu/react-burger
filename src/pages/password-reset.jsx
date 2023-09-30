@@ -1,20 +1,18 @@
 import style from "./index.module.css";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { request } from "../utils/api";
+import { useForm } from "../hooks/useForm";
 
 export const PasswordResetPage = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const [ data, setData ] = useState( {
+    const { values, handleInputChange } = useForm( {
         password: '',
         token: ''
     } );
-
-    // const { isAuthorized } = useSelector( state => state.auth );
-
-    const location = useLocation();
-    const navigate = useNavigate();
 
     useEffect( () => {
         if ( !location.state ) {
@@ -22,10 +20,6 @@ export const PasswordResetPage = () => {
         }
 
     }, [ navigate, location.state ] );
-
-    const onChange = e => {
-        setData( { ...data, [e.target.name]: e.target.value } );
-    };
 
     const resetPassword = async () => {
         try {
@@ -35,7 +29,7 @@ export const PasswordResetPage = () => {
                     'Accept': 'application/json',
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify( data )
+                body: JSON.stringify( values )
             };
 
             await request( 'password-reset/reset', options );
@@ -58,8 +52,8 @@ export const PasswordResetPage = () => {
             <form onSubmit={ onSubmit }>
                 <PasswordInput
                     placeholder={ 'Введите новый пароль' }
-                    onChange={ ( e ) => onChange( e ) }
-                    value={ data.password }
+                    onChange={ handleInputChange }
+                    value={ values.password }
                     name={ 'password' }
                     extraClass="mt-6 mb-6"
                 />
@@ -67,8 +61,8 @@ export const PasswordResetPage = () => {
                 <Input
                     type={ 'text' }
                     placeholder={ 'Введите код из письма' }
-                    onChange={ ( e ) => onChange( e ) }
-                    value={ data.token }
+                    onChange={ handleInputChange }
+                    value={ values.token }
                     name={ 'token' }
                     error={ false }
                     errorText={ 'Ошибка' }

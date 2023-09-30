@@ -2,27 +2,23 @@ import style from "./index.module.css";
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
 import { register } from "../services/actions/auth";
+import { useForm } from "../hooks/useForm";
 
 export const RegisterPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [ data, setData ] = useState( {
+    const { values, handleInputChange } = useForm( {
         firstName: '',
         email: '',
         password: ''
     } );
 
-    const onChange = e => {
-        setData( { ...data, [e.target.name]: e.target.value } );
-    };
-
     const onSubmit = ( e ) => {
         e.preventDefault();
 
-        dispatch( register( data ) );
+        dispatch( register( values ) );
         navigate( '/login', { replace: true, state: { from: 'register' } } );
     };
 
@@ -34,8 +30,8 @@ export const RegisterPage = () => {
                 <Input
                     type={ 'text' }
                     placeholder={ 'Имя' }
-                    onChange={ ( e ) => onChange( e ) }
-                    value={ data.firstName }
+                    onChange={ handleInputChange }
+                    value={ values.firstName }
                     name={ 'firstName' }
                     error={ false }
                     errorText={ 'Ошибка' }
@@ -44,16 +40,16 @@ export const RegisterPage = () => {
                 />
                 <EmailInput
                     placeholder={ 'E-mail' }
-                    onChange={ ( e ) => onChange( e ) }
-                    value={ data.email }
+                    onChange={ handleInputChange }
+                    value={ values.email }
                     name={ 'email' }
                     isIcon={ false }
                     extraClass="mb-6"
                 />
                 <PasswordInput
                     placeholder={ 'Пароль' }
-                    onChange={ ( e ) => onChange( e ) }
-                    value={ data.password }
+                    onChange={ handleInputChange }
+                    value={ values.password }
                     name={ 'password' }
                     extraClass="mb-6"
                 />
