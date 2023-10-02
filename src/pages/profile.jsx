@@ -1,5 +1,5 @@
 import style from "./profile.module.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +7,6 @@ import { checkAuth, logout, updateUser } from "../services/actions/auth";
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const { user } = useSelector( state => state.auth );
     const [ data, setData ] = useState( {
@@ -39,7 +38,6 @@ export const ProfilePage = () => {
 
     const onLogout = () => {
         dispatch( logout() );
-        navigate( '/login' );
     };
 
     const onSubmit = ( e ) => {

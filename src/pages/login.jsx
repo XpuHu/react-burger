@@ -1,5 +1,5 @@
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import style from './index.module.css';
 import { useDispatch } from "react-redux";
 import { login } from "../services/actions/auth";
@@ -7,7 +7,6 @@ import { useForm } from "../hooks/useForm";
 
 export const LoginPage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const { values, handleInputChange } = useForm( {
         email: '',
@@ -18,7 +17,6 @@ export const LoginPage = () => {
         e.preventDefault();
 
         dispatch( login( values ) );
-        navigate( '/' );
     };
 
     return (
