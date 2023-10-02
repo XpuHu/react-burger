@@ -2,30 +2,16 @@ import React, { useEffect, useState } from 'react';
 import style from './burger-ingredients.module.css';
 import BurgerIngredientsHeader from "./burger-ingredients-header/burger-ingredients-header";
 import BurgerIngredientsCategory from "./burger-ingredients-category/burger-ingredients-category";
-import Modal from "../modal/modal";
-import IngredientDetails from "./burger-ingredient/ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    CHANGE_ACTIVE_TYPE,
-    DELETE_CURRENT_INGREDIENT,
-    getIngredients,
-    SET_CURRENT_INGREDIENT
-} from "../../services/actions/ingredients";
-import { useModal } from "../../hooks/useModal";
+import { CHANGE_ACTIVE_TYPE, SET_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { Loader } from "../loader/loader";
 
 function BurgerIngredients() {
 
     const [ elementsOffsetTop, setElementsOffsetTop ] = useState( {} );
-    const { showModal, openModal, closeModal } = useModal();
 
     const { ingredients, ingredientTypes, ingredientsRequest } = useSelector( state => state.ingredients );
     const dispatch = useDispatch();
-
-    // Получаем все ингредиенты с сервера
-    useEffect( () => {
-        dispatch( getIngredients() );
-    }, [] );
 
     // Переключаем табы в зависимости от положения заголовков
     useEffect( () => {
@@ -43,16 +29,10 @@ function BurgerIngredients() {
             default:
                 dispatch( { type: CHANGE_ACTIVE_TYPE, activeType: 'bun' } );
         }
-    }, [ elementsOffsetTop ] );
+    }, [ elementsOffsetTop, dispatch ] );
 
     const handleOpenModal = ( ingredient ) => {
         dispatch( { type: SET_CURRENT_INGREDIENT, ingredient } );
-        openModal();
-    };
-
-    const handleCloseModal = () => {
-        dispatch( { type: DELETE_CURRENT_INGREDIENT } );
-        closeModal();
     };
 
     const types = Object.entries( ingredientTypes );
@@ -92,12 +72,6 @@ function BurgerIngredients() {
                         </section>
                     )
             }
-
-            { showModal && (
-                <Modal header={ 'Детали ингридиента' } handleClose={ handleCloseModal }>
-                    <IngredientDetails />
-                </Modal>
-            ) }
         </section>
     );
 }

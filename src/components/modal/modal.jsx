@@ -2,29 +2,31 @@ import React, { useEffect } from 'react';
 import style from './modal.module.css';
 import ReactDOM from 'react-dom';
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import ModalHeader from "./modal-header/modal";
 import PropTypes from "prop-types";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const modalRoot = document.getElementById( "react-modals" );
 
-function Modal( { children, header, handleClose } ) {
+function Modal( { children, handleClose } ) {
 
-    useEffect(() => {
+    useEffect( () => {
         const closeOnEsc = e => e.key === "Escape" ? handleClose() : null;
-        document.body.addEventListener("keydown", closeOnEsc);
+        document.body.addEventListener( "keydown", closeOnEsc );
         return () => {
-            document.body.removeEventListener("keydown", closeOnEsc);
+            document.body.removeEventListener( "keydown", closeOnEsc );
         };
-    }, [handleClose]);
+    }, [ handleClose ] );
 
     return ReactDOM.createPortal(
         (
             <>
-                <div className={`${style.modal}`}>
-                    <ModalHeader header={header} handleClose={handleClose} />
-                    {children}
+                <div className={ `${ style.modal }` }>
+                    <div className={ style.close }>
+                        <CloseIcon type={ 'primary' } onClick={ handleClose } />
+                    </div>
+                    { children }
                 </div>
-                <ModalOverlay onClose={handleClose} />
+                <ModalOverlay onClose={ handleClose } />
             </>
         ),
         modalRoot
@@ -32,9 +34,8 @@ function Modal( { children, header, handleClose } ) {
 }
 
 Modal.propTypes = {
-    header: PropTypes.string,
     handleClose: PropTypes.func.isRequired,
     children: PropTypes.any
-}
+};
 
 export default Modal;

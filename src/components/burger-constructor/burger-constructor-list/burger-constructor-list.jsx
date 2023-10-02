@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo, useMemo } from 'react';
 import ConstructorIngredientsList from "./cunstructor-ingredients-list/constructor-ingredients-list";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-list.module.css';
@@ -9,7 +9,6 @@ import { useDrop } from "react-dnd";
 
 const BurgerConstructorList = memo( () => {
     const { constructorBun } = useSelector( state => state.burgerConstructor );
-    const [ showBun, setShowBun ] = useState( false );
     const dispatch = useDispatch();
 
     const moveIngredient = ( ingredient ) => {
@@ -68,7 +67,7 @@ const BurgerConstructorList = memo( () => {
             ) : (
                 <ConstructorIngredientsList />
             );
-    }, [ showBun, constructorBun ] );
+    }, [ constructorBun ] );
 
     return (
         <section className={ `${ style.ingredientsListWrapper } mb-10` } ref={ dropTarget }>
