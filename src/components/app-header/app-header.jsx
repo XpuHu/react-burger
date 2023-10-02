@@ -34,9 +34,9 @@ function AppHeader() {
                     </NavLink>
                 </nav>
 
-                <div className={ `${ style.logo } mt-2 mb-2` }>
+                <NavLink to={ '/' } className={ `${ style.logo } mt-2 mb-2` }>
                     <Logo />
-                </div>
+                </NavLink>
 
                 <NavLink to={ '/profile' } className={ ( { isActive } ) => `${ style.menuItem } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } pl-5 pr-5 pt-4 pb-4` }
