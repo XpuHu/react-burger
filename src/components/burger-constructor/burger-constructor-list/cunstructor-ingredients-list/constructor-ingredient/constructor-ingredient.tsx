@@ -1,19 +1,27 @@
 import style from "./constructor-ingredient.module.css";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useRef } from "react";
+import React, { FC, useRef } from "react";
 import { DELETE_INGREDIENT, UPDATE_INGREDIENTS_ORDER } from "../../../../../services/actions/constructor";
 import { DECREASE_COUNT } from "../../../../../services/actions/ingredients";
 import { useDispatch } from "react-redux";
-import { useDrag, useDrop } from "react-dnd";
-import PropTypes from "prop-types";
-import { ingredientType } from "../../../../../utils/types";
+import { DropTargetMonitor, useDrag, useDrop, XYCoord } from "react-dnd";
+import { TConstructorIngredient } from "../../../../../utils/types";
 
-function ConstructorIngredient( { ingredient, ingredientIndex } ) {
+type TConstructorIngredientType = {
+    ingredient: TConstructorIngredient,
+    ingredientIndex: number
+}
 
-    const ingredientRef = useRef( null );
+type TDragIngredient = {
+    ingredientIndex: number
+}
+
+const ConstructorIngredient: FC<TConstructorIngredientType> = ({ ingredient, ingredientIndex }) => {
+
+    const ingredientRef = useRef<HTMLDivElement>( null );
     const dispatch = useDispatch();
 
-    const handleClose = ( ingredient ) => {
+    const handleClose = (ingredient: TConstructorIngredient) => {
         dispatch( { type: DELETE_INGREDIENT, id: ingredient.id } );
         dispatch( { type: DECREASE_COUNT, id: ingredient._id } );
     };
@@ -23,7 +31,7 @@ function ConstructorIngredient( { ingredient, ingredientIndex } ) {
         collect: monitor => ({
             handler: monitor.getHandlerId()
         }),
-        hover: ( ingredient, monitor ) => {
+        hover: (ingredient: TDragIngredient, monitor: DropTargetMonitor) => {
             if ( !ingredientRef.current ) {
                 return;
             }
@@ -44,8 +52,7 @@ function ConstructorIngredient( { ingredient, ingredientIndex } ) {
             // позиция мыши
             const mousePosition = monitor.getClientOffset();
             // расстояние от мыши до верха элемента
-            const hoverPosition = mousePosition.y - hoverWrapper.top;
-
+            const hoverPosition = (mousePosition as XYCoord).y - hoverWrapper.top;
 
             if ( (dragIndex < hoverIndex && hoverPosition < hoverMiddle)
                 || (dragIndex > hoverIndex && hoverPosition > hoverMiddle) ) {
@@ -86,10 +93,5 @@ function ConstructorIngredient( { ingredient, ingredientIndex } ) {
         </div>
     );
 }
-
-ConstructorIngredient.propTypes = {
-    ingredient: ingredientType.ingredientType,
-    ingredientIndex: PropTypes.number.isRequired,
-};
 
 export default ConstructorIngredient;

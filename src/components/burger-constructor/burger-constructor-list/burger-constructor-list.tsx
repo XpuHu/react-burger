@@ -6,17 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { ADD_BUN, ADD_INGREDIENT } from "../../../services/actions/constructor";
 import { DECREASE_BUN_COUNT, INCREASE_BUN_COUNT, INCREASE_COUNT } from "../../../services/actions/ingredients";
 import { useDrop } from "react-dnd";
+import { TConstructorIngredient, TIngredient } from "../../../utils/types";
 
 const BurgerConstructorList = memo( () => {
-    const { constructorBun } = useSelector( state => state.burgerConstructor );
+    // @ts-ignore
+    const constructorBun: TIngredient = useSelector( state => state.burgerConstructor.constructorBun );
     const dispatch = useDispatch();
 
-    const moveIngredient = ( ingredient ) => {
+    const moveIngredient = (ingredient: TIngredient) => {
         dispatch( { type: ADD_INGREDIENT, ingredient } );
         dispatch( { type: INCREASE_COUNT, id: ingredient._id } );
     };
 
-    const moveBun = ( bun ) => {
+    const moveBun = (bun: TIngredient) => {
         if ( constructorBun ) {
             dispatch( { type: DECREASE_BUN_COUNT, id: constructorBun._id } );
         }
@@ -24,12 +26,12 @@ const BurgerConstructorList = memo( () => {
         dispatch( { type: INCREASE_BUN_COUNT, id: bun._id } );
     };
 
-    const [ , dropTarget ] = useDrop( {
+    const [ , dropTarget ] = useDrop<TConstructorIngredient, unknown, unknown>( {
         accept: 'ingredient',
         collect: monitor => ({
             isHover: monitor.isOver()
         }),
-        drop( ingredient ) {
+        drop(ingredient) {
             ingredient.type === 'bun'
                 ? moveBun( ingredient )
                 : moveIngredient( ingredient );

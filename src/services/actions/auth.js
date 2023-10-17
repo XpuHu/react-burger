@@ -107,7 +107,7 @@ export const getUser = () => {
 
             dispatch( { type: GET_USER_SUCCESS, payload: data.user } );
         } catch (e) {
-            if ( e === "jwt expired" ) {
+            if ( e.message.includes( "jwt expired" ) ) {
                 dispatch( updateToken() );
                 dispatch( getUser() );
             } else {
@@ -127,7 +127,7 @@ export const updateUser = ( payload ) => {
 
             dispatch( { type: SET_USER_SUCCESS, payload: data.user } );
         } catch (e) {
-            if ( e === "jwt expired" ) {
+            if ( e.message.includes( "jwt expired" ) ) {
                 dispatch( updateToken() );
             } else {
                 console.log( 'Произошла ошибка: ', e );
