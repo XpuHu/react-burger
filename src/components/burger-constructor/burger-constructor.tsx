@@ -12,11 +12,15 @@ import { useNavigate } from "react-router-dom";
 import { TConstructorIngredient, TIngredient, TOrder } from "../../utils/types";
 
 const BurgerConstructor = () => {
-    const constructorIngredientList: Array<TConstructorIngredient> = useSelector( (state: any) => state.burgerConstructor.constructorIngredientList );
-    const constructorBun: TConstructorIngredient = useSelector( (state: any) => state.burgerConstructor.constructorBun );
+    // @ts-ignore
+    const constructorIngredientList: Array<TConstructorIngredient> = useSelector( state => state.burgerConstructor.constructorIngredientList );
+    // @ts-ignore
+    const constructorBun: TConstructorIngredient = useSelector( state => state.burgerConstructor.constructorBun );
 
-    const data: TOrder = useSelector( (state: any) => state.order.data );
-    const isAuthorized: boolean = useSelector( (state: any) => state.auth.isAuthorized );
+    // @ts-ignore
+    const data: TOrder = useSelector( state => state.order.data );
+    // @ts-ignore
+    const isAuthorized: boolean = useSelector( state => state.auth.isAuthorized );
 
     const { showModal, openModal, closeModal } = useModal();
     const dispatch = useDispatch();

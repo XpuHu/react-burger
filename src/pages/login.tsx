@@ -4,6 +4,7 @@ import style from './index.module.css';
 import { useDispatch } from "react-redux";
 import { login } from "../services/actions/auth";
 import { useForm } from "../hooks/useForm";
+import { FormEvent } from "react";
 
 export const LoginPage = () => {
     const dispatch = useDispatch();
@@ -13,9 +14,10 @@ export const LoginPage = () => {
         password: ''
     } );
 
-    const onSubmit = ( e ) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        // @ts-ignore
         dispatch( login( values ) );
     };
 
