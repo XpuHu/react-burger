@@ -9,7 +9,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerIngredients() {
     // @ts-ignore
-    const { ingredients, ingredientTypes, ingredientsRequest } = useSelector( state => state.ingredients );
+    const { ingredients, ingredientsRequest } = useSelector( state => state.ingredients );
     const dispatch = useDispatch();
 
     const [ currentTab, setCurrentTab ] = useState<string>( 'bun' );

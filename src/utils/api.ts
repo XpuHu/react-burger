@@ -15,7 +15,6 @@ const checkResponse = async (response: Response) => {
     await response.json().then( (err) => {
         throw new Error( `Ошибка ${ JSON.stringify( err.message ) }` );
     } );
-    // throw new Error( `Ошибка ${ response.status }` );
 };
 
 const checkSuccess = async (body: TResponse) => {

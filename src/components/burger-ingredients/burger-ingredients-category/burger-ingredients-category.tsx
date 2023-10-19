@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import style from './burger-ingredients-category.module.css';
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
-import { TIngredient } from "../../../utils/types";
+import { TIngredient, TIngredientWithCount } from "../../../utils/types";
 
 type TIngredientCategory = {
     title: string,
-    ingredients: TIngredient[],
+    ingredients: TIngredientWithCount[],
     sectionId: string,
     customRef: React.RefObject<HTMLDivElement>
     handleOpenModal: (ingredient: TIngredient) => void
