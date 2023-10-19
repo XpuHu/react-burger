@@ -1,5 +1,4 @@
 import {
-    CHANGE_ACTIVE_TYPE,
     CLEAR_COUNTS,
     DECREASE_BUN_COUNT,
     DECREASE_COUNT,
@@ -22,7 +21,6 @@ const initialState = {
         sauce: 'Соусы',
         main: 'Начинка',
     },
-    activeType: 'bun',
 
     currentIngredient: null
 };
@@ -91,11 +89,6 @@ export const ingredientsReducer = ( state = initialState, action ) => {
                     ...ingredient,
                     count: ingredient.count - 2
                 } : ingredient )
-            };
-        case CHANGE_ACTIVE_TYPE:
-            return {
-                ...state,
-                activeType: action.activeType
             };
         case CLEAR_COUNTS:
             return {

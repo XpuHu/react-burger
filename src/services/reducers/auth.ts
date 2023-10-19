@@ -41,8 +41,8 @@ const initialState = {
     updateUserFailed: false
 };
 
-export const authReducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
+export const authReducer = (state = initialState, action: any) => {
+    switch (action.type) {
         case SET_REGISTER_REQUEST:
             return {
                 ...state,
