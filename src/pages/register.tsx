@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "../services/actions/auth";
 import { useForm } from "../hooks/useForm";
+import { FormEvent } from "react";
 
 export const RegisterPage = () => {
     const dispatch = useDispatch();
@@ -15,9 +16,10 @@ export const RegisterPage = () => {
         password: ''
     } );
 
-    const onSubmit = ( e ) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        // @ts-ignore
         dispatch( register( values ) );
         navigate( '/login', { replace: true, state: { from: 'register' } } );
     };

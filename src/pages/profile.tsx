@@ -1,48 +1,57 @@
 import style from "./profile.module.css";
 import { NavLink } from "react-router-dom";
-import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useState } from "react";
+import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuth, logout, updateUser } from "../services/actions/auth";
+import { TUserData } from "../utils/types";
+
+type TFields = {
+    [name: string]: boolean
+}
 
 export const ProfilePage = () => {
     const dispatch = useDispatch();
 
+    // @ts-ignore
     const { user } = useSelector( state => state.auth );
-    const [ data, setData ] = useState( {
+    const [ data, setData ] = useState<TUserData>( {
         firstName: user.name,
         email: user.email,
         password: ''
     } );
 
-    const [ isDisabledFields, setIsDisabledFields ] = useState( {
+    const [ isDisabledFields, setIsDisabledFields ] = useState<TFields>( {
         firstName: true,
         email: true,
         password: true
     } );
 
-    const [ isDataChanged, setIsDataChanged ] = useState( false );
+    const [ isDataChanged, setIsDataChanged ] = useState<boolean>( false );
 
     useEffect( () => {
+        // @ts-ignore
         dispatch( checkAuth() );
     }, [ dispatch ] );
 
-    const onChange = e => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setData( { ...data, [e.target.name]: e.target.value } );
         setIsDataChanged( true );
     };
 
-    const onIconClick = ( fieldName ) => {
+    const onIconClick = (fieldName: string) => {
         setIsDisabledFields( { ...isDisabledFields, [fieldName]: !isDisabledFields[fieldName] } );
     };
 
     const onLogout = () => {
+        // @ts-ignore
         dispatch( logout() );
     };
 
-    const onSubmit = ( e ) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        // @ts-ignore
         dispatch( updateUser( data ) );
         setIsDisabledFields( {
             firstName: true,
@@ -71,21 +80,21 @@ export const ProfilePage = () => {
             <nav className={ `${ style.column } ${ style.menu } mr-15` }>
 
                 <NavLink to={ '/profile' }
-                         className={ ( { isActive } ) => `${ style.profileLink } 
+                         className={ ({ isActive }) => `${ style.profileLink } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } text text_type_main-medium ` }
                 >
                     Профиль
                 </NavLink>
 
                 <NavLink to={ '/profile/orders' }
-                         className={ ( { isActive } ) => `${ style.profileLink } 
+                         className={ ({ isActive }) => `${ style.profileLink } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } text text_type_main-medium ` }
                 >
                     История заказов
                 </NavLink>
 
                 <NavLink to={ '/login' } onClick={ onLogout }
-                         className={ ( { isActive } ) => `${ style.profileLink } 
+                         className={ ({ isActive }) => `${ style.profileLink } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } text text_type_main-medium ` }
                 >
                     Выход
@@ -100,35 +109,34 @@ export const ProfilePage = () => {
                     <Input
                         type={ 'text' }
                         placeholder={ 'Имя' }
-                        onChange={ ( e ) => onChange( e ) }
+                        onChange={ onChange }
                         icon={ 'EditIcon' }
                         value={ data.firstName }
                         name={ 'firstName' }
-                        error={ false }
-                        ref={ null }
                         onIconClick={ () => onIconClick( 'firstName' ) }
                         errorText={ 'Ошибка' }
                         size={ 'default' }
                         disabled={ isDisabledFields['firstName'] }
                         extraClass="mb-6"
                     />
-                    <EmailInput
-                        onChange={ ( e ) => onChange( e ) }
+                    <Input
+                        type={ 'text' }
+                        placeholder={ 'Логин' }
+                        onChange={ onChange }
+                        icon={ 'EditIcon' }
                         value={ data.email }
                         name={ 'email' }
-                        placeholder="Логин"
-                        isIcon={ true }
-                        disabled={ isDisabledFields['email'] }
                         onIconClick={ () => onIconClick( 'email' ) }
+                        errorText={ 'Ошибка' }
+                        size={ 'default' }
+                        disabled={ isDisabledFields['email'] }
                         extraClass="mb-6"
                     />
                     <PasswordInput
-                        onChange={ ( e ) => onChange( e ) }
+                        onChange={ onChange }
                         value={ data.password }
                         name={ 'password' }
                         icon="EditIcon"
-                        disabled={ isDisabledFields['password'] }
-                        onIconClick={ () => onIconClick( 'password' ) }
                     />
 
                     {

@@ -1,19 +1,19 @@
 import style from "./index.module.css";
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { request } from "../utils/api";
 import { useForm } from "../hooks/useForm";
 
 export const PasswordForgotPage = () => {
-    const [ btnDisabled, setBtnDisabled ] = useState( true );
+    const [ btnDisabled, setBtnDisabled ] = useState<boolean>( true );
     const navigate = useNavigate();
 
     const { values, handleInputChange } = useForm( {
         email: ''
     } );
 
-    const handleChange = ( e ) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         handleInputChange( e );
         setBtnDisabled( false );
     };
@@ -38,7 +38,7 @@ export const PasswordForgotPage = () => {
         }
     };
 
-    const onSubmit = ( e ) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         resetPassword();
     };

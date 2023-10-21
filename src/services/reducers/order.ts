@@ -6,8 +6,8 @@ const initialState = {
     data: {},
 };
 
-export const orderReducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
+export const orderReducer = (state = initialState, action: any) => {
+    switch (action.type) {
         case GET_ORDER_REQUEST:
             return {
                 ...state,

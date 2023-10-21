@@ -1,21 +1,23 @@
 import { BASE_URL } from "../services/actions";
+import { TResponse } from "./types";
 
-export const request = async ( method, options ) => {
+export const request = async (method: string, options: RequestInit) => {
     const response = await fetch( `${ BASE_URL }${ method }`, options );
 
     return await checkSuccess( await checkResponse( response ) );
 };
 
-const checkResponse = async ( response ) => {
+const checkResponse = async (response: Response) => {
     if ( response.ok ) {
         return await response.json();
-
     }
 
-    throw new Error( `Ошибка ${ response.status }` );
+    await response.json().then( (err) => {
+        throw new Error( `Ошибка ${ JSON.stringify( err.message ) }` );
+    } );
 };
 
-const checkSuccess = async ( body ) => {
+const checkSuccess = async (body: TResponse) => {
     if ( body && body.success ) {
         return body;
     }

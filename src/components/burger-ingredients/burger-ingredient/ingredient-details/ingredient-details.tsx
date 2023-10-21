@@ -3,16 +3,18 @@ import style from './ingredient-details.module.css';
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Loader } from "../../../loader/loader";
+import { TIngredient } from "../../../../utils/types";
 
 function IngredientDetails() {
-    const { id } = useParams();
+    const { id } = useParams<string>();
 
+    // @ts-ignore
     const ingredients = useSelector( state => state.ingredients.ingredients );
     if ( ingredients.length === 0 ) {
         return <Loader />;
     }
 
-    const ingredient = ingredients.find( ingredient => ingredient._id === id );
+    const ingredient: TIngredient = ingredients.find( (ingredient: TIngredient) => ingredient._id === id );
     const {
         image_large: imgLarge,
         name,

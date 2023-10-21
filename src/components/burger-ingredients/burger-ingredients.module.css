@@ -26,3 +26,12 @@
     margin-bottom: 40px;
     background-color: #2F2F37;
 }
+
+.tabs {
+    display: flex;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}

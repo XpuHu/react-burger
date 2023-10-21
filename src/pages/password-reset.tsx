@@ -1,7 +1,7 @@
 import style from "./index.module.css";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { FormEvent, useEffect } from "react";
 import { request } from "../utils/api";
 import { useForm } from "../hooks/useForm";
 
@@ -40,7 +40,7 @@ export const PasswordResetPage = () => {
         }
     };
 
-    const onSubmit = ( e ) => {
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         resetPassword();
     };

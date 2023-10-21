@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredient.module.css';
-import PropTypes from "prop-types";
-import { ingredientType } from "../../../utils/types";
+import { TIngredientWithCount } from "../../../utils/types";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 
-function BurgerIngredient( { ingredient, handleOpenModal } ) {
+type TBurgerIngredient = {
+    ingredient: TIngredientWithCount,
+    handleOpenModal: () => void
+}
+
+const BurgerIngredient: FC<TBurgerIngredient> = ({ ingredient, handleOpenModal }) => {
     const { name, price, image: img, count } = ingredient;
     const location = useLocation();
 
@@ -43,10 +47,5 @@ function BurgerIngredient( { ingredient, handleOpenModal } ) {
 
     );
 }
-
-BurgerIngredient.propTypes = {
-    ingredient: ingredientType.ingredientType,
-    handleOpenModal: PropTypes.func.isRequired,
-};
 
 export default BurgerIngredient;

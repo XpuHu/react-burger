@@ -1,12 +1,15 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-total.module.css';
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-const BurgerConstructorTotal = memo( ( { handleClick } ) => {
+type TConstructorTotal = {
+    handleClick: () => void;
+};
 
-    const { totalPrice } = useSelector( state => state.burgerConstructor );
+const BurgerConstructorTotal: FC<TConstructorTotal> = memo( ({ handleClick }) => {
+
+    const totalPrice: number = useSelector( (state: any) => state.burgerConstructor.totalPrice );
 
     return (
         <div className={ `${ style.burgerTotal } mr-4 mb-10` }>
@@ -19,9 +22,5 @@ const BurgerConstructorTotal = memo( ( { handleClick } ) => {
         </div>
     );
 } );
-
-BurgerConstructorTotal.propTypes = {
-    handleClick: PropTypes.func.isRequired
-};
 
 export default BurgerConstructorTotal;

@@ -1,11 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import style from './order-details.module.css';
 import icon from '../../../../images/done.svg';
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { Loader } from "../../../loader/loader";
 
-function OrderDetails( { orderId } ) {
+type TOrder = {
+    orderId: string
+}
+
+const OrderDetails: FC<TOrder> = ({ orderId }) => {
+    // @ts-ignore
     const { orderRequest } = useSelector( state => state.order );
     return (
         <>
@@ -27,9 +31,5 @@ function OrderDetails( { orderId } ) {
         </>
     );
 }
-
-OrderDetails.propTypes = {
-    orderId: PropTypes.string.isRequired
-};
 
 export default OrderDetails;

@@ -1,4 +1,5 @@
 import { request } from "./api";
+import { TAuthData, TResponse, TUserData } from "./types";
 
 const ENDPOINT = 'auth';
 const defaultHeader = {
@@ -6,7 +7,7 @@ const defaultHeader = {
     'Content-Type': 'application/json'
 };
 
-export const registerRequest = async ( payload ) => {
+export const registerRequest = async (payload: TUserData): Promise<TResponse> => {
     const options = {
         method: "POST",
         headers: {
@@ -19,12 +20,10 @@ export const registerRequest = async ( payload ) => {
         } )
     };
 
-    const body = await request( `${ ENDPOINT }/register`, options );
-
-    return body;
+    return await request( `${ ENDPOINT }/register`, options );
 };
 
-export const loginRequest = async ( payload ) => {
+export const loginRequest = async (payload: TAuthData): Promise<TResponse> => {
     const options = {
         method: "POST",
         headers: defaultHeader,
@@ -34,9 +33,7 @@ export const loginRequest = async ( payload ) => {
         } )
     };
 
-    const body = await request( `${ ENDPOINT }/login`, options );
-
-    return body;
+    return await request( `${ ENDPOINT }/login`, options );
 };
 
 export const logoutRequest = async () => {
@@ -60,9 +57,7 @@ export const updateTokenRequest = async () => {
         } )
     };
 
-    const body = await request( `${ ENDPOINT }/token`, options );
-
-    return body;
+    return await request( `${ ENDPOINT }/token`, options );
 };
 
 export const getUserRequest = async () => {
@@ -74,12 +69,10 @@ export const getUserRequest = async () => {
         }
     };
 
-    const body = await request( `${ ENDPOINT }/user`, options );
-
-    return body;
+    return await request( `${ ENDPOINT }/user`, options );
 };
 
-export const updateUserRequest = async ( payload ) => {
+export const updateUserRequest = async (payload: TUserData) => {
     const options = {
         method: "PATCH",
         headers: {
@@ -93,7 +86,5 @@ export const updateUserRequest = async ( payload ) => {
         } )
     };
 
-    const body = await request( `${ ENDPOINT }/user`, options );
-
-    return body;
+    return await request( `${ ENDPOINT }/user`, options );
 };
