@@ -1,7 +1,7 @@
 import { BASE_URL } from "../services/actions";
 import { TResponse } from "./types";
 
-export const request = async (method: string, options: any) => {
+export const request = async (method: string, options: RequestInit) => {
     const response = await fetch( `${ BASE_URL }${ method }`, options );
 
     return await checkSuccess( await checkResponse( response ) );
