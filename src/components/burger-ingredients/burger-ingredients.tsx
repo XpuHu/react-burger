@@ -2,10 +2,10 @@ import React, { useRef, useState } from 'react';
 import style from './burger-ingredients.module.css';
 import BurgerIngredientsCategory from "./burger-ingredients-category/burger-ingredients-category";
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { Loader } from "../loader/loader";
 import { TIngredient } from "../../utils/types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { SET_CURRENT_INGREDIENT } from "../../services/constants/ingredients";
 
 function BurgerIngredients() {
     // @ts-ignore

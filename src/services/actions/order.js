@@ -1,6 +1,6 @@
 import { request } from "../../utils/api";
 import { CLEAR_CONSTRUCTOR } from "./constructor";
-import { CLEAR_COUNTS } from "./ingredients";
+import { CLEAR_COUNTS } from "../constants/ingredients";
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';

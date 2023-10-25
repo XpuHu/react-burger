@@ -23,7 +23,8 @@ export type TOrder = {
 
 export type TResponse = {
     success: boolean,
-    message?: string
+    message?: string,
+    data?: any
 }
 
 export type TUserData = {
