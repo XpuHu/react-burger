@@ -4,12 +4,13 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FormEvent, useEffect } from "react";
 import { request } from "../utils/api";
 import { useForm } from "../hooks/useForm";
+import { TForm } from "../services/types/data";
 
 export const PasswordResetPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const { values, handleInputChange } = useForm( {
+    const { values, handleInputChange } = useForm<TForm>( {
         password: '',
         token: ''
     } );

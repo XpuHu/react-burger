@@ -1,5 +1,4 @@
 import { BASE_URL } from "../services/actions";
-import { TResponse } from "./types";
 
 export const request = async (method: string, options?: RequestInit) => {
     const response = await fetch( `${ BASE_URL }${ method }`, options );
@@ -17,7 +16,7 @@ const checkResponse = async (response: Response) => {
     } );
 };
 
-const checkSuccess = async (body: TResponse) => {
+const checkSuccess = async (body: any) => {
     if ( body && body.success ) {
         return body;
     }

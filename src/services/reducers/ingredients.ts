@@ -1,4 +1,4 @@
-import { TIngredientWithCount } from "../../utils/types";
+import { TIngredientWithCount } from "../types/data";
 import { TIngredientsActions } from "../actions/ingredients";
 import {
     CLEAR_COUNTS,

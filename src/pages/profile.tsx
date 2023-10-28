@@ -2,9 +2,9 @@ import style from "./profile.module.css";
 import { NavLink } from "react-router-dom";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { checkAuth, logout, updateUser } from "../services/actions/auth";
-import { TUserData } from "../utils/types";
+import { TUserData } from "../services/types/data";
+import { useDispatch, useSelector } from "../hooks/hooks";
 
 type TFields = {
     [name: string]: boolean
@@ -13,16 +13,15 @@ type TFields = {
 export const ProfilePage = () => {
     const dispatch = useDispatch();
 
-    // @ts-ignore
     const { user } = useSelector( state => state.auth );
     const [ data, setData ] = useState<TUserData>( {
-        firstName: user.name,
-        email: user.email,
-        password: ''
+        name: user?.name ?? '',
+        email: user?.email ?? '',
+        password: user?.password ?? ''
     } );
 
     const [ isDisabledFields, setIsDisabledFields ] = useState<TFields>( {
-        firstName: true,
+        name: true,
         email: true,
         password: true
     } );
@@ -30,7 +29,7 @@ export const ProfilePage = () => {
     const [ isDataChanged, setIsDataChanged ] = useState<boolean>( false );
 
     useEffect( () => {
-        // @ts-ignore
+
         dispatch( checkAuth() );
     }, [ dispatch ] );
 
@@ -44,17 +43,17 @@ export const ProfilePage = () => {
     };
 
     const onLogout = () => {
-        // @ts-ignore
+
         dispatch( logout() );
     };
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // @ts-ignore
+
         dispatch( updateUser( data ) );
         setIsDisabledFields( {
-            firstName: true,
+            name: true,
             email: true,
             password: true
         } );
@@ -63,12 +62,12 @@ export const ProfilePage = () => {
 
     const resetData = () => {
         setData( {
-            firstName: user.name,
-            email: user.email,
-            password: ''
+            name: user?.name ?? '',
+            email: user?.email ?? '',
+            password: user?.password ?? ''
         } );
         setIsDisabledFields( {
-            firstName: true,
+            name: true,
             email: true,
             password: true
         } );
@@ -111,12 +110,12 @@ export const ProfilePage = () => {
                         placeholder={ 'Имя' }
                         onChange={ onChange }
                         icon={ 'EditIcon' }
-                        value={ data.firstName }
-                        name={ 'firstName' }
-                        onIconClick={ () => onIconClick( 'firstName' ) }
+                        value={ data.name }
+                        name={ 'name' }
+                        onIconClick={ () => onIconClick( 'name' ) }
                         errorText={ 'Ошибка' }
                         size={ 'default' }
-                        disabled={ isDisabledFields['firstName'] }
+                        disabled={ isDisabledFields['name'] }
                         extraClass="mb-6"
                     />
                     <Input

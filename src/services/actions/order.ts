@@ -1,15 +1,29 @@
 import { request } from "../../utils/api";
-import { CLEAR_CONSTRUCTOR } from "./constructor";
 import { CLEAR_COUNTS } from "../constants/ingredients";
+import { GET_ORDER_ERROR, GET_ORDER_REQUEST, GET_ORDER_SUCCESS } from "../constants/order";
+import { CLEAR_CONSTRUCTOR } from "../constants/constructor";
+import { AppDispatch, AppThunk } from "../types";
+import { TOrder } from "../types/data";
 
-export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
-export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
-export const GET_ORDER_ERROR = 'GET_ORDER_ERROR';
+export interface IGetOrderAction {
+    readonly type: typeof GET_ORDER_REQUEST
+}
+
+export interface IGetOrderSuccessAction {
+    readonly type: typeof GET_ORDER_SUCCESS
+    data: TOrder
+}
+
+export interface IGetOrderFailedAction {
+    readonly type: typeof GET_ORDER_ERROR
+}
+
+export type TOrderActions = IGetOrderAction | IGetOrderSuccessAction | IGetOrderFailedAction
 
 const ORDER_METHOD = `orders`;
 
-export const getOrderId = ( ingredientsIds ) => {
-    return async ( dispatch ) => {
+export const getOrderId = (ingredientsIds: Array<string>): AppThunk => {
+    return async (dispatch: AppDispatch) => {
         dispatch( { type: GET_ORDER_REQUEST } );
         try {
             const options = {
@@ -27,8 +41,10 @@ export const getOrderId = ( ingredientsIds ) => {
 
             dispatch( {
                 type: GET_ORDER_SUCCESS,
-                name: body.name,
-                number: body.order.number
+                data: {
+                    name: body.name,
+                    number: body.order.number
+                }
             } );
 
             // Если заказ успешный, очищаем конструктор, сбрасывает счётчики

@@ -24,13 +24,28 @@ export type TOrder = {
 export type TResponse = {
     success: boolean,
     message?: string,
-    data?: any
+    data?: any,
 }
+
+export type TResponseWithUser = TResponse & { user: TUserData }
+
+export type TResponseWithToken = TResponse & TToken
+
+export type TResponseWithUserToken = TResponseWithUser & TToken
 
 export type TUserData = {
     email: string,
     password: string,
-    firstName: string
+    name: string
 }
 
-export type TAuthData = Omit<TUserData, 'firstName'>
+export type TAuthData = Omit<TUserData, 'name'>
+
+export type TToken = {
+    accessToken: string,
+    refreshToken: string,
+}
+
+export type TForm = {
+    [key: string]: string
+}

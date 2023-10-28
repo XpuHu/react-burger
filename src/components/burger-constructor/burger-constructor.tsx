@@ -4,23 +4,17 @@ import BurgerConstructorList from "./burger-constructor-list/burger-constructor-
 import BurgerConstructorTotal from "./burger-constructor-total/burger-constructor-total";
 import Modal from "../modal/modal";
 import OrderDetails from "./burger-constructor-total/order-details/order-details";
-import { useDispatch, useSelector } from 'react-redux';
-import { SET_TOTAL_PRICE } from "../../services/actions/constructor";
 import { getOrderId } from "../../services/actions/order";
 import { useModal } from "../../hooks/useModal";
 import { useNavigate } from "react-router-dom";
-import { TConstructorIngredient, TIngredient, TOrder } from "../../utils/types";
+import { TIngredient } from "../../services/types/data";
+import { SET_TOTAL_PRICE } from "../../services/constants/constructor";
+import { useDispatch, useSelector } from "../../hooks/hooks";
 
 const BurgerConstructor = () => {
-    // @ts-ignore
-    const constructorIngredientList: Array<TConstructorIngredient> = useSelector( state => state.burgerConstructor.constructorIngredientList );
-    // @ts-ignore
-    const constructorBun: TConstructorIngredient = useSelector( state => state.burgerConstructor.constructorBun );
-
-    // @ts-ignore
-    const data: TOrder = useSelector( state => state.order.data );
-    // @ts-ignore
-    const isAuthorized: boolean = useSelector( state => state.auth.isAuthorized );
+    const { constructorIngredientList, constructorBun } = useSelector( state => state.burgerConstructor )
+    const { data } = useSelector( state => state.order );
+    const { isAuthorized } = useSelector( state => state.auth );
 
     const { showModal, openModal, closeModal } = useModal();
     const dispatch = useDispatch();
@@ -31,15 +25,15 @@ const BurgerConstructor = () => {
     }, [ constructorIngredientList, constructorBun, dispatch ] );
 
     useEffect( () => {
-        if ( showModal ) {
+        if ( showModal && constructorBun ) {
             const orderIngredientsIds: Array<string> = [ constructorBun._id, ...constructorIngredientList.map( (ingredient: TIngredient) => ingredient._id ), constructorBun._id ];
-            // @ts-ignore
+
             isAuthorized ? dispatch( getOrderId( orderIngredientsIds ) ) : navigate( '/login', { replace: true } );
         }
     }, [ showModal ] );
 
     // id заказа всегда 6 цифр, если цифр меньше - в начале пишутся нули
-    const transformOrderId = (orderId: number) => orderId ? String( orderId ).padStart( 6, '0' ) : String( '' ).padStart( 6, '0' );
+    const transformOrderId = (orderId: number | null) => orderId ? String( orderId ).padStart( 6, '0' ) : String( '' ).padStart( 6, '0' );
 
     return (
         <section className={ `${ style.burgerConstructor } pt-25 pl-4` }>
@@ -51,7 +45,7 @@ const BurgerConstructor = () => {
 
             { showModal && (
                 <Modal handleClose={ closeModal }>
-                    <OrderDetails orderId={ transformOrderId( data.number ) } />
+                    <OrderDetails orderId={ transformOrderId( data ? data.number : null ) } />
                 </Modal>
             ) }
         </section>

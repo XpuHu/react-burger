@@ -1,3 +1,5 @@
+import { TConstructorIngredient } from "../types/data";
+import { TConstructorActions } from "../actions/constructor";
 import {
     ADD_BUN,
     ADD_INGREDIENT,
@@ -6,9 +8,15 @@ import {
     DELETE_INGREDIENT,
     SET_TOTAL_PRICE,
     UPDATE_INGREDIENTS_ORDER
-} from "../actions/constructor";
+} from "../constants/constructor";
 
-const initialState = {
+type TConstructorState = {
+    constructorIngredientList: Array<TConstructorIngredient>
+    constructorBun: TConstructorIngredient | null
+    totalPrice: number
+}
+
+const initialState: TConstructorState = {
     constructorIngredientList: [],
     constructorBun: null,
 
@@ -16,8 +24,8 @@ const initialState = {
 };
 
 
-export const constructorReducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
+export const constructorReducer = (state = initialState, action: TConstructorActions) => {
+    switch (action.type) {
         case ADD_INGREDIENT:
             return {
                 ...state,
@@ -48,8 +56,8 @@ export const constructorReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 totalPrice: state.constructorBun
-                    ? state.constructorIngredientList.reduce( ( sum, ingredient ) => sum + ingredient.price, 0 ) + 2 * state.constructorBun.price
-                    : state.constructorIngredientList.reduce( ( sum, ingredient ) => sum + ingredient.price, 0 )
+                    ? state.constructorIngredientList.reduce( (sum, ingredient) => sum + ingredient.price, 0 ) + 2 * state.constructorBun.price
+                    : state.constructorIngredientList.reduce( (sum, ingredient) => sum + ingredient.price, 0 )
             };
         case UPDATE_INGREDIENTS_ORDER:
             const ingredientList = [ ...state.constructorIngredientList ];

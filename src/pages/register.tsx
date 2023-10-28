@@ -1,17 +1,19 @@
 import style from "./index.module.css";
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+
 import { register } from "../services/actions/auth";
 import { useForm } from "../hooks/useForm";
 import { FormEvent } from "react";
+import { useDispatch } from "../hooks/hooks";
+import { TUserData } from "../services/types/data";
 
 export const RegisterPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { values, handleInputChange } = useForm( {
-        firstName: '',
+    const { values, handleInputChange } = useForm<TUserData>( {
+        name: '',
         email: '',
         password: ''
     } );
@@ -19,7 +21,7 @@ export const RegisterPage = () => {
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // @ts-ignore
+
         dispatch( register( values ) );
         navigate( '/login', { replace: true, state: { from: 'register' } } );
     };
@@ -33,8 +35,8 @@ export const RegisterPage = () => {
                     type={ 'text' }
                     placeholder={ 'Имя' }
                     onChange={ handleInputChange }
-                    value={ values.firstName }
-                    name={ 'firstName' }
+                    value={ values.name }
+                    name={ 'name' }
                     error={ false }
                     errorText={ 'Ошибка' }
                     size={ 'default' }

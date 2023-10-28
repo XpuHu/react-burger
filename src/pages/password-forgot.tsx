@@ -4,12 +4,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { request } from "../utils/api";
 import { useForm } from "../hooks/useForm";
+import { TForm } from "../services/types/data";
 
 export const PasswordForgotPage = () => {
     const [ btnDisabled, setBtnDisabled ] = useState<boolean>( true );
     const navigate = useNavigate();
 
-    const { values, handleInputChange } = useForm( {
+    const { values, handleInputChange } = useForm<TForm>( {
         email: ''
     } );
 
@@ -23,7 +24,8 @@ export const PasswordForgotPage = () => {
             const options = {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify( {
                     "email": values.email

@@ -2,23 +2,23 @@ import React, { memo, useMemo } from 'react';
 import ConstructorIngredientsList from "./cunstructor-ingredients-list/constructor-ingredients-list";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-constructor-list.module.css';
-import { useDispatch, useSelector } from "react-redux";
-import { ADD_BUN, ADD_INGREDIENT } from "../../../services/actions/constructor";
 import { useDrop } from "react-dnd";
-import { TConstructorIngredient, TIngredient } from "../../../utils/types";
+import { TConstructorIngredient } from "../../../services/types/data";
+import { useDispatch, useSelector } from "../../../hooks/hooks";
+import { ADD_BUN, ADD_INGREDIENT } from "../../../services/constants/constructor";
 import { DECREASE_COUNT, INCREASE_COUNT } from "../../../services/constants/ingredients";
 
 const BurgerConstructorList = memo( () => {
-    // @ts-ignore
-    const constructorBun: TIngredient = useSelector( state => state.burgerConstructor.constructorBun );
+
+    const { constructorBun } = useSelector( state => state.burgerConstructor );
     const dispatch = useDispatch();
 
-    const moveIngredient = (ingredient: TIngredient) => {
+    const moveIngredient = (ingredient: TConstructorIngredient) => {
         dispatch( { type: ADD_INGREDIENT, ingredient } );
         dispatch( { type: INCREASE_COUNT, id: ingredient._id } );
     };
 
-    const moveBun = (bun: TIngredient) => {
+    const moveBun = (bun: TConstructorIngredient) => {
         if ( constructorBun ) {
             dispatch( { type: DECREASE_COUNT, id: constructorBun._id } );
         }

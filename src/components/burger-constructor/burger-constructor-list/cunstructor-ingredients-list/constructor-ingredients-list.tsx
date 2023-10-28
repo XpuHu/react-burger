@@ -1,12 +1,13 @@
 import React from 'react';
 import style from './constructor-ingredients-list.module.css';
-import { useSelector } from "react-redux";
+
 import ConstructorIngredient from "./constructor-ingredient/constructor-ingredient";
-import { TConstructorIngredient } from "../../../../utils/types";
+import { TConstructorIngredient } from "../../../../services/types/data";
+import { useSelector } from "../../../../hooks/hooks";
 
 function ConstructorIngredientsList() {
-    // @ts-ignore
-    const constructorIngredientList: Array<TConstructorIngredient> = useSelector( state => state.burgerConstructor.constructorIngredientList );
+
+    const { constructorIngredientList } = useSelector( state => state.burgerConstructor );
 
     return (
         <section className={ `${ style.ingredientsList } pr-4` }>

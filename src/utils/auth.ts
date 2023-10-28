@@ -1,5 +1,11 @@
 import { request } from "./api";
-import { TAuthData, TResponse, TUserData } from "./types";
+import {
+    TAuthData,
+    TResponseWithToken,
+    TResponseWithUser,
+    TResponseWithUserToken,
+    TUserData
+} from "../services/types/data";
 
 const ENDPOINT = 'auth';
 const defaultHeader = {
@@ -7,7 +13,7 @@ const defaultHeader = {
     'Content-Type': 'application/json'
 };
 
-export const registerRequest = async (payload: TUserData): Promise<TResponse> => {
+export const registerRequest = async (payload: TUserData): Promise<TResponseWithUser> => {
     const options = {
         method: "POST",
         headers: {
@@ -16,14 +22,14 @@ export const registerRequest = async (payload: TUserData): Promise<TResponse> =>
         body: JSON.stringify( {
             "email": payload.email,
             "password": payload.password,
-            "name": payload.firstName
+            "name": payload.name
         } )
     };
 
     return await request( `${ ENDPOINT }/register`, options );
 };
 
-export const loginRequest = async (payload: TAuthData): Promise<TResponse> => {
+export const loginRequest = async (payload: TAuthData): Promise<TResponseWithUserToken> => {
     const options = {
         method: "POST",
         headers: defaultHeader,
@@ -48,7 +54,7 @@ export const logoutRequest = async () => {
     await request( `${ ENDPOINT }/logout`, options );
 };
 
-export const updateTokenRequest = async () => {
+export const updateTokenRequest = async (): Promise<TResponseWithToken> => {
     const options = {
         method: "POST",
         headers: defaultHeader,
@@ -60,7 +66,7 @@ export const updateTokenRequest = async () => {
     return await request( `${ ENDPOINT }/token`, options );
 };
 
-export const getUserRequest = async () => {
+export const getUserRequest = async (): Promise<TResponseWithUser> => {
     const options = {
         method: "GET",
         headers: {
@@ -72,7 +78,7 @@ export const getUserRequest = async () => {
     return await request( `${ ENDPOINT }/user`, options );
 };
 
-export const updateUserRequest = async (payload: TUserData) => {
+export const updateUserRequest = async (payload: TUserData): Promise<TResponseWithUser> => {
     const options = {
         method: "PATCH",
         headers: {
@@ -82,7 +88,7 @@ export const updateUserRequest = async (payload: TUserData) => {
         body: JSON.stringify( {
             "email": payload.email,
             "password": payload.password,
-            "name": payload.firstName
+            "name": payload.name
         } )
     };
 

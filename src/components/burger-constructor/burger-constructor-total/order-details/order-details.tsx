@@ -1,15 +1,16 @@
 import React, { FC } from "react";
 import style from './order-details.module.css';
 import icon from '../../../../images/done.svg';
-import { useSelector } from "react-redux";
+
 import { Loader } from "../../../loader/loader";
+import { useSelector } from "../../../../hooks/hooks";
 
 type TOrder = {
     orderId: string
 }
 
 const OrderDetails: FC<TOrder> = ({ orderId }) => {
-    // @ts-ignore
+
     const { orderRequest } = useSelector( state => state.order );
     return (
         <>

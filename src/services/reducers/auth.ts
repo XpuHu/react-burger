@@ -1,3 +1,5 @@
+import { TUserData } from "../types/data";
+import { TAuthActions } from "../actions/auth";
 import {
     GET_USER_ERROR,
     GET_USER_REQUEST,
@@ -17,9 +19,31 @@ import {
     SET_USER_ERROR,
     SET_USER_REQUEST,
     SET_USER_SUCCESS
-} from "../actions/auth";
+} from "../constants/auth";
 
-const initialState = {
+type TAuthState = {
+    user: TUserData | null,
+    isAuthorized: boolean,
+
+    registerRequest: boolean,
+    registerFailed: boolean,
+
+    loginRequest: boolean,
+    loginFailed: boolean,
+
+    logoutRequest: boolean,
+    logoutFailed: boolean,
+
+    updateTokenRequest: boolean,
+    updateTokenFailed: boolean,
+
+    getUserRequest: boolean,
+    getUserFailed: boolean,
+    updateUserRequest: boolean,
+    updateUserFailed: boolean
+}
+
+const initialState: TAuthState = {
     user: null,
     isAuthorized: false,
 
@@ -41,7 +65,7 @@ const initialState = {
     updateUserFailed: false
 };
 
-export const authReducer = (state = initialState, action: any) => {
+export const authReducer = (state = initialState, action: TAuthActions) => {
     switch (action.type) {
         case SET_REGISTER_REQUEST:
             return {
@@ -49,7 +73,6 @@ export const authReducer = (state = initialState, action: any) => {
                 registerRequest: true,
                 registerFailed: false
             };
-
         case SET_REGISTER_SUCCESS:
             return {
                 ...state,

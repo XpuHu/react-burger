@@ -1,7 +1,8 @@
 import { FC, ReactElement, useEffect, useState } from "react";
 import { checkAuth } from "../../services/actions/auth";
-import { useSelector } from "react-redux";
+
 import { Navigate, useLocation } from "react-router-dom";
+import { useSelector } from "../../hooks/hooks";
 
 type TProtectedRoute = {
     forAuthorized?: boolean,
@@ -11,7 +12,7 @@ type TProtectedRoute = {
 export const ProtectedRoute: FC<TProtectedRoute> = ({ element, forAuthorized = false }) => {
     const location = useLocation();
 
-    // @ts-ignore
+
     const { isAuthorized } = useSelector( state => state.auth );
     const [ isUserLoaded, setUserLoaded ] = useState( false );
 

@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react';
 import style from './burger-ingredients.module.css';
 import BurgerIngredientsCategory from "./burger-ingredients-category/burger-ingredients-category";
-import { useDispatch, useSelector } from 'react-redux';
 import { Loader } from "../loader/loader";
-import { TIngredient } from "../../utils/types";
+import { TIngredient, TIngredientWithCount } from "../../services/types/data";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch, useSelector } from "../../hooks/hooks";
 import { SET_CURRENT_INGREDIENT } from "../../services/constants/ingredients";
 
 function BurgerIngredients() {
-    // @ts-ignore
+
     const { ingredients, ingredientsRequest } = useSelector( state => state.ingredients );
     const dispatch = useDispatch();
 
@@ -18,7 +18,7 @@ function BurgerIngredients() {
     const sauceRef = useRef<HTMLDivElement | null>( null );
     const mainRef = useRef<HTMLDivElement | null>( null );
 
-    const handleOpenModal = (ingredient: TIngredient) => {
+    const handleOpenModal = (ingredient: TIngredientWithCount) => {
         dispatch( { type: SET_CURRENT_INGREDIENT, ingredient } );
     };
 

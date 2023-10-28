@@ -3,20 +3,11 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
-import thunk from 'redux-thunk';
-import { initialState, rootReducer } from './services/reducers';
-import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-
-export const store = configureStore( {
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat( thunk ),
-    devTools: process.env.NODE_ENV !== 'production',
-    preloadedState: initialState,
-} );
+import { store } from "./services/store";
 
 const root = createRoot( document.getElementById( 'root' )! )
 root.render(

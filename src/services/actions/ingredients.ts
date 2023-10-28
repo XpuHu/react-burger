@@ -9,7 +9,8 @@ import {
     INCREASE_COUNT,
     SET_CURRENT_INGREDIENT
 } from "../constants/ingredients";
-import { TIngredientWithCount } from "../../utils/types";
+import { TIngredientWithCount } from "../types/data";
+import { AppDispatch, AppThunk } from "../types";
 
 export interface IGetIngredientsAction {
     readonly type: typeof GET_INGREDIENTS_REQUEST
@@ -54,8 +55,8 @@ export type TIngredientsActions = IGetIngredientsAction | IGetIngredientsFailedA
 
 const INGREDIENTS_METHOD = `ingredients`;
 
-export const getIngredients = (): any => {
-    return async (dispatch: any) => {
+export const getIngredients = (): AppThunk => {
+    return async (dispatch: AppDispatch) => {
         dispatch( { type: GET_INGREDIENTS_REQUEST } );
         try {
             const body = await request( INGREDIENTS_METHOD );

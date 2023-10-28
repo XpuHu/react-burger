@@ -1,23 +1,23 @@
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from "react-router-dom";
 import style from './index.module.css';
-import { useDispatch } from "react-redux";
+
 import { login } from "../services/actions/auth";
 import { useForm } from "../hooks/useForm";
 import { FormEvent } from "react";
+import { useDispatch } from "../hooks/hooks";
+import { TAuthData } from "../services/types/data";
 
 export const LoginPage = () => {
     const dispatch = useDispatch();
 
-    const { values, handleInputChange } = useForm( {
+    const { values, handleInputChange } = useForm<TAuthData>( {
         email: '',
         password: ''
     } );
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        // @ts-ignore
         dispatch( login( values ) );
     };
 
