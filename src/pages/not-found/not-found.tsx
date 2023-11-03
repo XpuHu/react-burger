@@ -1,5 +1,5 @@
 import styles from './not-found.module.css';
-import bgImage from '../images/404.png';
+import bgImage from '../../images/404.png';
 
 export const NotFoundPage = () => {
     return (

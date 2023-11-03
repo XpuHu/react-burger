@@ -1,12 +1,12 @@
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from "react-router-dom";
-import style from './index.module.css';
+import style from '../index.module.css';
 
-import { login } from "../services/actions/auth";
-import { useForm } from "../hooks/useForm";
+import { login } from "../../services/actions/auth";
+import { useForm } from "../../hooks/useForm";
 import { FormEvent } from "react";
-import { useDispatch } from "../hooks/hooks";
-import { TAuthData } from "../services/types/data";
+import { useDispatch } from "../../hooks/hooks";
+import { TAuthData } from "../../services/types/data";
 
 export const LoginPage = () => {
     const dispatch = useDispatch();

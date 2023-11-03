@@ -1,10 +1,10 @@
 import React from 'react';
 import style from './ingredient-details.module.css';
 
-import { useParams } from "react-router-dom";
-import { Loader } from "../../../loader/loader";
-import { TIngredientWithCount } from "../../../../services/types/data";
-import { useSelector } from "../../../../hooks/hooks";
+import { useParams } from 'react-router-dom';
+import { Loader } from '../../../loader/loader';
+import { TIngredientWithCount } from '../../../../services/types/data';
+import { useSelector } from '../../../../hooks/hooks';
 
 function IngredientDetails() {
     const { id } = useParams<string>();
@@ -29,12 +29,12 @@ function IngredientDetails() {
 
         return (
             <div className={ style.wrapper }>
-                <h2 className={ `${ style.header } text text_type_main-large mt-10` }>Детали ингридиента</h2>
+                <h2 className={ `${ style.header } text text_type_main-large` }>Детали ингридиента</h2>
                 <img className={ `${ style.imgLarge } pl-5 pr-5 mb-4` } src={ imgLarge }
                      alt={ name }
                 />
                 <p className={ `text text_type_main-medium mb-8` }>{ name }</p>
-                <div className={ `${ style.nutritionList } text text_type_main-default text_color_inactive mb-15` }>
+                <div className={ `${ style.nutritionList } text text_type_main-default text_color_inactive` }>
                     <div className={ `${ style.nutritionItem }` }>
                         <span>Калории,ккал</span>
                         <span className={ `text_type_digits-default` }>{ calories }</span>

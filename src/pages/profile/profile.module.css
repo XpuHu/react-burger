@@ -1,0 +1,9 @@
+.wrapper {
+    margin: auto;
+    display: flex;
+}
+
+.submit {
+    display: flex;
+    justify-content: flex-end;
+}

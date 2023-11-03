@@ -24,7 +24,7 @@ export type TOrder = {
 export type TResponse = {
     success: boolean,
     message?: string,
-    data?: any,
+    data?: any
 }
 
 export type TResponseWithUser = TResponse & { user: TUserData }
@@ -43,9 +43,32 @@ export type TAuthData = Omit<TUserData, 'name'>
 
 export type TToken = {
     accessToken: string,
-    refreshToken: string,
+    refreshToken: string
 }
 
 export type TForm = {
     [key: string]: string
+}
+
+export type TFeedOrder = {
+    _id: string,
+    ingredients: Array<string>,
+    status: OrderStatus,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+    number: number
+}
+
+export enum OrderStatus {
+    created = 'created',
+    pending = 'pending',
+    done = 'done'
+}
+
+export type TFeedMessage = {
+    success: boolean,
+    orders: Array<TFeedOrder>,
+    total: number,
+    totalToday: number
 }

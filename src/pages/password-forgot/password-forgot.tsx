@@ -1,10 +1,10 @@
-import style from "./index.module.css";
+import style from "../index.module.css";
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { request } from "../utils/api";
-import { useForm } from "../hooks/useForm";
-import { TForm } from "../services/types/data";
+import { request } from "../../utils/api";
+import { useForm } from "../../hooks/useForm";
+import { TForm } from "../../services/types/data";
 
 export const PasswordForgotPage = () => {
     const [ btnDisabled, setBtnDisabled ] = useState<boolean>( true );

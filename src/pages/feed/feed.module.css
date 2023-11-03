@@ -1,0 +1,9 @@
+.pageWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.feedWrapper {
+    display: flex;
+    overflow: hidden;
+}

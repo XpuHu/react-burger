@@ -11,10 +11,10 @@ function AppHeader() {
 
                 <nav className={ `${ style.secondaryMenu } ` }>
 
-                    <NavLink to={ '/' } className={ ( { isActive } ) => `${ style.menuItem } 
+                    <NavLink to={ '/' } className={ ({ isActive }) => `${ style.menuItem } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } pl-5 pr-5 pt-4 pb-4` }
                     >
-                        { ( { isActive } ) => (
+                        { ({ isActive }) => (
                             <>
                                 <BurgerIcon type={ isActive ? 'primary' : 'secondary' } />
                                 <span className={ 'ml-2' }>Конструктор</span>
@@ -22,10 +22,10 @@ function AppHeader() {
                         ) }
                     </NavLink>
 
-                    <NavLink to={ '/orders' } className={ ( { isActive } ) => `${ style.menuItem } 
+                    <NavLink to={ '/feed' } className={ ({ isActive }) => `${ style.menuItem } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } ml-2 pl-5 pr-5 pt-4 pb-4` }
                     >
-                        { ( { isActive } ) => (
+                        { ({ isActive }) => (
                             <>
                                 <ListIcon type={ isActive ? 'primary' : 'secondary' } />
                                 <span className={ 'ml-2' }>Лента заказов</span>
@@ -38,10 +38,10 @@ function AppHeader() {
                     <Logo />
                 </NavLink>
 
-                <NavLink to={ '/profile' } className={ ( { isActive } ) => `${ style.menuItem } 
+                <NavLink to={ '/profile' } className={ ({ isActive }) => `${ style.menuItem } 
                          ${ isActive ? 'text_color_primary' : 'text_color_inactive' } pl-5 pr-5 pt-4 pb-4` }
                 >
-                    { ( { isActive } ) => (
+                    { ({ isActive }) => (
                         <>
                             <ProfileIcon type={ isActive ? 'primary' : 'secondary' } />
                             <span className={ 'ml-2' }>Личный кабинет</span>

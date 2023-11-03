@@ -1,0 +1,25 @@
+.orderList {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+}
+
+/* Define the scrollbar style */
+.orderList::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Define the thumb style */
+.orderList::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+/* Define the track style */
+.orderList::-webkit-scrollbar-track {
+    margin-bottom: 40px;
+    background-color: #2F2F37;
+}

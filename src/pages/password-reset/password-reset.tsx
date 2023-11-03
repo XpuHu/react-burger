@@ -1,10 +1,10 @@
-import style from "./index.module.css";
+import style from "../index.module.css";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { FormEvent, useEffect } from "react";
-import { request } from "../utils/api";
-import { useForm } from "../hooks/useForm";
-import { TForm } from "../services/types/data";
+import { request } from "../../utils/api";
+import { useForm } from "../../hooks/useForm";
+import { TForm } from "../../services/types/data";
 
 export const PasswordResetPage = () => {
     const location = useLocation();
