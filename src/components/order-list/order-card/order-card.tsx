@@ -25,10 +25,7 @@ export const OrderCard: FC<TOrderCard> = ({ order }) => {
 
     const total = order.ingredients.reduce( (sum: number, id: string) => {
         const ingredient = ingredients.find( ingredient => ingredient._id === id )
-        if ( ingredient ) {
-            return sum += ingredient.price
-        }
-        return sum
+        return ingredient ? sum + ingredient.price : sum
     }, 0 )
 
     return (

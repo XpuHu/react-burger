@@ -16,16 +16,16 @@ import {
 // Типизация action'ов
 export type TApplicationActions = TIngredientsActions | TConstructorActions | TOrderActions | TAuthActions | TWSActions
 
+// Типизация state
 export type RootState = ReturnType<typeof store.getState>
 
 // Типизация thunk'ов
-// export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, TApplicationActions>;
 
 // Типизация dispatch
-// export type AppDispatch = Dispatch<TApplicationActions>;
 export type AppDispatch = ThunkDispatch<RootState, unknown, TApplicationActions>;
 
+// Типизация Websocket
 export type TWSStoreActions = {
     wsInit: typeof WS_CONNECTION_START,
     onOpen: typeof WS_CONNECTION_SUCCESS,

@@ -12,20 +12,6 @@ export const ProtectedRoute: FC<TProtectedRoute> = ({ element, forAuthorized = f
     const location = useLocation();
 
     const { isAuthorized } = useSelector( state => state.auth );
-    // const [ isUserLoaded, setUserLoaded ] = useState( false );
-    //
-    // const init = async () => {
-    //     await checkAuth();
-    //     setUserLoaded( true );
-    // };
-    //
-    // useEffect( () => {
-    //     init();
-    // }, [] );
-    //
-    // if ( !isUserLoaded ) {
-    //     return null;
-    // }
 
     if ( !forAuthorized && isAuthorized ) {
         const { from } = location.state || { from: { pathname: '/' } };

@@ -2,84 +2,69 @@ import style from './order-info.module.css'
 import styles from '../order-list/order-card/order-card.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
+import { TFeedOrder } from '../../services/types/data';
+import { useSelector } from '../../hooks/hooks';
+import { getFeedOrders } from '../../services/selectors';
+import { useParams } from 'react-router-dom';
+import { formatOrderStatus } from '../../utils/data';
 
 export const OrderInfo = () => {
-    const order = {
-        number: '123456',
-        name: 'Black Hole Singularity острый бургер',
-        status: 'выполнено',
-        total: 1000,
-        date: '2023-10-10T17:33:32.877Z',
-        ingredients: [
-            {
-                name: 'Флюоресцентная булка R2-D3',
-                img: 'https://code.s3.yandex.net/react/code/bun-01-mobile.png',
-                price: 20,
-                count: 2
-            },
-            {
-                name: 'Флюоресцентная булка R2-D3',
-                img: 'https://code.s3.yandex.net/react/code/bun-01-mobile.png',
-                price: 60,
-                count: 1
-            },
-            {
-                name: 'Флюоресцентная булка R2-D3',
-                img: 'https://code.s3.yandex.net/react/code/bun-01-mobile.png',
-                price: 1420,
-                count: 6
-            },
-            {
-                name: 'Флюоресцентная булка R2-D3',
-                img: 'https://code.s3.yandex.net/react/code/bun-01-mobile.png',
-                price: 60,
-                count: 1
-            },
-            {
-                name: 'Флюоресцентная булка R2-D3',
-                img: 'https://code.s3.yandex.net/react/code/bun-01-mobile.png',
-                price: 60,
-                count: 1
-            },
-        ]
-    }
+    const orders: Array<TFeedOrder> = useSelector( getFeedOrders )
+    const { id } = useParams<{ id: string }>();
+    const order: TFeedOrder | undefined = orders.find( order => order._id === id )
 
-    return (
-        <main className={ style.wrapper }>
-            <h2 className={ `${ style.orderNumber } text text_type_digits-default` }>#{ order.number }</h2>
-            <h1 className='text text_type_main-medium mt-10 mb-3'>{ order.name }</h1>
-            <p className={ `${ style.status } text text_type_main-default` }>{ order.status }</p>
-            <div>
-                <p className='text text_type_main-medium mt-15 mb-6'>Состав</p>
-                <ul className={ `${ style.ingredientList } mb-10` }>
-                    {
-                        order.ingredients.map( ingredient => (
-                            <li className={ `${ style.ingredient } mb-4 mr-6` }>
-                                <div className={ style.ingredientWrapper }>
-                                    <div className={ `${ style.ingredientImage } mr-4` }>
-                                        <img src={ ingredient.img } alt={ ingredient.name } />
-                                    </div>
+    const { ingredients } = useSelector( state => state.ingredients )
 
-                                    <p className={ `${ style.ingredientName } text text_type_main-default` }>{ ingredient.name }</p>
-                                    <span className={ `${ styles.price } text text_type_digits-default ml-4` }>
-                                        { ingredient.count } x { ingredient.price }
-                                        <CurrencyIcon type='primary' />
+    const orderIngredients = ingredients.map( ingredient => {
+        const count = order?.ingredients.filter( id => id === ingredient._id ).length
+        if ( count && count > 0 ) {
+            return {
+                ...ingredient,
+                count
+            }
+        }
+    } ).filter( ingredient => ingredient )
+
+    const total = orderIngredients.reduce( (sum, ingredient) => sum + ingredient!.price * ingredient!.count, 0 )
+
+    return order && orderIngredients
+        ? (
+            <main className={ style.wrapper }>
+                <h2 className={ `${ style.orderNumber } text text_type_digits-default` }>#{ order.number }</h2>
+                <h1 className='text text_type_main-medium mt-10 mb-3'>{ order.name }</h1>
+                <p className={ `${ style.status } text text_type_main-default` }>{ formatOrderStatus( order.status ) }</p>
+                <div>
+                    <p className='text text_type_main-medium mt-15 mb-6'>Состав</p>
+                    <ul className={ `${ style.ingredientList } mb-10` }>
+                        {
+                            orderIngredients.map( ingredient => (
+                                <li className={ `${ style.ingredient } mb-4 mr-6` } key={ ingredient?._id }>
+                                    <div className={ style.ingredientWrapper }>
+                                        <div className={ `${ style.ingredientImage } mr-4` }>
+                                            <img src={ ingredient?.image_mobile } alt={ ingredient?.name } />
+                                        </div>
+
+                                        <p className={ `${ style.ingredientName } text text_type_main-default` }>{ ingredient?.name }</p>
+                                        <span className={ `${ styles.price } text text_type_digits-default ml-4` }>
+                                        { ingredient?.count } x { ingredient?.price }
+                                            <CurrencyIcon type='primary' />
                                     </span>
-                                </div>
-                            </li>
-                        ) )
-                    }
+                                    </div>
+                                </li>
+                            ) )
+                        }
 
-                </ul>
-            </div>
-            <div className={ style.info }>
-                <p className={ `text text_type_main-default text_color_inactive` }>
-                    <FormattedDate date={ new Date( order.date ) } />
-                </p>
-                <p className={ `${ styles.price } text text_type_digits-default ml-4` }>
-                    { order.total } <CurrencyIcon type='primary' />
-                </p>
-            </div>
-        </main>
-    )
+                    </ul>
+                </div>
+                <div className={ style.info }>
+                    <p className={ `text text_type_main-default text_color_inactive` }>
+                        <FormattedDate date={ new Date( order.createdAt ) } />
+                    </p>
+                    <p className={ `${ styles.price } text text_type_digits-default ml-4` }>
+                        { total } <CurrencyIcon type='primary' />
+                    </p>
+                </div>
+            </main>
+        )
+        : null
 }
