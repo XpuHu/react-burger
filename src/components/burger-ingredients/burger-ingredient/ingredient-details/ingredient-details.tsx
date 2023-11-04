@@ -9,7 +9,6 @@ import { useSelector } from '../../../../hooks/hooks';
 function IngredientDetails() {
     const { id } = useParams<string>();
 
-
     const { ingredients } = useSelector( state => state.ingredients );
     if ( ingredients.length === 0 ) {
         return <Loader />;

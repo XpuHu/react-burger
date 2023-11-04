@@ -10,9 +10,8 @@ import { formatOrderStatus } from '../../utils/data';
 
 export const OrderInfo = () => {
     const orders: Array<TFeedOrder> = useSelector( getFeedOrders )
-    const { id } = useParams<{ id: string }>();
+    const { id } = useParams<string>();
     const order: TFeedOrder | undefined = orders.find( order => order._id === id )
-
     const { ingredients } = useSelector( state => state.ingredients )
 
     const orderIngredients = ingredients.map( ingredient => {
