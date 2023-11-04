@@ -6,6 +6,7 @@ import { TAuthActions } from '../actions/auth';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { TWSActions } from '../actions/ws';
 import {
+    WS_CONNECTION_CLOSE,
     WS_CONNECTION_CLOSED,
     WS_CONNECTION_ERROR,
     WS_CONNECTION_START,
@@ -28,6 +29,7 @@ export type AppDispatch = ThunkDispatch<RootState, unknown, TApplicationActions>
 // Типизация Websocket
 export type TWSStoreActions = {
     wsInit: typeof WS_CONNECTION_START,
+    wsClose: typeof WS_CONNECTION_CLOSE,
     onOpen: typeof WS_CONNECTION_SUCCESS,
     onClose: typeof WS_CONNECTION_CLOSED,
     onError: typeof WS_CONNECTION_ERROR,

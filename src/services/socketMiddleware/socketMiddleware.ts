@@ -5,14 +5,16 @@ export const socketMiddleware = (wsActions: TWSStoreActions): Middleware => {
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
         let wsUrl: string = '';
+        let socketOpened: boolean = false;
 
         return next => (action) => {
             const { dispatch } = store;
             const { type, url } = action;
-            const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
+            const { wsInit, wsClose, onOpen, onClose, onError, onMessage } = wsActions;
             if ( type === wsInit ) {
                 wsUrl = url
                 socket = new WebSocket( wsUrl );
+                socketOpened = true
             }
             if ( socket ) {
                 socket.onopen = event => {
@@ -31,8 +33,17 @@ export const socketMiddleware = (wsActions: TWSStoreActions): Middleware => {
                 };
 
                 socket.onclose = event => {
-                    dispatch( { type: onClose, payload: event } );
+                    if ( socketOpened ) {
+                        dispatch( { type: onError, payload: event } )
+                        dispatch( { type: onOpen, payload: event } );
+                    }
+                    dispatch( { type: onClose, payload: event } )
                 };
+            }
+
+            if ( socket && type === wsClose ) {
+                socketOpened = false
+                socket.close();
             }
 
             next( action );

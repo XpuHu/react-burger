@@ -1,7 +1,8 @@
-import React, { FC, memo } from "react";
-import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import React, { FC, memo } from 'react';
+import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-constructor-total.module.css';
-import { useSelector } from "../../../hooks/hooks";
+import { useSelector } from '../../../hooks/hooks';
+import { getConstructorTotalPrice } from '../../../services/selectors';
 
 
 type TConstructorTotal = {
@@ -10,14 +11,14 @@ type TConstructorTotal = {
 
 const BurgerConstructorTotal: FC<TConstructorTotal> = memo( ({ handleClick }) => {
 
-    const totalPrice: number = useSelector( state => state.burgerConstructor.totalPrice );
+    const totalPrice: number = useSelector( getConstructorTotalPrice );
 
     return (
         <div className={ `${ style.burgerTotal } mr-4 mb-10` }>
             <span className={ `text text_type_digits-medium mr-10` }>{ totalPrice } <CurrencyIcon
-                type="primary"
+                type='primary'
             /></span>
-            <Button htmlType="button" type="primary" size="medium" onClick={ handleClick }>
+            <Button htmlType='button' type='primary' size='medium' onClick={ handleClick }>
                 Оформить заказ
             </Button>
         </div>

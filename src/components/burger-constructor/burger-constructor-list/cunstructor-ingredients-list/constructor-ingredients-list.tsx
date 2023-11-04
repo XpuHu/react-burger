@@ -1,13 +1,14 @@
 import React from 'react';
 import style from './constructor-ingredients-list.module.css';
 
-import ConstructorIngredient from "./constructor-ingredient/constructor-ingredient";
-import { TConstructorIngredient } from "../../../../services/types/data";
-import { useSelector } from "../../../../hooks/hooks";
+import ConstructorIngredient from './constructor-ingredient/constructor-ingredient';
+import { TConstructorIngredient } from '../../../../services/types/data';
+import { useSelector } from '../../../../hooks/hooks';
+import { getConstructorIngredients } from '../../../../services/selectors';
 
 function ConstructorIngredientsList() {
 
-    const { constructorIngredientList } = useSelector( state => state.burgerConstructor );
+    const constructorIngredientList = useSelector( getConstructorIngredients );
 
     return (
         <section className={ `${ style.ingredientsList } pr-4` }>

@@ -3,7 +3,7 @@ import { OrderList } from '../../components/order-list/order-list';
 import { Feed } from '../../components/feed/feed';
 import style from './feed.module.css'
 import { useDispatch } from '../../hooks/hooks';
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_START, WS_FEED_ALL_URL } from '../../services/constants/ws';
+import { WS_CONNECTION_CLOSE, WS_CONNECTION_START, WS_FEED_ALL_URL } from '../../services/constants/ws';
 
 export const FeedPage = () => {
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export const FeedPage = () => {
         } )
 
         return () => {
-            dispatch( { type: WS_CONNECTION_CLOSED } )
+            dispatch( { type: WS_CONNECTION_CLOSE } )
         }
     }, [ dispatch ] )
 

@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import { TWSStoreActions } from './types';
 import {
+    WS_CONNECTION_CLOSE,
     WS_CONNECTION_CLOSED,
     WS_CONNECTION_ERROR,
     WS_CONNECTION_START,
@@ -13,6 +14,7 @@ import { socketMiddleware } from './socketMiddleware/socketMiddleware';
 
 const wsActions: TWSStoreActions = {
     wsInit: WS_CONNECTION_START,
+    wsClose: WS_CONNECTION_CLOSE,
     onOpen: WS_CONNECTION_SUCCESS,
     onClose: WS_CONNECTION_CLOSED,
     onError: WS_CONNECTION_ERROR,

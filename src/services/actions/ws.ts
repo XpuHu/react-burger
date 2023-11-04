@@ -1,4 +1,5 @@
 import {
+    WS_CONNECTION_CLOSE,
     WS_CONNECTION_CLOSED,
     WS_CONNECTION_ERROR,
     WS_CONNECTION_START,
@@ -9,7 +10,10 @@ import { TFeedMessage } from '../types/data';
 
 export interface IWSConnectionStart {
     readonly type: typeof WS_CONNECTION_START;
-    url: string
+}
+
+export interface IWSConnectionClose {
+    readonly type: typeof WS_CONNECTION_CLOSE;
 }
 
 export interface IWSConnectionSuccessAction {
@@ -27,11 +31,12 @@ export interface IWSConnectionClosedAction {
 
 export interface IWSGetMessageAction {
     readonly type: typeof WS_GET_MESSAGE;
-    payload: TFeedMessage
+    readonly payload: TFeedMessage
 }
 
 export type TWSActions =
     | IWSConnectionStart
+    | IWSConnectionClose
     | IWSConnectionSuccessAction
     | IWSConnectionErrorAction
     | IWSConnectionClosedAction

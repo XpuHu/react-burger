@@ -5,11 +5,12 @@ import { useParams } from 'react-router-dom';
 import { Loader } from '../../../loader/loader';
 import { TIngredientWithCount } from '../../../../services/types/data';
 import { useSelector } from '../../../../hooks/hooks';
+import { getIngredients } from '../../../../services/selectors';
 
 function IngredientDetails() {
     const { id } = useParams<string>();
 
-    const { ingredients } = useSelector( state => state.ingredients );
+    const ingredients = useSelector( getIngredients );
     if ( ingredients.length === 0 ) {
         return <Loader />;
     }

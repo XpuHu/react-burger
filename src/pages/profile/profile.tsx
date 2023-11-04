@@ -5,6 +5,7 @@ import { checkAuth, logout, updateUser } from '../../services/actions/auth';
 import { TUserData } from '../../services/types/data';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 import { ProfileMenu } from '../../components/profile-menu/profile-menu';
+import { getUser } from '../../services/selectors';
 
 type TFields = {
     [name: string]: boolean
@@ -13,7 +14,7 @@ type TFields = {
 export const ProfilePage = () => {
     const dispatch = useDispatch();
 
-    const { user } = useSelector( state => state.auth );
+    const user = useSelector( getUser );
     const [ data, setData ] = useState<TUserData>( {
         name: user?.name ?? '',
         email: user?.email ?? '',

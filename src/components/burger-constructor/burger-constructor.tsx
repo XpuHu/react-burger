@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 import style from './burger-constructor.module.css';
-import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
-import BurgerConstructorTotal from "./burger-constructor-total/burger-constructor-total";
-import Modal from "../modal/modal";
-import OrderDetails from "./burger-constructor-total/order-details/order-details";
-import { getOrderId } from "../../services/actions/order";
-import { useModal } from "../../hooks/useModal";
-import { useNavigate } from "react-router-dom";
-import { TIngredient } from "../../services/types/data";
-import { SET_TOTAL_PRICE } from "../../services/constants/constructor";
-import { useDispatch, useSelector } from "../../hooks/hooks";
+import BurgerConstructorList from './burger-constructor-list/burger-constructor-list';
+import BurgerConstructorTotal from './burger-constructor-total/burger-constructor-total';
+import Modal from '../modal/modal';
+import OrderDetails from './burger-constructor-total/order-details/order-details';
+import { getOrderId } from '../../services/actions/order';
+import { useModal } from '../../hooks/useModal';
+import { useNavigate } from 'react-router-dom';
+import { TIngredient } from '../../services/types/data';
+import { SET_TOTAL_PRICE } from '../../services/constants/constructor';
+import { useDispatch, useSelector } from '../../hooks/hooks';
+import { getOrderData, getUserAuth } from '../../services/selectors';
 
 const BurgerConstructor = () => {
     const { constructorIngredientList, constructorBun } = useSelector( state => state.burgerConstructor )
-    const { data } = useSelector( state => state.order );
-    const { isAuthorized } = useSelector( state => state.auth );
+    const data = useSelector( getOrderData );
+    const isAuthorized = useSelector( getUserAuth );
 
     const { showModal, openModal, closeModal } = useModal();
     const dispatch = useDispatch();

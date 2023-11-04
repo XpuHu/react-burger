@@ -1,16 +1,17 @@
 import React, { memo, useMemo } from 'react';
-import ConstructorIngredientsList from "./cunstructor-ingredients-list/constructor-ingredients-list";
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import ConstructorIngredientsList from './cunstructor-ingredients-list/constructor-ingredients-list';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-constructor-list.module.css';
-import { useDrop } from "react-dnd";
-import { TConstructorIngredient } from "../../../services/types/data";
-import { useDispatch, useSelector } from "../../../hooks/hooks";
-import { ADD_BUN, ADD_INGREDIENT } from "../../../services/constants/constructor";
-import { DECREASE_COUNT, INCREASE_COUNT } from "../../../services/constants/ingredients";
+import { useDrop } from 'react-dnd';
+import { TConstructorIngredient } from '../../../services/types/data';
+import { useDispatch, useSelector } from '../../../hooks/hooks';
+import { ADD_BUN, ADD_INGREDIENT } from '../../../services/constants/constructor';
+import { DECREASE_COUNT, INCREASE_COUNT } from '../../../services/constants/ingredients';
+import { getConstructorBun } from '../../../services/selectors';
 
 const BurgerConstructorList = memo( () => {
 
-    const { constructorBun } = useSelector( state => state.burgerConstructor );
+    const constructorBun = useSelector( getConstructorBun );
     const dispatch = useDispatch();
 
     const moveIngredient = (ingredient: TConstructorIngredient) => {

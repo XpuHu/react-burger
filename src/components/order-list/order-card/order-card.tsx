@@ -1,10 +1,11 @@
 import styles from './order-card.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { TFeedOrder } from '../../../services/types/data';
 import { useSelector } from '../../../hooks/hooks';
 import { formatOrderStatus } from '../../../utils/data';
+import { getIngredients } from '../../../services/selectors';
 
 type TOrderCard = {
     order: TFeedOrder
@@ -19,14 +20,16 @@ export const OrderCard: FC<TOrderCard> = ({ order }) => {
         ? order.ingredients.length - maxToShow
         : null
 
-    const { ingredients } = useSelector( state => state.ingredients )
+    const ingredients = useSelector( getIngredients )
     const orderIngredients = ingredients.filter( ingredient => order.ingredients.includes( ingredient._id ) )
     const ingToShow = orderIngredients.slice( 0, maxToShow + 1 )
 
-    const total = order.ingredients.reduce( (sum: number, id: string) => {
-        const ingredient = ingredients.find( ingredient => ingredient._id === id )
-        return ingredient ? sum + ingredient.price : sum
-    }, 0 )
+    const totalPrice = useMemo( () => {
+        return order.ingredients.reduce( (sum: number, id: string) => {
+            const ingredient = ingredients.find( ingredient => ingredient._id === id )
+            return ingredient ? sum + ingredient.price : sum
+        }, 0 )
+    }, [ order.ingredients, ingredients ] )
 
     return (
         <Link to={ path } state={ { prevLocation: location } } className={ styles.link }>
@@ -58,7 +61,7 @@ export const OrderCard: FC<TOrderCard> = ({ order }) => {
                             } )
                         }
                     </div>
-                    <span className={ `${ styles.price } text text_type_digits-default` }>{ total } <CurrencyIcon
+                    <span className={ `${ styles.price } text text_type_digits-default` }>{ totalPrice } <CurrencyIcon
                         type='primary'
                     /></span>
                 </div>

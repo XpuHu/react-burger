@@ -3,7 +3,7 @@ import { ProfileMenu } from '../../components/profile-menu/profile-menu';
 import React, { useEffect } from 'react';
 import { OrderList } from '../../components/order-list/order-list';
 import { useDispatch } from '../../hooks/hooks';
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_START, WS_FEED_USER_URL } from '../../services/constants/ws';
+import { WS_CONNECTION_CLOSE, WS_CONNECTION_START, WS_FEED_USER_URL } from '../../services/constants/ws';
 
 export const UserOrdersPage = () => {
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const UserOrdersPage = () => {
         } )
 
         return () => {
-            dispatch( { type: WS_CONNECTION_CLOSED } )
+            dispatch( { type: WS_CONNECTION_CLOSE } )
         }
     }, [ dispatch ] )
 
