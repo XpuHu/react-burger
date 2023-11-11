@@ -1,29 +1,30 @@
 import React, { memo, useMemo } from 'react';
-import ConstructorIngredientsList from "./cunstructor-ingredients-list/constructor-ingredients-list";
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import ConstructorIngredientsList from './cunstructor-ingredients-list/constructor-ingredients-list';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-constructor-list.module.css';
-import { useDispatch, useSelector } from "react-redux";
-import { ADD_BUN, ADD_INGREDIENT } from "../../../services/actions/constructor";
-import { DECREASE_BUN_COUNT, INCREASE_BUN_COUNT, INCREASE_COUNT } from "../../../services/actions/ingredients";
-import { useDrop } from "react-dnd";
-import { TConstructorIngredient, TIngredient } from "../../../utils/types";
+import { useDrop } from 'react-dnd';
+import { TConstructorIngredient } from '../../../services/types/data';
+import { useDispatch, useSelector } from '../../../hooks/hooks';
+import { ADD_BUN, ADD_INGREDIENT } from '../../../services/constants/constructor';
+import { DECREASE_COUNT, INCREASE_COUNT } from '../../../services/constants/ingredients';
+import { getConstructorBun } from '../../../services/selectors';
 
 const BurgerConstructorList = memo( () => {
-    // @ts-ignore
-    const constructorBun: TIngredient = useSelector( state => state.burgerConstructor.constructorBun );
+
+    const constructorBun = useSelector( getConstructorBun );
     const dispatch = useDispatch();
 
-    const moveIngredient = (ingredient: TIngredient) => {
+    const moveIngredient = (ingredient: TConstructorIngredient) => {
         dispatch( { type: ADD_INGREDIENT, ingredient } );
         dispatch( { type: INCREASE_COUNT, id: ingredient._id } );
     };
 
-    const moveBun = (bun: TIngredient) => {
+    const moveBun = (bun: TConstructorIngredient) => {
         if ( constructorBun ) {
-            dispatch( { type: DECREASE_BUN_COUNT, id: constructorBun._id } );
+            dispatch( { type: DECREASE_COUNT, id: constructorBun._id } );
         }
         dispatch( { type: ADD_BUN, bun } );
-        dispatch( { type: INCREASE_BUN_COUNT, id: bun._id } );
+        dispatch( { type: INCREASE_COUNT, id: bun._id } );
     };
 
     const [ , dropTarget ] = useDrop<TConstructorIngredient, unknown, unknown>( {

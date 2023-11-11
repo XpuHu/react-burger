@@ -1,0 +1,9 @@
+.menu {
+    width: 320px;
+}
+
+.profileLink {
+    text-decoration: none;
+    display: flex;
+    height: 64px;
+}

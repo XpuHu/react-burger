@@ -1,0 +1,63 @@
+.card {
+    border-radius: 40px;
+    background: #1C1C21;
+
+    /* /card/base */
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px 0px rgba(0, 0, 0, 0.06), 0px 4px 8px 0px rgba(0, 0, 0, 0.04);
+}
+
+.orderInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderDate {
+    text-align: right;
+}
+
+.orderDetails {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ingredients {
+    display: flex;
+    max-height: 64px;
+    margin-left: 20px;
+}
+
+.ingredient {
+    display: flex;
+    max-width: 58px;
+    max-height: 64px;
+    justify-content: center;
+    padding: 2px;
+
+    border-radius: 100px;
+    border: 2px solid #801AB2;
+    background: #131316;
+
+    margin-left: -20px;
+}
+
+.price {
+    display: flex;
+    gap: 8px
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.status {
+
+}
+
+.hidden {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

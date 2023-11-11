@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from './burger-ingredient.module.css';
-import { TIngredientWithCount } from "../../../utils/types";
+import { TIngredientWithCount } from "../../../services/types/data";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 
