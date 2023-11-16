@@ -95,7 +95,7 @@ describe( 'ingredients reducer', () => {
     } );
 
     it( 'should handle GET_INGREDIENTS_REQUEST', () => {
-        expect( reducer( undefined, {
+        expect( reducer( initialState, {
             type: GET_INGREDIENTS_REQUEST
         } ) )
             .toEqual( {
@@ -106,7 +106,7 @@ describe( 'ingredients reducer', () => {
     } );
 
     it( 'should handle GET_INGREDIENTS_SUCCESS', () => {
-        expect( reducer( undefined, {
+        expect( reducer( initialState, {
             type: GET_INGREDIENTS_SUCCESS,
             ingredients
         } ) )
@@ -119,7 +119,7 @@ describe( 'ingredients reducer', () => {
     } );
 
     it( 'should handle GET_INGREDIENTS_ERROR', () => {
-        expect( reducer( undefined, {
+        expect( reducer( initialState, {
             type: GET_INGREDIENTS_ERROR
         } ) )
             .toEqual( {
@@ -131,7 +131,7 @@ describe( 'ingredients reducer', () => {
     } );
 
     it( 'should handle SET_CURRENT_INGREDIENT', () => {
-        expect( reducer( undefined, {
+        expect( reducer( initialState, {
             type: SET_CURRENT_INGREDIENT,
             ingredient
         } ) )
@@ -142,7 +142,7 @@ describe( 'ingredients reducer', () => {
     } );
 
     it( 'should handle DELETE_CURRENT_INGREDIENT', () => {
-        expect( reducer( undefined, {
+        expect( reducer( initialState, {
             type: DELETE_CURRENT_INGREDIENT
         } ) )
             .toEqual( {
