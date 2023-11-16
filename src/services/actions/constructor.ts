@@ -6,8 +6,8 @@ import {
     DELETE_INGREDIENT,
     SET_TOTAL_PRICE,
     UPDATE_INGREDIENTS_ORDER
-} from "../constants/constructor";
-import { TConstructorIngredient } from "../types/data";
+} from '../constants/constructor';
+import { TConstructorIngredient } from '../types/data';
 
 export interface IAddIngredientAction {
     readonly type: typeof ADD_INGREDIENT
@@ -45,3 +45,13 @@ export interface IClearConstructorAction {
 export type TConstructorActions = IAddIngredientAction | IDeleteIngredientAction
     | IAddBunAction | IDeleteBunAction
     | ISetTotalPriceAction | IUpdateIngredientsOrderAction | IClearConstructorAction
+
+export const addConstructorIngredient = (ingredient: TConstructorIngredient): IAddIngredientAction => {
+    return {
+        type: ADD_INGREDIENT,
+        ingredient: {
+            ...ingredient,
+            id: crypto.randomUUID()
+        }
+    }
+}

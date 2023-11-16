@@ -1,5 +1,5 @@
-import { TConstructorIngredient } from "../types/data";
-import { TConstructorActions } from "../actions/constructor";
+import { TConstructorIngredient } from '../types/data';
+import { TConstructorActions } from '../actions/constructor';
 import {
     ADD_BUN,
     ADD_INGREDIENT,
@@ -8,7 +8,7 @@ import {
     DELETE_INGREDIENT,
     SET_TOTAL_PRICE,
     UPDATE_INGREDIENTS_ORDER
-} from "../constants/constructor";
+} from '../constants/constructor';
 
 type TConstructorState = {
     constructorIngredientList: Array<TConstructorIngredient>
@@ -16,13 +16,12 @@ type TConstructorState = {
     totalPrice: number
 }
 
-const initialState: TConstructorState = {
+export const initialState: TConstructorState = {
     constructorIngredientList: [],
     constructorBun: null,
 
     totalPrice: 0,
 };
-
 
 export const constructorReducer = (state = initialState, action: TConstructorActions) => {
     switch (action.type) {
@@ -31,10 +30,7 @@ export const constructorReducer = (state = initialState, action: TConstructorAct
                 ...state,
                 constructorIngredientList: [
                     ...state.constructorIngredientList,
-                    {
-                        ...action.ingredient,
-                        id: crypto.randomUUID()
-                    }
+                    action.ingredient
                 ]
             };
         case DELETE_INGREDIENT:
