@@ -28,7 +28,7 @@ function IngredientDetails() {
         } = ingredient;
 
         return (
-            <div className={ style.wrapper }>
+            <div className={ style.wrapper } data-test-id='ingredient-details'>
                 <h2 className={ `${ style.header } text text_type_main-large` }>Детали ингридиента</h2>
                 <img className={ `${ style.imgLarge } pl-5 pr-5 mb-4` } src={ imgLarge }
                      alt={ name }
