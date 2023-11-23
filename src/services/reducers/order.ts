@@ -1,6 +1,6 @@
-import { TOrderActions } from "../actions/order";
-import { TOrder } from "../types/data";
-import { GET_ORDER_ERROR, GET_ORDER_REQUEST, GET_ORDER_SUCCESS } from "../constants/order";
+import { TOrderActions } from '../actions/order';
+import { TOrder } from '../types/data';
+import { GET_ORDER_ERROR, GET_ORDER_REQUEST, GET_ORDER_SUCCESS } from '../constants/order';
 
 type TOrderState = {
     orderRequest: boolean
@@ -8,7 +8,7 @@ type TOrderState = {
     data: TOrder | null
 }
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
     orderRequest: false,
     orderFailed: false,
     data: null,
@@ -34,7 +34,7 @@ export const orderReducer = (state = initialState, action: TOrderActions) => {
                 ...state,
                 orderRequest: false,
                 orderFailed: true,
-                orderData: {}
+                data: null
             };
         default:
             return state;

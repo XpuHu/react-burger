@@ -5,9 +5,10 @@ import style from './burger-constructor-list.module.css';
 import { useDrop } from 'react-dnd';
 import { TConstructorIngredient } from '../../../services/types/data';
 import { useDispatch, useSelector } from '../../../hooks/hooks';
-import { ADD_BUN, ADD_INGREDIENT } from '../../../services/constants/constructor';
+import { ADD_BUN } from '../../../services/constants/constructor';
 import { DECREASE_COUNT, INCREASE_COUNT } from '../../../services/constants/ingredients';
 import { getConstructorBun } from '../../../services/selectors';
+import { addConstructorIngredient } from '../../../services/actions/constructor';
 
 const BurgerConstructorList = memo( () => {
 
@@ -15,7 +16,7 @@ const BurgerConstructorList = memo( () => {
     const dispatch = useDispatch();
 
     const moveIngredient = (ingredient: TConstructorIngredient) => {
-        dispatch( { type: ADD_INGREDIENT, ingredient } );
+        dispatch( addConstructorIngredient( ingredient ) );
         dispatch( { type: INCREASE_COUNT, id: ingredient._id } );
     };
 

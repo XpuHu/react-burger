@@ -19,7 +19,7 @@ const OrderDetails: FC<TOrder> = ({ orderId }) => {
                 orderRequest
                     ? <Loader />
                     : (
-                        <div className={ `${ style.wrapper } mt-30` }>
+                        <div className={ `${ style.wrapper } mt-30` } data-test-id='order-details'>
                             <span className={ `${ style.orderId } text text_type_digits-large mb-8` }
                             >{ orderId }</span>
                             <span className={ `text text_type_main-medium` }>идентификатор заказа</span>

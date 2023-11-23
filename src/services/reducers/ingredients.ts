@@ -1,5 +1,5 @@
-import { TIngredientWithCount } from "../types/data";
-import { TIngredientsActions } from "../actions/ingredients";
+import { TIngredientWithCount } from '../types/data';
+import { TIngredientsActions } from '../actions/ingredients';
 import {
     CLEAR_COUNTS,
     DECREASE_COUNT,
@@ -9,7 +9,7 @@ import {
     GET_INGREDIENTS_SUCCESS,
     INCREASE_COUNT,
     SET_CURRENT_INGREDIENT
-} from "../constants/ingredients";
+} from '../constants/ingredients';
 
 type TIngredientTypes = {
     [key: string]: string
@@ -25,7 +25,7 @@ type TIngredientsState = {
     currentIngredient: TIngredientWithCount | null
 }
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,

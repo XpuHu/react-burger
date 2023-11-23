@@ -1,5 +1,5 @@
-import { TUserData } from "../types/data";
-import { TAuthActions } from "../actions/auth";
+import { TUserData } from '../types/data';
+import { TAuthActions } from '../actions/auth';
 import {
     GET_USER_ERROR,
     GET_USER_REQUEST,
@@ -19,7 +19,7 @@ import {
     SET_USER_ERROR,
     SET_USER_REQUEST,
     SET_USER_SUCCESS
-} from "../constants/auth";
+} from '../constants/auth';
 
 type TAuthState = {
     user: TUserData | null,
@@ -43,7 +43,7 @@ type TAuthState = {
     updateUserFailed: boolean
 }
 
-const initialState: TAuthState = {
+export const initialState: TAuthState = {
     user: null,
     isAuthorized: false,
 
